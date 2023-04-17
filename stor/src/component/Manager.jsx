@@ -1,61 +1,56 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Manager() {
+export default function Manager(props) {
   const [name, setName] = useState("");
-  const [bodyAdd, setBodyAdd] = useState("");
-  const [myIdDekete, setMyIdDelete] = useState("");
-  const [body, setBody] = useState("");
-  const [myId, setMyIdEdit] = useState("");
+  const [type, setTypee] = useState("");
+  const [sn, setSnumber] = useState("");
+  const [place, setPlace] = useState("");
+  const nav = useNavigate();
   return (
-    <div style={{ display: "block" }}>
+    <div>
+      <h1>עמוד מנהל</h1>
       <input
         onChange={(e) => {
           setName(e.target.value);
         }}
         type="text"
-        placeholder="שם מוצר"
-      />
+        placeholder="הכנס שם מוצר"
+      ></input>
       <br />
       <input
         onChange={(e) => {
-          setBodyAdd(e.target.value);
+          setTypee(e.target.value);
         }}
         type="text"
-        placeholder="תיאור המוצר"
-      />
-      <br />
-      <button>הוסף מוצר</button>
-      <br />
+        placeholder="הכנס גרסאת המוצר"
+      ></input>
       <br />
       <input
         onChange={(e) => {
-          setMyIdDelete(e.target.value);
+          setSnumber(e.target.value);
         }}
         type="text"
-        placeholder="קוד המוצר"
-      />
-      <br />
-      <button>מחק מוצר</button>
-      <br />
+        placeholder="הכנס מספר סידורי עבור המוצר"
+      ></input>
       <br />
       <input
         onChange={(e) => {
-          setMyIdEdit(e.target.value);
+          setPlace(e.target.value);
         }}
         type="text"
-        placeholder="קוד מוצר"
-      />
-      <br />
-      <input
-        onChange={(e) => {
-          setBody(e.target.value);
+        placeholder="האם המוצר נמצא במקום?"
+      ></input>
+
+      <button
+        onClick={() => {
+          props.addProduct(name, type, sn, place);
+          nav("/products");
         }}
-        type="text"
-        placeholder="תיאור המוצר"
-      />
-      <br />
-      <button>ערוך מוצר</button>
+      >
+        הוסף מוצר
+      </button>
     </div>
   );
 }
