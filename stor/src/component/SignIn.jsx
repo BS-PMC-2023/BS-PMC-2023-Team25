@@ -15,6 +15,7 @@ export default function SignIn() {
         placeholder="הזן שם משתמש/ת"
       />
       <br />
+      <br />
       <input
         onChange={(e) => {
           setPassword(e.target.value);
