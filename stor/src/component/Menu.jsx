@@ -21,6 +21,9 @@ export default function Menu() {
       <Link to={"/"}>
         <button>התנתקות</button>
       </Link>
+      <Link to={"/manager"}>
+        <button>מנהל</button>
+      </Link>
     </div>
   );
 }
