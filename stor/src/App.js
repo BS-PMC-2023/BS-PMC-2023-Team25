@@ -8,10 +8,6 @@ import NewLoan from "./component/NewLoan";
 import Product from "./component/Products";
 import MyLoan from "./component/MyLoan";
 import History from "./component/History";
-
-import AddPost from "./component/AddPost";
-import DeletPost from "./component/DeletPost";
-import EditPost from "./component/EditPost";
 import Manager from "./component/Manager";
 function App() {
   const [showMenu, setShowMenu] = useState(false); //אחראי על הצגת התפריט
@@ -104,6 +100,15 @@ function App() {
       place: "true",
     },
   ]);
+  const addProduct = (n, t, sn, p) => {
+    let temp = {
+      name: n,
+      type: t,
+      Snumber: sn,
+      place: p,
+    };
+    setProduct([temp, ...prod]);
+  };
   const show = () => {
     //פונקציית הצגת התפריט
     if (showMenu) {
@@ -115,7 +120,10 @@ function App() {
       <HashRouter>
         {show()}
         <Routes>
-          <Route path="/manager" element={<Manager />} />
+          <Route
+            path="/manager"
+            element={<Manager addProduct={addProduct} />}
+          />
           <Route path="/" element={<SignIn setShowMenu={setShowMenu} />} />
           <Route path="/products" element={<Product prod={prod} />} />
           <Route path="/newloan" element={<NewLoan />} />
