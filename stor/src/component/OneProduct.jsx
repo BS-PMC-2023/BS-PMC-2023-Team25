@@ -6,7 +6,7 @@ export default function OneProduct(props) {
 
   const showMyDetail = () => {
     if (showDetail) {
-      return <Detail />;
+      return <Detail name={props.name} type={props.type} />;
     }
   };
 

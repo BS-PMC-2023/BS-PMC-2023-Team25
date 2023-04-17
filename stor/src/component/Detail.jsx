@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Detail(props) {
   return (
-    <div style={{ backgroundColor: "aqua" }}>
+    <div>
       <button style={{ color: "pink" }}>X</button>
       <h1>{props.name}</h1>
       <h1>{props.type}</h1>
