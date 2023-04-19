@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -8,13 +7,9 @@ import NewLoan from "./component/NewLoan";
 import Product from "./component/Products";
 import MyLoan from "./component/MyLoan";
 import History from "./component/History";
-
-import AddPost from "./component/AddPost";
-import DeletPost from "./component/DeletPost";
-import EditPost from "./component/EditPost";
+import DeletePost from "./component/DeletePost.jsx";
 import Manager from "./component/Manager";
 import HomePage from "./component/HomePage.jsx";
-import Register from "./component/Register";
 import NewProd from "./component/NewProd";
 import sce from "./images/SCE_logo.png";
 
@@ -137,9 +132,8 @@ function App() {
             <Route path="/myloan" element={<MyLoan />} />
             <Route path="/history" element={<History />} />
             <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<Register />} />
             <Route path="/newprod" element={<NewProd />} />
-            <Route path="/delete" element={<DeletPost />} />
+            <Route path="/delete" element={<DeletePost />} />
           </Routes>
         </HashRouter>
       </div>
