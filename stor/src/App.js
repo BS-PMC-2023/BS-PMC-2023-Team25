@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+<<<<<<< HEAD
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Menu from "./component/Menu";
@@ -131,8 +132,10 @@ function App() {
           <Route path="/history" element={<History />} />
         </Routes>
       </HashRouter>
-    </div>
-  );
+
+      );
 }
 
 export default App;
+
+
