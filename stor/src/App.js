@@ -13,6 +13,8 @@ import DeletePost from "./component/DeletePost.jsx";
 import Manager from "./component/Manager";
 import HomePage from "./component/HomePage.jsx";
 import NewProd from "./component/NewProd";
+import Register from "./component/Register.jsx";
+
 import sce from "./images/SCE_logo.png";
 
 function App() {
@@ -146,6 +148,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/newprod" element={<NewProd />} />
             <Route path="/delete" element={<DeletePost />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </HashRouter>
       </div>
