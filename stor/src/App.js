@@ -1,6 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 52b07b6055f4ee92a8a342bdbe840d44ce595f1d
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Menu from "./component/Menu";
@@ -9,7 +11,16 @@ import NewLoan from "./component/NewLoan";
 import Product from "./component/Products";
 import MyLoan from "./component/MyLoan";
 import History from "./component/History";
+<<<<<<< HEAD
 import Manager from "./component/Manager";
+=======
+import DeletePost from "./component/DeletePost.jsx";
+import Manager from "./component/Manager";
+import HomePage from "./component/HomePage.jsx";
+import NewProd from "./component/NewProd";
+import sce from "./images/SCE_logo.png";
+
+>>>>>>> 52b07b6055f4ee92a8a342bdbe840d44ce595f1d
 function App() {
   const [showMenu, setShowMenu] = useState(false); //אחראי על הצגת התפריט
   const [prod, setProduct] = useState([
@@ -101,6 +112,7 @@ function App() {
       place: "true",
     },
   ]);
+<<<<<<< HEAD
   const addProduct = (n, t, sn, p) => {
     let temp = {
       name: n,
@@ -110,6 +122,8 @@ function App() {
     };
     setProduct([temp, ...prod]);
   };
+=======
+>>>>>>> 52b07b6055f4ee92a8a342bdbe840d44ce595f1d
   const show = () => {
     //פונקציית הצגת התפריט
     if (showMenu) {
@@ -117,6 +131,7 @@ function App() {
     }
   };
   return (
+<<<<<<< HEAD
     <div className="App">
       <HashRouter>
         {show()}
@@ -134,6 +149,36 @@ function App() {
       </HashRouter>
 
       );
+=======
+    <div>
+      <header>
+        <div className={"App-header-left"}>
+          <img style={{ width: 90 }} src={sce} />
+        </div>
+        <div className={"App-header-right"}> </div>
+      </header>
+      <div className="App">
+        <HashRouter>
+          {show()}
+          <Routes>
+            <Route path="/manager" element={<Manager />} />
+            <Route
+              path="/signin"
+              element={<SignIn setShowMenu={setShowMenu} />}
+            />
+            <Route path="/products" element={<Product prod={prod} />} />
+            <Route path="/newloan" element={<NewLoan />} />
+            <Route path="/myloan" element={<MyLoan />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/newprod" element={<NewProd />} />
+            <Route path="/delete" element={<DeletePost />} />
+          </Routes>
+        </HashRouter>
+      </div>
+    </div>
+  );
+>>>>>>> 52b07b6055f4ee92a8a342bdbe840d44ce595f1d
 }
 
 export default App;
