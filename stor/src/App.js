@@ -146,7 +146,10 @@ function App() {
             <Route path="/myloan" element={<MyLoan />} />
             <Route path="/history" element={<History />} />
             <Route path="/" element={<HomePage />} />
-            <Route path="/newprod" element={<NewProd />} />
+            <Route
+              path="/newprod"
+              element={<NewProd addProduct={addProduct} />}
+            />
             <Route path="/delete" element={<DeletePost />} />
             <Route path="/register" element={<Register />} />
           </Routes>
