@@ -12,8 +12,8 @@ import Manager from "./component/Manager";
 import HomePage from "./component/HomePage.jsx";
 import NewProd from "./component/NewProd";
 import Register from "./component/Register.jsx";
-
-import sce from "./images/SCE_logo.png";
+import Student from "./component/Student.jsx";
+import Teacher from "./component/Teacher.jsx";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false); //אחראי על הצגת התפריט
@@ -106,6 +106,17 @@ function App() {
       place: "true",
     },
   ]);
+
+  const addProduct = (n, t, sn, p) => {
+    let temp = {
+      name: n,
+      type: t,
+      Snumber: sn,
+      place: p,
+    };
+    setProduct([temp, ...prod]);
+  };
+
   const show = () => {
     //פונקציית הצגת התפריט
     if (showMenu) {
@@ -114,12 +125,6 @@ function App() {
   };
   return (
     <div>
-      <header>
-        <div className={"App-header-left"}>
-          <img style={{ width: 90 }} src={sce} />
-        </div>
-        <div className={"App-header-right"}> </div>
-      </header>
       <div className="App">
         <HashRouter>
           {show()}
@@ -134,9 +139,14 @@ function App() {
             <Route path="/myloan" element={<MyLoan />} />
             <Route path="/history" element={<History />} />
             <Route path="/" element={<HomePage />} />
-            <Route path="/newprod" element={<NewProd />} />
+            <Route
+              path="/newprod"
+              element={<NewProd addProduct={addProduct} />}
+            />
             <Route path="/delete" element={<DeletePost />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/student" element={<Student />} />
+            <Route path="/teacher" element={<Teacher />} />
           </Routes>
         </HashRouter>
       </div>
