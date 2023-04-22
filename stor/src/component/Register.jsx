@@ -21,7 +21,7 @@ export default function SignIn(props) {
             type="text"
             placeholder="הזן כתובת דואל"
           />{" "}
-          <label for="email"> : דואל</label>c
+          <label for="email"> : דואל</label>
           <br />
           <br />
           <input
