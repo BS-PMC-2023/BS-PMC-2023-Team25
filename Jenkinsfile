@@ -7,7 +7,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: '*/main']],
                     userRemoteConfigs: [[
-                        url: 'https://<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>@github.com/BS-PMC-2023/BS-PMC-2023-Team25.git',
+                        url: 'https://<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>github.com/BS-PMC-2023/BS-PMC-2023-Team25.git',
                         credentialsId: 'Git_key'
                     ]]
                 ])
