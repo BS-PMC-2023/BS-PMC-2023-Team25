@@ -1,29 +1,36 @@
 pipeline {
-    agent none
+    agent any
+
     stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'python:2-alpine'
-                }
-            }
+        stage('Checkout') {
             steps {
-                sh 'python -m py_compile sources/add2vals.py sources/calc.py'
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/master']],
+                          userRemoteConfigs: [[url: 'https://github.com/your-username/your-repo.git']]])
             }
         }
-        stage('Test') {
-            agent {
-                docker {
-                    image 'qnib/pytest'
-                }
-            }
+        
+        stage('Install Dependencies') {
             steps {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
+                sh 'npm install'
             }
-            post {
-                always {
-                    junit 'test-reports/results.xml'
-                }
+        }
+        
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh 'npm run test'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                sh 'npm run deploy'
             }
         }
     }
