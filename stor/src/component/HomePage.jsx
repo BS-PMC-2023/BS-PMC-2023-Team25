@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import sce from "../images/SCE_logo.png";
 
 export default function HomePage() {
   return (
     <div>
-      <div className="App-home">
+      <header>
+        <div className={"App-header-left"}>
+          <img style={{ width: 90 }} src={sce} />
+        </div>
+        <div className={"App-header-right"}> </div>
+      </header>
+      <div className="background-simple">
         <h1
           style={{
             textAlign: "center",
@@ -23,7 +30,16 @@ export default function HomePage() {
           לניהול אחסון מקוון של המחלקה תקשורת חזותית{" "}
         </h2>
         <div>
-          {" "}
+          <p className="back-text">
+            ברוכים הבאים לעמוד הבית של מחלקת תקשורת חזותית! אנו שמחים להציג את
+            שירות הזמנת הציוד שלנו לתלמידים ולמורים. המחלקה לתקשורת חזותית שלנו
+            מציעה מגוון ציוד שיעזור לתלמידים ולמורים לבצע את הפרויקטים היצירתיים
+            שלהם. מבחר כלי הייצור שלנו כולל מצלמות, מצלמות, מקליט אודיו, אורות
+            ועוד. אנו מחויבים לספק ציוד איכותי ביותר כדי לעזור לסטודנטים ולסגל
+            שלנו להצליח אנו מצפים לעזור לך לממש את הפרויקטים היצירתיים שלך. אם
+            יש לך שאלות או חששות, אנא אל תהסס לפנות אלינו. תודה שבחרת במחלקה
+            לתקשורת חזותית
+          </p>{" "}
           <Link to={"/signin"}>
             <button
               className="buttonHome "
@@ -39,7 +55,6 @@ export default function HomePage() {
           </Link>{" "}
         </div>
       </div>
-      <div>Text description of the website</div>
     </div>
   );
 }

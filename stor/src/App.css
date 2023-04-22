@@ -58,7 +58,6 @@
   letter-spacing: 0.1px;
   font-size: 17px;
   color: white;
-  font-weight: bold;
 }
 
 .form {
@@ -113,10 +112,30 @@
 
 .background-simple {
   text-align: center;
-  width: 100%;
   overflow-y: scroll;
-  /* height: 93.5vh; */
+  height: 93.5vh;
   width: cover;
   background-size: cover;
   background-image: url("./images/fond.jpg");
+}
+
+.back-text {
+  background-color: #595e6884;
+  border-radius: 5px;
+  padding: 30px;
+  margin-bottom: 30px;
+  margin-left: 500px;
+  width: 600px;
+  text-align: right;
+  color: #ddd;
+}
+
+.back-page {
+  background-color: #595e6884;
+  border-radius: 5px;
+  padding: 30px;
+  margin-top: 50px;
+  margin-left: 410px;
+  width: 600px;
+  color: #ddd;
 }
