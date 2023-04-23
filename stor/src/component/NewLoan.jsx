@@ -45,7 +45,7 @@ export default function NewLoan() {
             <button
               className="buttonHome"
               onClick={() => {
-                nav("/HomePage");
+                nav("/");
               }}
             >
               לדף הבית
