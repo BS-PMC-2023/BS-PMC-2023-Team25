@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/your-repo.git'
+        git 'https://github.com/BS-PMC-2023/BS-PMC-2023-Team25.git'
       }
     }
     stage('Build') {
