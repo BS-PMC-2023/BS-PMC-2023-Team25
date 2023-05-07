@@ -37,13 +37,13 @@ export default function Menu() {
             מנהל{" "}
           </Link>
           <Link to={"/student"} className="nav-link">
-            student{" "}
+            סטודנט{" "}
           </Link>
           <Link to={"/teacher"} className="nav-link">
-            teacher{" "}
+            מרצה{" "}
           </Link>
           <Link to={"/"} className="nav-link" onClick={handleLogout}>
-            deconnect{" "}
+            התנתק{" "}
           </Link>
         </Nav>
       </Navbar.Collapse>
