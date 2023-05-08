@@ -32,18 +32,21 @@ export default function Menu() {
           <Link to={"/history"} className="nav-link">
             הסטוריית השאלות
           </Link>
+          <Link to={"/podcast"} className="nav-link">
+            בקשה לחדר פודקאסט{" "}
+          </Link>
           <Link to={"/manager"} className="nav-link">
             {" "}
             מנהל{" "}
           </Link>
           <Link to={"/student"} className="nav-link">
-            student{" "}
+            סטודנט{" "}
           </Link>
           <Link to={"/teacher"} className="nav-link">
-            teacher{" "}
+            מרצה{" "}
           </Link>
           <Link to={"/"} className="nav-link" onClick={handleLogout}>
-            deconnect{" "}
+            התנתק{" "}
           </Link>
         </Nav>
       </Navbar.Collapse>

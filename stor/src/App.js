@@ -15,6 +15,7 @@ import Register from "./component/Register.jsx";
 import Student from "./component/Student.jsx";
 import Teacher from "./component/Teacher.jsx";
 import ProductDataService from "./services/products";
+import Podcast from "./component/Podcast";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false); //אחראי על הצגת התפריט
@@ -55,6 +56,7 @@ function App() {
             <Route path="/products" element={<Product prod={prod} />} />
             <Route path="/newloan" element={<NewLoan />} />
             <Route path="/myloan" element={<MyLoan />} />
+            <Route path="/Podcast" element={<Podcast />} />
             <Route path="/history" element={<History />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/newprod" element={<NewProd />} />
