@@ -37,8 +37,9 @@ export default function Products(props) {
             <tr>
               <th className="th">Name of product :</th>
               <th className="th">Type :</th>
-              <th className="th">Snumber :</th>
+              <th className="th">Serial Number :</th>
               <th className="th">Is the product in place :</th>
+              <th className="th">Repairs :</th>
             </tr>
           </thead>
           <tbody>

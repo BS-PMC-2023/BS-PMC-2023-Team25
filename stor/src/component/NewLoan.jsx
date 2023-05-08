@@ -5,8 +5,16 @@ import { useState } from "react";
 export default function NewLoan() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const nav = useNavigate(); //כדי שכם יפעיל את הפונקציה שמעלה את התפריט וגם יעביר לעמוד של המשימות
   const [seqNum, setSeqNum] = useState("");
+  const [isChecked, setIsChecked] = useState(false); // add state for checkbox
+  const nav = useNavigate();
+
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked);
+  };
+
+  const terms =
+    "המשתמש יחויב בתשלום נפרד עבור כל יום נוסף של השאלה, לפי המחיר הנקוב על ידי הלוויין. המשתמש מתחייב לטפל במוצרים בצורה המתאימה ולהחזירם במצבם המקורי. המשתמש חייב להשתמש במוצרים בהתאם להוראות היצרן והמדיניות של הלוויין. הלוויין רשאי לסרב להשאלה לפי שיקולו הפרטי. המשתמש מבטיח כי המידע שסיפק לצורך השאלת המוצרים הוא מדוייק ומעודכן.";
   return (
     <div className="form">
       <div className="form-style">
@@ -18,7 +26,7 @@ export default function NewLoan() {
           type="text"
           placeholder="הכנס קוד מוצר: "
         />
-        <label for="type">: הכנס קוד מוצר </label>
+        <label htmlFor="type">: הכנס קוד מוצר </label>
         <br />
         <br />
         <form>
@@ -29,7 +37,7 @@ export default function NewLoan() {
             type="text"
             placeholder="dd/mm/yyyy"
           />
-          <label for="type">: תאריך החזרה </label>
+          <label htmlFor="type">: תאריך החזרה </label>
 
           <br />
           <br />
@@ -39,16 +47,36 @@ export default function NewLoan() {
             }}
             type="text"
             placeholder="סיבת השאלה"
-          ></input>
-          <label for="type">: סיבת השאלה </label>
+          />
+          <label htmlFor="type">: סיבת השאלה </label>
+
+          <br />
+          <br />
+          <textarea
+            value={terms}
+            readOnly={true}
+            style={{ width: "100%", height: "80px" }}
+          ></textarea>
+          <br />
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            אני מאשר/ת את תנאי השימוש
+          </label>
+
           <div>
             <button
               className="buttonHome"
               onClick={() => {
-                nav("/HomePage");
+                nav("/");
               }}
+              disabled={!isChecked}
             >
-              לדף הבית
+              שלח
             </button>
           </div>
         </form>
