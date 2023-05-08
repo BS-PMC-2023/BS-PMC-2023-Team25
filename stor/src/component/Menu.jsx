@@ -32,6 +32,9 @@ export default function Menu() {
           <Link to={"/history"} className="nav-link">
             הסטוריית השאלות
           </Link>
+          <Link to={"/podcast"} className="nav-link">
+            בקשה לחדר פודקאסט{" "}
+          </Link>
           <Link to={"/manager"} className="nav-link">
             {" "}
             מנהל{" "}
