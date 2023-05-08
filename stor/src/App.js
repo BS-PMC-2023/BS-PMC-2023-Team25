@@ -14,45 +14,26 @@ import NewProd from "./component/NewProd";
 import Register from "./component/Register.jsx";
 import Student from "./component/Student.jsx";
 import Teacher from "./component/Teacher.jsx";
+import ProductDataService from "./services/products";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false); //אחראי על הצגת התפריט
-  const [prod, setProduct] = useState([]);
+  var [prod, setProduct] = useState([]);
 
-  const addProduct = (n, t, sn, p) => {
-    let temp = {
-      name: n,
-      type: t,
-      Snumber: sn,
-      place: p,
-    };
-    fetch("/addProduct", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "post",
-      body: JSON.stringify({
-        prod: temp,
-      }),
-    })
-      .then((res) => {
-        return res.json();
+  const retrieveProducts = () => {
+    ProductDataService.getAll()
+      .then((response) => {
+        console.log(response.data);
+        setProduct(response.data.prod);
       })
-      .then((data) => {
-        setFlag(!flag);
+      .catch((e) => {
+        console.log(e);
       });
   };
 
   useEffect(() => {
-    fetch("/getData")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setProduct(data);
-      });
-  }, [flag]);
+    retrieveProducts();
+  }, []);
 
   const show = () => {
     //פונקציית הצגת התפריט
@@ -76,10 +57,7 @@ function App() {
             <Route path="/myloan" element={<MyLoan />} />
             <Route path="/history" element={<History />} />
             <Route path="/" element={<HomePage />} />
-            <Route
-              path="/newprod"
-              element={<NewProd addProduct={addProduct} />}
-            />
+            <Route path="/newprod" element={<NewProd />} />
             <Route path="/delete" element={<DeletePost />} />
             <Route path="/register" element={<Register />} />
             <Route path="/student" element={<Student />} />
