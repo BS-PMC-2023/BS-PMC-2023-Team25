@@ -32,7 +32,7 @@ export default function Manager(props) {
           <button className="buttonHome">להשאיל מוצר</button>
         </Link>
         <Link to={"/myloan"}>
-          <button className="buttonHome">הלוואות שלי</button>
+          <button className="buttonHome">השאלות שלי</button>
         </Link>
         <Link to={"/Podcast"}>
           <button className="buttonHome">הזמנת חדר פודקאסט</button>
