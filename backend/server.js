@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors";
-import Myapp from "./api/app.routes.js";
+import Myapp from "./api/products.routes.js";
+import bodyParser from "body-parser";
 
 const app = express();
 
 app.use(cors());
+
+app.use(bodyParser.json());
 app.use(express.json());
 
 app.use("/", Myapp);
