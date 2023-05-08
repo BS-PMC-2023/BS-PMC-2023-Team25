@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-export default function NewLoan() {
+export default function Podcast() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [seqNum, setSeqNum] = useState("");
@@ -14,19 +14,19 @@ export default function NewLoan() {
   };
 
   const terms =
-    "המשתמש יחויב בתשלום נפרד עבור כל יום נוסף של השאלה, לפי המחיר הנקוב על ידי הלוויין. המשתמש מתחייב לטפל במוצרים בצורה המתאימה ולהחזירם במצבם המקורי. המשתמש חייב להשתמש במוצרים בהתאם להוראות היצרן והמדיניות של הלוויין. הלוויין רשאי לסרב להשאלה לפי שיקולו הפרטי. המשתמש מבטיח כי המידע שסיפק לצורך השאלת המוצרים הוא מדוייק ומעודכן.";
+    "חדר הפודקאסט זמין לשימוש משתמשים רשומים בלבד. על המשתמש להזמין את חדר הפודקאסט מראש באמצעות מערכת ההזמנות המקוונת. ניתן להשתמש בחדר הפודקאסטים רק בשעות הפעילות של המתקן. משתמשים חייבים לעזוב את חדר הפודקאסט באותו מצב שבו הוא נמצא. כל נזק שייגרם לחדר הפודקאסט או לציוד שלו יהיה באחריות המשתמש שהזמין את החדר. אסור להכניס אוכל ושתייה לחדר הפודקאסט. יש לפנות את חדר הפודקאסטים מיד בתום מועד ההזמנה כדי לאפשר את השימוש של המשתמש הבא. המתקן שומר לעצמו את הזכות לבטל כל הזמנה מכל סיבה שהיא ללא הודעה מוקדמת. על המשתמשים לציית לכל כלל או הנחיות נוספים שיספקו צוות המתקן לגבי השימוש בחדר הפודקאסט. אי עמידה בתנאים אלה עלול לגרום להשעיה או להפסקת הרשאות החברות..";
   return (
     <div className="form">
       <div className="form-style">
-        <h1>השאלה חדשה</h1>
+        <h1>בקשה חדשה להזמנת חדר פודקאסט</h1>
         <input
           onChange={(e) => {
             setSeqNum(e.target.value);
           }}
           type="text"
-          placeholder="הכנס קוד מוצר: "
+          placeholder="מספר חדר "
         />
-        <label htmlFor="type">: הכנס קוד מוצר </label>
+        <label htmlFor="type">: הכנס מספר חדר</label>
         <br />
         <br />
         <form>
@@ -37,7 +37,7 @@ export default function NewLoan() {
             type="text"
             placeholder="dd/mm/yyyy"
           />
-          <label htmlFor="type">: תאריך החזרה </label>
+          <label htmlFor="type">: תאריך בקשה </label>
 
           <br />
           <br />
@@ -46,9 +46,9 @@ export default function NewLoan() {
               setPassword(e.target.value);
             }}
             type="text"
-            placeholder="סיבת השאלה"
+            placeholder="סיבת בקשה"
           />
-          <label htmlFor="type">: סיבת השאלה </label>
+          <label htmlFor="type">: סיבת בקשה </label>
 
           <br />
           <br />

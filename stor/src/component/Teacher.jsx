@@ -11,7 +11,7 @@ export default function Manager(props) {
           color: "white",
         }}
       >
-        ! שמח לראות אותך שוב{" "}
+        שמח לראות אותך שוב!
       </h1>
       <h3
         style={{
@@ -19,21 +19,23 @@ export default function Manager(props) {
           color: "white",
         }}
       >
-        ? מה תרצה לעשות{" "}
+        מה תרצה לעשות?
       </h3>
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "20px",
+        }}
+      >
         <Link to={"/products"}>
-          <button
-            className="buttonHome "
-            style={{
-              marginRight: "50px",
-            }}
-          >
-            להשאיל מוצר{" "}
-          </button>
+          <button className="buttonHome">להשאיל מוצר</button>
         </Link>
         <Link to={"/myloan"}>
-          <button className="buttonHome ">My loan </button>
+          <button className="buttonHome">השאלות שלי</button>
+        </Link>
+        <Link to={"/Podcast"}>
+          <button className="buttonHome">הזמנת חדר פודקאסט</button>
         </Link>
       </div>
     </div>
