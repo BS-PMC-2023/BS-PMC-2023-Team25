@@ -1,9 +1,36 @@
-import ProdsDAO from "../dao/ProdsDAO.js";
+import LoansDAO from "../dao/LoansDAO.js";
 
-export default class ProdController {
-  static async apiPostProd(req, res, next) {
+export default class LoansController {
+  static async apiGetLoan(req, res, next) {
+    const loansPerPage = req.query.loansPerPage
+      ? parseInt(req.query.loansPerPage, 10)
+      : 20;
+    const page = req.query.page ? parseInt(req.query.page, 10) : 0;
+
+    let filters = {};
+    if (req.query.product_sn) {
+      filters.product_sn = req.query.product_sn
+    }
+
+    const { loansList, totalNumLoans } = await LoansDAO.getLoans({
+      filters,
+      page,
+      loansPerPage,
+    });
+
+    let response = {
+      loans: loansList,
+      page: page,
+      filters: filters,
+      entries_per_page: loansPerPage,
+      total_results: totalNumLoans,
+    };
+    res.json(response);
+  }
+
+  static async apiPostLoan(req, res, next) {
     try {
-      console.log("enter in apiPostProd");
+      console.log("enter in apiPostLoan");
       console.log(req);
 
       const name = req.body.name;
@@ -13,10 +40,10 @@ export default class ProdController {
 
       console.log(name);
 
-      const ProdResponse = await ProdsDAO.addProd(name, type, Snumber, place);
-      console.log(ProdResponse);
+      const LoanResponse = await LoansDAO.addLoan(name, type, Snumber, place);
+      console.log(LoanResponse);
 
-      var { error } = ProdResponse;
+      var { error } = LoanResponse;
       if (error) {
         res.status(400).json({ error });
       } else {
@@ -27,12 +54,12 @@ export default class ProdController {
     }
   }
 
-  static async apiUpdateProd(req, res, next) {
+  static async apiUpdateLoan(req, res, next) {
     try {
       const Snumber = req.body.Snumber;
       const place = req.body.place;
       console.log(prod);
-      const prodResponse = await ProdsDAO.updateProd(Snumber, place);
+      const prodResponse = await LoansDAO.updateLoan(Snumber, place);
       console.log(prodResponse);
       var { error } = prodResponse;
       if (error) {
@@ -51,10 +78,10 @@ export default class ProdController {
     }
   }
 
-  static async apiDeleteProd(req, res, next) {
+  static async apiDeleteLoan(req, res, next) {
     try {
       const Snumber = req.query.Snumber;
-      const prodResponse = await ProdsDAO.deleteProd(Snumber); //MODIFIED FROM SOURCE FILES
+      const prodResponse = await LoansDAO.deleteLoan(Snumber); //MODIFIED FROM SOURCE FILES
       var { error } = prodResponse;
       if (error) {
         res.status(400).json({ error });
