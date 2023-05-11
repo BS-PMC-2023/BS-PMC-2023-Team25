@@ -18,7 +18,7 @@ export default class ProductsDAO {
   static async getProducts({
     filters = null,
     page = 0,
-    productsPerPage = 20,
+    productsPerPage = 100,
   } = {}) {
     let query;
     if (filters) {
@@ -41,9 +41,8 @@ export default class ProductsDAO {
 
       try {
         const productsList = await displayCursor.toArray();
-        const totalNumProducts = await products.countDocuments(query);
 
-        return { productsList, totalNumProducts };
+        return { productsList };
       } catch (e) {
         console.error(
           `Unable to convert cursor to array or problem counting documents, ${e}`
