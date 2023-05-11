@@ -12,18 +12,13 @@ export default class ProductsController {
       filters.name = req.query.name;
     }
 
-    const { productsList, totalNumProducts } = await ProductsDAO.getProducts({
+    const { productsList } = await ProductsDAO.getProducts({
       filters,
       page,
-      productsPerPage,
     });
 
     let response = {
       products: productsList,
-      page: page,
-      filters: filters,
-      entries_per_page: productsPerPage,
-      total_results: totalNumProducts,
     };
     res.json(response);
   }
