@@ -18,7 +18,7 @@ export default function HomePage() {
             color: "white",
           }}
         >
-          Welcome
+          ברוך הבא
         </h1>
         <h2
           style={{
