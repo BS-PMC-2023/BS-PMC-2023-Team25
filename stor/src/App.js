@@ -24,8 +24,7 @@ function App() {
   const retrieveProducts = () => {
     ProductDataService.getAll()
       .then((response) => {
-        console.log(response.data);
-        setProduct(response.data.prod);
+        setProduct(response.data.products);
       })
       .catch((e) => {
         console.log(e);

@@ -31,10 +31,18 @@ export default class UsersController {
   static async apiPostUser(req, res, next) {
     try {
       const email = req.body.email;
+      const username = req.body.username;
       const password = req.body.password;
+      const type = req.body.type;
+
       console.log(email);
 
-      const UsersResponse = await UsersDAO.addUser(email, password);
+      const UsersResponse = await UsersDAO.addUser(
+        email,
+        username,
+        password,
+        type
+      );
       console.log(UsersResponse);
 
       var { error } = UsersResponse;
@@ -70,17 +78,17 @@ export default class UsersController {
       res.status(500).json({ error: e.message });
     }
   }
-
   static async apiDeleteUser(req, res, next) {
     try {
-      const email = req.query.email;
-      const UsersResponse = await UsersDAO.deleteUser(email); //MODIFIED FROM SOURCE FILES
-      var { error } = UsersResponse;
+      const email = req.body.email;
+      const userResponse = await UsersDAO.deleteUser(email);
+      console.log(email); //MODIFIED FROM SOURCE FILES
+      var { error } = userResponse;
       if (error) {
         res.status(400).json({ error });
       }
 
-      if (UsersResponse.deletedCount === 0) {
+      if (userResponse.deletedCount === 0) {
         throw new Error(
           "unable to delete user - this user does not exist or user_id not correspond to request creator"
         );

@@ -1,37 +1,60 @@
 import React, { useState } from "react";
 import Detail from "./Detail";
+import ProductDataService from "../services/products";
 
 export default function OneProduct(props) {
   const [showDetail, setShowDetail] = useState(false);
-  const [place, setPlace] = useState(props.product.place);
+  const [product, setProduct] = useState(props.product);
 
   const toggleDetail = () => {
     setShowDetail(!showDetail);
   };
 
-  const togglePlace = () => {
-    const newPlace = place === "true" ? "false" : "true";
-    setPlace(newPlace);
-    props.product.place = newPlace;
+  const togglePlace = (Snumber) => {
+    const value = product.place;
+    let place;
+    if (value === "true") {
+      place = "false";
+    } else {
+      place = "true";
+    }
+    const data = { place, Snumber };
+    console.log(data);
+    ProductDataService.updateProd(data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data.value);
+          const newPlace = response.data.value;
+          const updatedProduct = { ...product, place: newPlace };
+          setProduct(updatedProduct);
+          window.location.reload(); // rafraîchit la page
+        } else {
+          console.error("Error updating product place: ", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating product place: ", error);
+      });
   };
 
   const shipForRepair = () => {
-    setPlace("shipped");
+    const updatedProduct = { ...product, place: "shipped" };
+    setProduct(updatedProduct);
     // Implement code to ship the product for repair
   };
 
   const detailRow = showDetail ? (
     <tr>
       <td colSpan="4">
-        <Detail product={props.product} />
+        <Detail product={product} />
       </td>
     </tr>
   ) : null;
 
   const shipButton =
-    place === "false" ? (
+    product.place === "false" ? (
       <span>Not in Stock</span>
-    ) : place === "true" ? (
+    ) : product.place === "true" ? (
       <button onClick={shipForRepair}>Call For Repair</button>
     ) : (
       <span>In Maintenance</span>
@@ -40,13 +63,15 @@ export default function OneProduct(props) {
   return (
     <>
       <tr className="tr" onClick={toggleDetail}>
-        <td className="td">{props.product.name}</td>
-        <td className="td">{props.product.type}</td>
-        <td className="td">{props.product.Snumber}</td>
+        <td className="td">{product.name}</td>
+        <td className="td">{product.type}</td>
+        <td className="td">{product.Snumber}</td>
         <td className="td">
-          {place}{" "}
-          <button onClick={togglePlace}>
-            {place === "true" ? "Take out of storage" : "Put in storage"}
+          {product.place}{" "}
+          <button onClick={() => togglePlace(product.Snumber)}>
+            {product.place === "true"
+              ? "Take out of storage"
+              : "Put in storage"}
           </button>
         </td>
         <td className="td">{shipButton}</td>

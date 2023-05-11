@@ -1,17 +1,29 @@
 {
   "files": {
     "main.css": "/github.io/BS-PMC-2023-Team25/static/css/main.e05f558d.css",
+<<<<<<< HEAD
     "main.js": "/github.io/BS-PMC-2023-Team25/static/js/main.61879850.js",
+=======
+    "main.js": "/github.io/BS-PMC-2023-Team25/static/js/main.4a002404.js",
+>>>>>>> 7a0b7e12962ab821f6ab593a4484f2eaff4c0db1
     "static/js/787.5529151f.chunk.js": "/github.io/BS-PMC-2023-Team25/static/js/787.5529151f.chunk.js",
     "static/media/fond.jpg": "/github.io/BS-PMC-2023-Team25/static/media/fond.5cd455cc4f7ecff9ee6c.jpg",
     "static/media/SCE_logo.png": "/github.io/BS-PMC-2023-Team25/static/media/SCE_logo.fa2b92b5696fea3c6d66.png",
     "index.html": "/github.io/BS-PMC-2023-Team25/index.html",
     "main.e05f558d.css.map": "/github.io/BS-PMC-2023-Team25/static/css/main.e05f558d.css.map",
+<<<<<<< HEAD
     "main.61879850.js.map": "/github.io/BS-PMC-2023-Team25/static/js/main.61879850.js.map",
+=======
+    "main.4a002404.js.map": "/github.io/BS-PMC-2023-Team25/static/js/main.4a002404.js.map",
+>>>>>>> 7a0b7e12962ab821f6ab593a4484f2eaff4c0db1
     "787.5529151f.chunk.js.map": "/github.io/BS-PMC-2023-Team25/static/js/787.5529151f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e05f558d.css",
+<<<<<<< HEAD
     "static/js/main.61879850.js"
+=======
+    "static/js/main.4a002404.js"
+>>>>>>> 7a0b7e12962ab821f6ab593a4484f2eaff4c0db1
   ]
 }
