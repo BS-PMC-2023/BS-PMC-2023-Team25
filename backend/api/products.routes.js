@@ -2,6 +2,7 @@ import express from "express";
 import ProductsCtrl from "./products.controller.js";
 import ProdCtrl from "./prod.controller.js";
 import UserCtrl from "./users.controller.js";
+import PodcastCtrl from "./podcasts.controller.js";
 
 const router = express.Router();
 
@@ -18,5 +19,12 @@ router
   .post(UserCtrl.apiPostUser)
   .put(UserCtrl.apiUpdateUser)
   .delete(UserCtrl.apiDeleteUser);
+
+router
+  .route("/podcast")
+  .get(PodcastCtrl.apiGetPodcasts)
+  .post(PodcastCtrl.apiPostPodcast)
+  .put(PodcastCtrl.apiUpdatePodcast)
+  .delete(PodcastCtrl.apiDeletePodcast);
 
 export default router;

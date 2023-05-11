@@ -52,6 +52,16 @@ export default function Manager(props) {
             למחוק מוצר{" "}
           </button>
         </Link>
+        <Link to={"/Loans"}>
+          <button
+            className="buttonHome "
+            style={{
+              marginRight: "50px",
+            }}
+          >
+            בקשת השאלות{" "}
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,16 +1,40 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import PodcastDataService from "../services/podcast";
 
 export default function Podcast() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [seqNum, setSeqNum] = useState("");
-  const [isChecked, setIsChecked] = useState(false); // add state for checkbox
+  const [datEvent, setDateEvent] = useState("");
+  const [accMan, setAcc] = useState("false");
+  const [seqNumRoom, setSeqNumRoom] = useState("");
+  const [isChecked, setIsChecked] = useState("");
+  const [emailLoan, setEmail] = useState("");
   const nav = useNavigate();
 
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
+  };
+
+  const addLoanPodcast = (acc, SnumberRoom, date, email) => {
+    const data = {
+      acc,
+      SnumberRoom,
+      date,
+      email,
+    };
+    const jsonData = JSON.stringify(data);
+    console.log(data);
+    PodcastDataService.createPodcast(jsonData)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("userloan for room podcast");
+        } else {
+          console.error("Error not added loan podcast : ", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating product place: ", error);
+      });
   };
 
   const terms =
@@ -21,36 +45,31 @@ export default function Podcast() {
         <h1>בקשה חדשה להזמנת חדר פודקאסט</h1>
         <input
           onChange={(e) => {
-            setSeqNum(e.target.value);
+            setSeqNumRoom(e.target.value);
           }}
           type="text"
           placeholder="מספר חדר "
         />
-        <label htmlFor="type">: הכנס מספר חדר</label>
+
         <br />
         <br />
         <form>
           <input
             onChange={(e) => {
-              setName(e.target.value);
+              setDateEvent(e.target.value);
             }}
             type="text"
-            placeholder="dd/mm/yyyy"
+            placeholder="d/m/y"
           />
-          <label htmlFor="type">: תאריך בקשה </label>
 
-          <br />
           <br />
           <input
             onChange={(e) => {
-              setPassword(e.target.value);
+              setEmail(e.target.value);
             }}
             type="text"
-            placeholder="סיבת בקשה"
+            placeholder="email"
           />
-          <label htmlFor="type">: סיבת בקשה </label>
-
-          <br />
           <br />
           <textarea
             value={terms}
@@ -72,6 +91,7 @@ export default function Podcast() {
             <button
               className="buttonHome"
               onClick={() => {
+                addLoanPodcast(accMan, seqNumRoom, datEvent, emailLoan);
                 nav("/");
               }}
               disabled={!isChecked}
