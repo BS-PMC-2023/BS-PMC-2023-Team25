@@ -1,13 +1,36 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ProductDataService from "../services/products";
 
 export default function Manager(props) {
-  const [name, setName] = useState("");
-  const [type, setTypee] = useState("");
+  const [n, setName] = useState("");
+  const [t, setType] = useState("");
   const [sn, setSnumber] = useState("");
-  const [place, setPlace] = useState("");
+  const [p, setPlace] = useState("");
   const nav = useNavigate();
+
+  const addProd = (name, type, Snumber, place) => {
+    const data = {
+      name,
+      type,
+      Snumber,
+      place,
+    };
+    const jsonData = JSON.stringify(data);
+
+    ProductDataService.createProd(jsonData)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("prod added");
+        } else {
+          console.error("Error updating product place: ", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating product place: ", error);
+      });
+  };
+
   return (
     <div className="background-simple">
       <div className="back-page">
@@ -30,7 +53,7 @@ export default function Manager(props) {
         <br />
         <input
           onChange={(e) => {
-            setTypee(e.target.value);
+            setType(e.target.value);
           }}
           type="text"
           placeholder="הכנס גרסאת המוצר"
@@ -56,7 +79,7 @@ export default function Manager(props) {
           <button
             className="buttonHome"
             onClick={() => {
-              props.addProduct(name, type, sn, place);
+              addProd(n, t, sn, p);
               nav("/products");
             }}
           >

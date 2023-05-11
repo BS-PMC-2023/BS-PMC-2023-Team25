@@ -31,13 +31,15 @@ export default class ProdsDAO {
     }
   }
 
-  static async updateProd(Snumber, place) {
+  static async updateProd(place, Snumber) {
     try {
+      console.log(Snumber, place);
+
       const updateResponse = await prods.updateOne(
         { Snumber: Snumber },
         { $set: { place: place } }
       );
-
+      console.log("ici", updateResponse);
       return updateResponse;
     } catch (e) {
       console.error(`Unable to update product: ${e}`);
@@ -47,6 +49,7 @@ export default class ProdsDAO {
 
   static async deleteProd(Snumber) {
     try {
+      console.log(Snumber);
       const deleteResponse = await prods.deleteOne({
         Snumber: Snumber,
       });

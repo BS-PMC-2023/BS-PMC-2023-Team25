@@ -16,11 +16,13 @@ export default class UsersDAO {
     }
   }
 
-  static async addUser(email, password) {
+  static async addUser(email, username, password, type) {
     try {
       const userDoc = {
         email: email,
+        username: username,
         password: password,
+        type: type,
       };
       console.log(userDoc);
       return await users.insertOne(userDoc);
@@ -49,9 +51,10 @@ export default class UsersDAO {
       const deleteResponse = await users.deleteOne({
         email: email,
       });
+      console.log(email);
       return deleteResponse;
     } catch (e) {
-      console.error(`Unable to delete product: ${e}`);
+      console.error(`Unable to delete user: ${e}`);
       return { error: e };
     }
   }
