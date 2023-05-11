@@ -10,6 +10,7 @@ router
 .route("/products")
 .get(ProductsCtrl.apiGetProducts); //example of route
 
+
 router
   .route("/manager")
   .post(ProdCtrl.apiPostProd)
@@ -30,3 +31,4 @@ router
   .delete(LoanCtrl.apiDeleteLoan);
 
 export default router;
+

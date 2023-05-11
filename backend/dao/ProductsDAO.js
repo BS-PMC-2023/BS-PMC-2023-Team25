@@ -54,4 +54,8 @@ export default class ProductsDAO {
       }
     }
   }
+<<<<<<< HEAD:backend/dao/ProductsDAO.js
+=======
+}
+>>>>>>> 0794715e699b25fbd46f412314b8760779019918:backend/api/dao/ProductsDAO.js
 
