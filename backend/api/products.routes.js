@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.route("/products").get(ProductsCtrl.apiGetProducts); //example of route
 
+
 router
   .route("/manager")
   .post(ProdCtrl.apiPostProd)
@@ -20,3 +21,4 @@ router
   .delete(UserCtrl.apiDeleteUser);
 
 export default router;
+

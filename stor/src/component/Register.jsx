@@ -11,7 +11,7 @@ export default function SignIn(props) {
   return (
     <div className="form">
       <div className="form-style">
-        <h1>עמוד הַרשָׁמָה</h1>
+        <h1>עמוד הרשמה</h1>
         <form>
           {" "}
           <input
