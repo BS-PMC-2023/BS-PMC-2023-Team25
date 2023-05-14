@@ -1,15 +1,17 @@
 import app from "./server.js";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
-import ProductsDAO from "./api/dao/ProductsDAO.js";
-import ProdsDAO from "./api/dao/ProdsDAO.js";
-import UsersDAO from "./api/dao/UsersDAO.js";
+import ProductsDAO from "./dao/ProductsDAO.js";
+import ProdsDAO from "./dao/ProdsDAO.js";
+import UsersDAO from "./dao/UsersDAO.js";
+import LoansDAO from "./dao/LoansDAO.js";
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
 
 const port = process.env.PORT || 8000;
 
-MongoClient.connect(process.env.MONGO_URI, {
+MongoClient.connect(
+  process.env.MONGO_URI, {
   maxPoolSize: 50,
   wtimeoutMS: 2500,
   useNewUrlParser: true,
@@ -22,6 +24,7 @@ MongoClient.connect(process.env.MONGO_URI, {
     await ProductsDAO.injectDB(client);
     await ProdsDAO.injectDB(client);
     await UsersDAO.injectDB(client);
+    await LoansDAO.injectDB(client);
 
     app.listen(port, () => {
       console.log(`Listening on port ${port}`);
