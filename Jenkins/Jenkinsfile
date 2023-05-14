@@ -25,7 +25,7 @@ pipeline {
             }
         }
         steps {
-            sh 'cd stor && npm run test'
+            sh 'npm run test'
         }
     }
     stage('Build Docker Images') {
