@@ -15,6 +15,39 @@ export default class UsersDAO {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
     }
   }
+  static async getUsers({ filters = null, page = 0, usersPerPage = 100 } = {}) {
+    console.log("je suis la ");
+    let query;
+    if (filters) {
+      if ("email" in filters) {
+        query = { $text: { $search: filters["email"] } };
+      }
+
+      let cursor;
+
+      try {
+        cursor = await users.find(query);
+      } catch (e) {
+        console.error(`Unable to issue find command, ${e}`);
+        return { usersList: [], totalNumUsers: 0 }; // si erreur
+      }
+
+      const displayCursor = cursor
+        .limit(usersPerPage)
+        .skip(usersPerPage * page);
+
+      try {
+        const usersList = await displayCursor.toArray();
+
+        return { usersList };
+      } catch (e) {
+        console.error(
+          `Unable to convert cursor to array or problem counting documents, ${e}`
+        );
+        return { usersList: [], totalNumUsers: 0 }; // si erreur
+      }
+    }
+  }
 
   static async addUser(email, username, password, type) {
     try {
@@ -55,6 +88,26 @@ export default class UsersDAO {
       return deleteResponse;
     } catch (e) {
       console.error(`Unable to delete user: ${e}`);
+      return { error: e };
+    }
+  }
+
+  static async login(email, password) {
+    try {
+      const user = await users.findOne({ email: email });
+
+      if (!user) {
+        throw new Error("User not found.");
+      }
+
+      const isValidPassword = user.password === password;
+      if (!isValidPassword) {
+        throw new Error("Invalid password.");
+      }
+
+      return user;
+    } catch (e) {
+      console.error(`Unable to login user: ${e}`);
       return { error: e };
     }
   }

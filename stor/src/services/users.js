@@ -15,6 +15,11 @@ class UserDataService {
     return http.put(`/users`, data);
   }
 
+  loginUser(email, password) {
+    console.log("enter in api");
+    return http.get("/login", { params: { email, password } });
+  }
+
   deleteUser(name) {
     console.log(name);
 

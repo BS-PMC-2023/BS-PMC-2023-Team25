@@ -1,6 +1,27 @@
 import UsersDAO from "./dao/UsersDAO.js";
 
 export default class UsersController {
+  static async apiGetUsers(req, res, next) {
+    const usersPerPage = req.query.usersPerPage
+      ? parseInt(req.query.usersPerPage, 10)
+      : 20;
+    const page = req.query.page ? parseInt(req.query.page, 10) : 0;
+
+    let filters = {};
+    if (req.query.name) {
+      filters.name = req.query.name;
+    }
+    const { usersList } = await UsersDAO.getUsers({
+      filters,
+      page,
+    });
+
+    let response = {
+      users: usersList,
+    };
+    res.json(response);
+  }
+
   static async apiPostUser(req, res, next) {
     try {
       const email = req.body.email;
@@ -53,7 +74,7 @@ export default class UsersController {
   }
   static async apiDeleteUser(req, res, next) {
     try {
-      const email = req.body.email;
+      const email = req.query.email;
       const userResponse = await UsersDAO.deleteUser(email);
       console.log(email); //MODIFIED FROM SOURCE FILES
       var { error } = userResponse;
@@ -71,6 +92,25 @@ export default class UsersController {
     } catch (e) {
       console.log(e);
       res.json({ error: e.message }).status(500);
+    }
+  }
+
+  static async apiLoginUser(req, res, next) {
+    try {
+      const email = req.query.email;
+      const password = req.query.password;
+      console.log(email, password);
+
+      const user = await UsersDAO.login(email, password);
+      console.log(user);
+
+      if (user.error) {
+        res.status(401).json({ error: user.error.message });
+      } else {
+        res.json(user);
+      }
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
   }
 }

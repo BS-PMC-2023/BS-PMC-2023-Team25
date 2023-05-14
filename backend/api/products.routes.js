@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.route("/products").get(ProductsCtrl.apiGetProducts); //example of route
 
-
 router
   .route("/manager")
   .post(ProdCtrl.apiPostProd)
@@ -16,9 +15,11 @@ router
 
 router
   .route("/users")
+  .get(UserCtrl.apiGetUsers)
   .post(UserCtrl.apiPostUser)
   .put(UserCtrl.apiUpdateUser)
   .delete(UserCtrl.apiDeleteUser);
 
-export default router;
+router.route("/login").get(UserCtrl.apiLoginUser);
 
+export default router;
