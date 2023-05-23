@@ -38,7 +38,7 @@ function App() {
   const show = () => {
     //פונקציית הצגת התפריט
     if (showMenu) {
-      return <Menu />;
+        return <Menu setShowMenu={setShowMenu} />;
     }
   };
   return (

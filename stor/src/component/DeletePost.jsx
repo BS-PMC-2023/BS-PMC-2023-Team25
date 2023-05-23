@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import ProductDataService from "../services/products";
 
-export default function DeletPost() {
+export default function DeletePost() {
   const [sn, setSn] = useState("");
   const nav = useNavigate();
 

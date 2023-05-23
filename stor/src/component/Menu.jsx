@@ -4,11 +4,12 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import sce from "../images/SCE_logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function Menu() {
+export default function Menu(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+      setIsLoggedIn(false);
+      props.setShowMenu(false);
   };
 
   return (

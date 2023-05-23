@@ -1,10 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import DeletPost from "./DeletePost.jsx";
+import DeletePost from "../src/component/DeletePost";
 
-describe("DeletPost component", () => {
+describe("DeletePost component", () => {
   test("should update 'myId' state when input value changes", () => {
-    const { getByPlaceholderText } = render(<DeletPost />);
+    const { getByPlaceholderText } = render(React.createElement(DeletePost));
     const inputElement = getByPlaceholderText("קוד המוצר");
 
     fireEvent.change(inputElement, { target: { value: "123" } });
@@ -13,7 +13,7 @@ describe("DeletPost component", () => {
   });
 
   test("should render 'מחק מוצר' button", () => {
-    const { getByText } = render(<DeletPost />);
+    const { getByText } = render(React.createElement(DeletePost));
     const buttonElement = getByText("מחק מוצר");
 
     expect(buttonElement).toBeInTheDocument();

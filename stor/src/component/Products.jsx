@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OneProduct from "./OneProduct";
 import Detail from "./Detail";
-import Menu from "./Menu";
+
 
 export default function Products(props) {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -53,9 +53,6 @@ export default function Products(props) {
 
   return (
     <div>
-      <header>
-        <Menu />
-      </header>
       <div className="background-simple">
         <h1
           style={{
