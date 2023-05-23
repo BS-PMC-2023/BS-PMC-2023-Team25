@@ -16,6 +16,7 @@ import Student from "./component/Student.jsx";
 import Teacher from "./component/Teacher.jsx";
 import ProductDataService from "./services/products";
 import Podcast from "./component/Podcast";
+import Contact from "./component/Contact";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false); //אחראי על הצגת התפריט
@@ -63,6 +64,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/student" element={<Student />} />
             <Route path="/teacher" element={<Teacher />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </HashRouter>
       </div>

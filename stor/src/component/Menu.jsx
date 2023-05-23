@@ -45,6 +45,9 @@ export default function Menu() {
           <Link to={"/teacher"} className="nav-link">
             מרצה{" "}
           </Link>
+          <Link to={"/contact"} className="nav-link">
+            צור קשר{" "}
+          </Link>
           <Link to={"/"} className="nav-link" onClick={handleLogout}>
             התנתק{" "}
           </Link>
