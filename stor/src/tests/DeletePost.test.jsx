@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import DeletePost from "../src/component/DeletePost";
+import DeletePost from "../component/DeletePost"
 
 describe("DeletePost component", () => {
   test("should update 'myId' state when input value changes", () => {

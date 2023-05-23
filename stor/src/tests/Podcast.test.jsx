@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Podcast from "./Podcast";
+import Podcast from "../component/Podcast";
 
 describe("Podcast component", () => {
   it("should submit the form when the checkbox is checked and button is clicked", () => {

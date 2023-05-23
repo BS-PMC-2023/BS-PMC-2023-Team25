@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Products from "./Products";
+import Products from "../component/Products";
 
 // Sample test data
 const products = [

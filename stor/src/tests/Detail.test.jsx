@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import Detail from "./Detail";
+import Detail from "../component/Detail";
 
 const mockProduct = {
   name: "Product Name",
