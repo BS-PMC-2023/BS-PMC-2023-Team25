@@ -6,7 +6,6 @@ pipeline {
             steps {
                 dir('stor') {
                     sh 'npm install'
-                    sh 'npm run build'
                 }
             }
         }
@@ -36,37 +35,37 @@ pipeline {
                 }
             }
         }
+   }     
+//         stage('Build Docker Images') {
+//             steps {
+//                 script {
+//                     // Your build steps for Docker images go here
+//                 }
+//             }
+//         }
         
-        stage('Build Docker Images') {
-            steps {
-                script {
-                    // Your build steps for Docker images go here
-                }
-            }
-        }
+//         stage('Run Docker Containers with Docker Compose') {
+//             steps {
+//                 script {
+//                     // Your steps for running Docker containers go here
+//                 }
+//             }
+//         }
         
-        stage('Run Docker Containers with Docker Compose') {
-            steps {
-                script {
-                    // Your steps for running Docker containers go here
-                }
-            }
-        }
-        
-        stage('Stop Docker Containers with Docker Compose') {
-            steps {
-                script {
-                    // Your steps for stopping Docker containers go here
-                }
-            }
-        }
-    }
+//         stage('Stop Docker Containers with Docker Compose') {
+//             steps {
+//                 script {
+//                     // Your steps for stopping Docker containers go here
+//                 }
+//             }
+//         }
+//     }
     
-    post {
-        always {
-            script {
-                // Your post-build actions go here
-            }
-        }
-    }
-}
+//     post {
+//         always {
+//             script {
+//                 // Your post-build actions go here
+//             }
+//         }
+//     }
+// }
