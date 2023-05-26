@@ -2,7 +2,7 @@ pipeline {
     agent {
         node {
             label 'my-agent-label' // Replace with your Jenkins agent label
-            customWorkspace '/path/to/custom/workspace' // Replace with the desired workspace directory
+            customWorkspace 'BS-PMC-2023-Team25/stor' // Replace with the desired workspace directory
             env.PATH = "${tool 'NodeJS'}/bin:${env.PATH}"
         }
     }
