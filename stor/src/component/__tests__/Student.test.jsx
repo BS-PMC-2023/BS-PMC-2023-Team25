@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Manager from "../component/Manager";
+import Manager from "../Manager";
 
 describe("Manager component", () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Menu from "../component/Menu";
+import Menu from "../Menu";
 
 describe("Menu", () => {
   test("renders menu links", () => {

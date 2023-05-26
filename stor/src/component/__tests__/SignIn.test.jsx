@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import SignIn from "../component/SignIn";
+import SignIn from "../SignIn";
 
 describe("SignIn", () => {
   it("should render SignIn component", () => {

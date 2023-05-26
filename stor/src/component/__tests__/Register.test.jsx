@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import SignIn from "../component/SignIn";
+import SignIn from "../SignIn";
 
 test("renders the SignIn component", () => {
   render(

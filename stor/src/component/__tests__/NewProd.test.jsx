@@ -1,7 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { MemoryRouter, useNavigate } from "react-router-dom";
-import Manager from "../component/Manager";
+import Manager from "../Manager";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
