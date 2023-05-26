@@ -1,68 +1,43 @@
 pipeline {
-    agent {
-        node {
-            label 'my-agent-label' // Replace with your Jenkins agent label
-            customWorkspace 'BS-PMC-2023-Team25/stor' // Replace with the desired workspace directory
-            env.PATH = "${tool 'NodeJS'}/bin:${env.PATH}"
-        }
-    }
-    environment {
-        DOCKER_COMPOSE_VERSION = '1.29.2'
-    }
+    agent any
+
     stages {
-        stage('Install Dependencies') {
+        stage('Build') {
             steps {
-                dir('stor') {
-                    sh 'npm install'
-                }
+                // Add build steps here
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
         
-        stage('Link') {
+        stage('Linting') {
             steps {
-                dir('stor') {
-                    sh 'npm link'
-                }
+                // Add linting steps here
+                sh 'npm run lint'
             }
         }
         
-        stage('Run Tests') {
+        stage('Tests') {
             steps {
+                // Add test steps here
                 sh 'npm run test'
             }
             post {
                 always {
-                    junit 'stor/reports/**/*.xml'
+                    // Publish test results
+                    junit '**/test-results.xml'
+                    
+                    // Generate code coverage report (adjust as per your setup)
+                    jacoco(execPattern: '**/target/*.exec')
                 }
-            }
-        }
-        
-        stage('Build Docker Images') {
-            steps {
-                script {
-                    docker.build('stor', './stor')
-                }
-            }
-        }
-        
-        stage('Run Docker Containers with Docker Compose') {
-            steps {
-                sh 'curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose'
-                sh 'chmod +x docker-compose'
-                sh './docker-compose up -d'
-            }
-        }
-        
-        stage('Stop Docker Containers with Docker Compose') {
-            steps {
-                sh './docker-compose down'
             }
         }
     }
     
     post {
         always {
-            sh 'docker images -q | xargs docker rmi -f || true'
+            // Add post-build actions here
+            // This block will run after every stage
         }
     }
 }
