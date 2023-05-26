@@ -1,15 +1,16 @@
 pipeline {
-    agent any
+    agent {
+        node {
+            label 'my-agent-label' // Replace with your Jenkins agent label
+            customWorkspace '/path/to/custom/workspace' // Replace with the desired workspace directory
+            env.PATH = "${tool 'NodeJS'}/bin:${env.PATH}"
+        }
+    }
     environment {
         DOCKER_COMPOSE_VERSION = '1.29.2'
     }
     stages {
         stage('Install Dependencies') {
-            agent {
-                docker {
-                    image 'node:16-alpine'
-                }
-            }
             steps {
                 dir('stor') {
                     sh 'npm install'
@@ -26,11 +27,6 @@ pipeline {
         }
         
         stage('Run Tests') {
-            agent {
-                docker {
-                    image 'node:16-alpine'
-                }
-            }
             steps {
                 sh 'npm run test'
             }
@@ -41,27 +37,27 @@ pipeline {
             }
         }
         
-//         stage('Build Docker Images') {
-//             steps {
-//                 script {
-//                     docker.build('stor', './stor')
-//                 }
-//             }
-//         }
+        stage('Build Docker Images') {
+            steps {
+                script {
+                    docker.build('stor', './stor')
+                }
+            }
+        }
         
-//         stage('Run Docker Containers with Docker Compose') {
-//             steps {
-//                 sh 'curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose'
-//                 sh 'chmod +x docker-compose'
-//                 sh './docker-compose up -d'
-//             }
-//         }
+        stage('Run Docker Containers with Docker Compose') {
+            steps {
+                sh 'curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose'
+                sh 'chmod +x docker-compose'
+                sh './docker-compose up -d'
+            }
+        }
         
-//         stage('Stop Docker Containers with Docker Compose') {
-//             steps {
-//                 sh './docker-compose down'
-//             }
-//         }
+        stage('Stop Docker Containers with Docker Compose') {
+            steps {
+                sh './docker-compose down'
+            }
+        }
     }
     
     post {
