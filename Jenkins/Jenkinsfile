@@ -45,16 +45,14 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    def dockerImage = docker.build('stor-docker-image', '.')
-                    dockerImage.push()
-                }
-            }
-        }
-        
-    }
+//         stage('Build Docker Image') {
+//             steps {
+//                 script {
+//                     def dockerImage = docker.build('stor-docker-image', '.')
+//                     dockerImage.push()
+//                 }
+//             }
+//         }
     post {
         always {
             sh 'docker images -q | xargs docker rmi -f || true'
