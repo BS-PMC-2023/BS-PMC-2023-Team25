@@ -1,70 +1,93 @@
 pipeline {
-    agent any
+  agent any
+  environment {
+    DOCKER_COMPOSE_VERSION = '1.29.2'
+  }
+  stages {
+    stage('Install Dependencies') {
+        agent {
+            docker {
+                image 'node:16-alpine'
+            }
+        }
+        steps {
+                dir('stor') {
+                sh 'npm install'
+            }
+        }
+    }
+    stage('Run Jest Tests') {
+        agent {
+            docker {
+                image 'node:16-alpine'
+            }
+        }
+        steps {
+            sh 'npm run test'
+        }
+    }
+    stage('Build Docker Images') {
+      steps {
+        script {
+          docker.build('stor', './stor')
+        }
+      }
+    }
+    stage('Run Docker Containers with Docker Compose') {
+      steps {
+        sh 'curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose'
+        sh 'chmod +x docker-compose'
+        sh './docker-compose up -d'
+      }
+    }
+    stage('Stop Docker Containers with Docker Compose') {
+      steps {
+        sh './docker-compose down'
+      }
+    }
+  }
+  post {
+    always {
+      sh 'docker images -q | xargs docker rmi -f || true'
+    }
+  }
+}
 
-    stages {
-        stage('Install Dependencies') {
-            steps {
-                dir('stor') {
-                    sh 'npm install'
-                }
-            }
-        }
-        
-        stage('Linting') {
-            steps {
-                dir('stor') {
-                    sh 'npm run lint'
-                }
-            }
-            post {
-                always {
-                    junit 'stor/lint-results.xml'
-                }
-            }
-        }
-        
-        stage('Tests') {
-            steps {
-                dir('stor') {
-                    sh 'npm run test'
-                }
-            }
-            post {
-                always {
-                    junit 'stor/reports/**/*.xml'
-                }
-            }
-        }
-   }     
-//         stage('Build Docker Images') {
+
+
+// pipeline {
+//     agent any
+//     stages {
+//         stage('Checkout') {
 //             steps {
-//                 script {
-//                     // Your build steps for Docker images go here
-//                 }
+//                 git branch: 'main', url: 'https://github.com/BS-PMC-2023/BS-PMC-2023-Team25.git'
 //             }
 //         }
-        
-//         stage('Run Docker Containers with Docker Compose') {
+//         stage('Build') {
 //             steps {
-//                 script {
-//                     // Your steps for running Docker containers go here
-//                 }
+//                 sh 'npm install'
+//                 sh 'npm run build'
 //             }
 //         }
-        
-//         stage('Stop Docker Containers with Docker Compose') {
+//         stage('Test') {
 //             steps {
-//                 script {
-//                     // Your steps for stopping Docker containers go here
-//                 }
+//                 sh 'npm test'
+//             }
+//         }
+//         stage('Deploy') {
+//             steps {
+//                 sh 'npm run deploy'
 //             }
 //         }
 //     }
-    
-//     post {
-//         always {
-//             script {
-//                 // Your post-build actions go here
+// }
+
+// pipeline {
+//     agent any 
+//     stages {
+//         stage('Stage 1') {
+//             steps {
+//                 echo 'Hello world!' 
 //             }
 //         }
 //     }
