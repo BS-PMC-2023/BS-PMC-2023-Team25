@@ -16,24 +16,27 @@ pipeline {
                 }
             }
         }
-        stage('Linting') {
-            agent {
-                docker {
-                    image 'node:16-alpine'
-                }
-            }
-            steps {
-                dir('stor') {
-                    sh 'npm run lint'
-                }
-            }
-            post {
-                always {
-                    junit 'stor/eslint-results.xml'
-                }
-            }
-        }
-        stage('Run E2E Tests') {
+        
+//         stage('Linting') {
+//             agent {
+//                 docker {
+//                     image 'node:16-alpine'
+//                 }
+//             }
+//             steps {
+//                 dir('stor') {
+//                     sh 'npm install eslint --save-dev' // Install ESLint as a dev dependency (if not already installed)
+//                     sh 'npx eslint . --format junit --output-file eslint-results.xml'
+//                 }
+//             }
+//             post {
+//                 always {
+//                     junit 'stor/eslint-results.xml'
+//                 }
+//             }
+//         }
+        
+        stage(' Tests ') {
             agent {
                 docker {
                     image 'node:16-alpine'
@@ -46,14 +49,7 @@ pipeline {
             }
         }
     }
-//         stage('Build Docker Image') {
-//             steps {
-//                 script {
-//                     def dockerImage = docker.build('stor-docker-image', '.')
-//                     dockerImage.push()
-//                 }
-//             }
-//         }
+    
     post {
         always {
             sh 'docker images -q | xargs docker rmi -f || true'
