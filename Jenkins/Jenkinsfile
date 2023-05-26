@@ -16,23 +16,23 @@ pipeline {
                 }
             }
         }
-//         stage('Linting') {
-//             agent {
-//                 docker {
-//                     image 'node:16-alpine'
-//                 }
-//             }
-//             steps {
-//                 dir('stor') {
-//                     sh 'npm run lint'
-//                 }
-//             }
-//             post {
-//                 always {
-//                     junit 'stor/eslint-results.xml'
-//                 }
-//             }
-//         }
+        stage('Linting') {
+            agent {
+                docker {
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                dir('stor') {
+                    sh 'npm run lint'
+                }
+            }
+            post {
+                always {
+                    junit 'stor/eslint-results.xml'
+                }
+            }
+        }
         stage('Run E2E Tests') {
             agent {
                 docker {
@@ -45,6 +45,7 @@ pipeline {
                 }
             }
         }
+    }
 //         stage('Build Docker Image') {
 //             steps {
 //                 script {
