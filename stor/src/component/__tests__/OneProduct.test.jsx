@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import OneProduct from "./OneProduct";
+import OneProduct from "../OneProduct";
 
 const mockProduct = {
   name: "Product Name",

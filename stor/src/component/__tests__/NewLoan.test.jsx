@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import NewLoan from "./NewLoan";
+import NewLoan from "../NewLoan";
 
 test("renders the NewLoan component", () => {
   render(
