@@ -1,3 +1,5 @@
+
+
 pipeline {
   agent any
   environment {
@@ -23,11 +25,30 @@ pipeline {
             }
         }
         steps {
-            dir('stor')
             sh 'npm run test'
         }
     }
-    post {
+    stage('Build Docker Images') {
+      steps {
+        script {
+          docker.build('stor', './stor')
+        }
+      }
+    }
+    stage('Run Docker Containers with Docker Compose') {
+      steps {
+        sh 'curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose'
+        sh 'chmod +x docker-compose'
+        sh './docker-compose up -d'
+      }
+    }
+    stage('Stop Docker Containers with Docker Compose') {
+      steps {
+        sh './docker-compose down'
+      }
+    }
+  }
+  post {
     always {
       sh 'docker images -q | xargs docker rmi -f || true'
     }
