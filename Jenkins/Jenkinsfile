@@ -1,15 +1,8 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_COMPOSE_VERSION = '1.29.2'
-    }
+
     stages {
         stage('Install Dependencies') {
-            agent {
-                docker {
-                    image 'node:16-alpine'
-                }
-            }
             steps {
                 dir('stor') {
                     sh 'npm install'
@@ -19,11 +12,6 @@ pipeline {
         }
         
         stage('Linting') {
-            agent {
-                docker {
-                    image 'node:16-alpine'
-                }
-            }
             steps {
                 dir('stor') {
                     sh 'npm run lint'
@@ -37,14 +25,14 @@ pipeline {
         }
         
         stage('Tests') {
-            agent {
-                docker {
-                    image 'node:16-alpine'
-                }
-            }
             steps {
                 dir('stor') {
                     sh 'npm run test'
+                }
+            }
+            post {
+                always {
+                    junit 'stor/reports/**/*.xml'
                 }
             }
         }
@@ -52,29 +40,33 @@ pipeline {
         stage('Build Docker Images') {
             steps {
                 script {
-                    docker.build('stor', './stor')
+                    // Your build steps for Docker images go here
                 }
             }
         }
         
         stage('Run Docker Containers with Docker Compose') {
             steps {
-                sh 'curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o docker-compose'
-                sh 'chmod +x docker-compose'
-                sh './docker-compose up -d'
+                script {
+                    // Your steps for running Docker containers go here
+                }
             }
         }
         
         stage('Stop Docker Containers with Docker Compose') {
             steps {
-                sh './docker-compose down'
+                script {
+                    // Your steps for stopping Docker containers go here
+                }
             }
         }
     }
     
     post {
         always {
-            sh 'docker images -q | xargs docker rmi -f || true'
+            script {
+                // Your post-build actions go here
+            }
         }
     }
 }
