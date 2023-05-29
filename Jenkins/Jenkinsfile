@@ -16,32 +16,33 @@ pipeline {
                 }
             }
         }
-        stage(' Linting ') {
+        stage('Linting') {
             agent {
                 docker {
                     image 'node:16-alpine'
                 }
             }
             steps {
-                dir('Frontend') {
+                dir('frontend') {
                     sh 'npm run lint'
                 }
             }
-        stage(' Tests ') {
+        }
+        stage('Tests') {
             agent {
                 docker {
                     image 'node:16-alpine'
                 }
             }
             steps {
-                dir('Frontend') {
+                dir('frontend') {
                     sh 'npm run test'
                 }
             }
-             post {
-                 always {
-                     junit 'frontend/test-report.html'
-                 }
+            post {
+                always {
+                    junit 'frontend/test-report.html'
+                }
             }
         }
     }
