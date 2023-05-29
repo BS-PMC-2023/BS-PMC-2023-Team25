@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\App.js">
+<testcase time="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\App.js" classname="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\App" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\http-common.js">
+<testcase time="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\http-common.js" classname="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\http-common" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\index.js">
+<testcase time="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\index.js" classname="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\index" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\reportWebVitals.js">
+<testcase time="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\reportWebVitals.js" classname="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\reportWebVitals" />
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="1" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\services\products.js">
+<testcase time="0" name="org.eslint.import/no-anonymous-default-export" classname="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\services\products"><failure message="Assign instance to a variable before exporting as module default"><![CDATA[line 23, col 1, Warning - Assign instance to a variable before exporting as module default (import/no-anonymous-default-export)]]></failure></testcase>
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="1" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\services\users.js">
+<testcase time="0" name="org.eslint.import/no-anonymous-default-export" classname="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\services\users"><failure message="Assign instance to a variable before exporting as module default"><![CDATA[line 25, col 1, Warning - Assign instance to a variable before exporting as module default (import/no-anonymous-default-export)]]></failure></testcase>
+</testsuite>
+<testsuite package="org.eslint" time="0" tests="1" errors="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\setupTests.js">
+<testcase time="0" name="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\setupTests.js" classname="C:\Users\monso\VisualStudioCode\Project_WareHouse\BS-PMC-2023-Team25\Frontend\src\setupTests" />
+</testsuite>
+</testsuites>

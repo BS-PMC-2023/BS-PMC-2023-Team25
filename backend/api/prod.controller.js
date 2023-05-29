@@ -3,12 +3,10 @@ import ProdsDAO from "../dao/ProdsDAO.js";
 export default class ProdController {
   static async apiPostProd(req, res, next) {
     try {
-<<<<<<< HEAD
       console.log("enter in apiPostProd");
       console.log(req);
 
-=======
->>>>>>> 7a0b7e12962ab821f6ab593a4484f2eaff4c0db1
+
       const name = req.body.name;
       const type = req.body.type;
       const Snumber = req.body.Snumber;
