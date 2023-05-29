@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { act } from "react-dom/test-utils"; // Import the 'act' function
 
 export default function NewLoan() {
   const [name, setName] = useState("");
@@ -10,11 +10,14 @@ export default function NewLoan() {
   const nav = useNavigate();
 
   const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked);
+    act(() => {
+      setIsChecked(e.target.checked);
+    });
   };
 
   const terms =
     "המשתמש יחויב בתשלום נפרד עבור כל יום נוסף של השאלה, לפי המחיר הנקוב על ידי הלוויין. המשתמש מתחייב לטפל במוצרים בצורה המתאימה ולהחזירם במצבם המקורי. המשתמש חייב להשתמש במוצרים בהתאם להוראות היצרן והמדיניות של הלוויין. הלוויין רשאי לסרב להשאלה לפי שיקולו הפרטי. המשתמש מבטיח כי המידע שסיפק לצורך השאלת המוצרים הוא מדוייק ומעודכן.";
+
   return (
     <div className="form">
       <div className="form-style">
@@ -29,7 +32,7 @@ export default function NewLoan() {
         <label htmlFor="type">: הכנס קוד מוצר </label>
         <br />
         <br />
-        <form>
+        <form data-testid="loan-form">
           <input
             onChange={(e) => {
               setName(e.target.value);

@@ -1,5 +1,5 @@
 {
-  "name": "stor",
+  "name": "frontend",
   "version": "0.1.0",
   "homepage": "https://BS-PMC-2023/github.io/BS-PMC-2023-Team25",
   "private": true,
@@ -10,10 +10,13 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "dom": "^0.0.3",
+    "eslint-formatter-html": "^2.4.0",
     "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
+    "react-router": "^6.11.2",
     "react-router-dom": "^6.10.0",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
@@ -22,9 +25,9 @@
     "deploy": "npm run build && gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --reporters=default --reporters=jest-html-reporter --reporters=jest-junit --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "test": "react-scripts test --reporters=default --reporters=jest-html-reporter --reporters=jest-junit --transformIgnorePatterns \"node_modules/(?!axios)/\" --silent",
     "eject": "react-scripts eject",
-    "lint": "eslint"
+    "lint": "eslint src --format junit --output-file eslint-results.xml "
   },
   "eslintConfig": {
     "extends": [
