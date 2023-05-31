@@ -3,19 +3,13 @@ import PodcastsDAO from "./dao/PodcastsDAO.js";
 export default class PodcastsController {
   static async apiPostPodcast(req, res, next) {
     try {
-      const acc = req.body.acc;
-      const SnumberRoom = req.body.SnumberRoom;
       const date = req.body.date;
       const email = req.body.email;
+      const Snum = req.body.Snum;
 
-      console.log(SnumberRoom);
+      console.log(Snum);
 
-      const PodcastsResponse = await PodcastsDAO.addPodcast(
-        acc,
-        SnumberRoom,
-        date,
-        email
-      );
+      const PodcastsResponse = await PodcastsDAO.addPodcast(date, email, Snum);
       console.log(PodcastsResponse);
 
       var { error } = PodcastsResponse;
@@ -31,13 +25,9 @@ export default class PodcastsController {
 
   static async apiUpdatePodcast(req, res, next) {
     try {
-      const acc = req.body.acc;
-      const SnumberRoom = req.body.SnumberRoom;
+      const Snum = req.body.Snum;
 
-      const PodcastsResponse = await PodcastsDAO.updatePodcast(
-        acc,
-        SnumberRoom
-      );
+      const PodcastsResponse = await PodcastsDAO.updatePodcast(Snum);
       console.log(PodcastsResponse);
       var { error } = PodcastsResponse;
       if (error) {
@@ -57,9 +47,9 @@ export default class PodcastsController {
   }
   static async apiDeletePodcast(req, res, next) {
     try {
-      const SnumberRoom = req.query.SnumberRoom;
-      const podcastResponse = await PodcastsDAO.deletePodcast(SnumberRoom);
-      console.log(SnumberRoom); //MODIFIED FROM SOURCE FILES
+      const Snum = req.query.Snum;
+      const podcastResponse = await PodcastsDAO.deletePodcast(Snum);
+      console.log(Snum); //MODIFIED FROM SOURCE FILES
       var { error } = podcastResponse;
       if (error) {
         res.status(400).json({ error });
@@ -85,14 +75,15 @@ export default class PodcastsController {
     const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
     let filters = {};
-    if (req.query.SnumberRoom) {
-      filters.name = req.query.SnumberRoom;
+    if (req.query.Snum) {
+      filters.name = req.query.Snum;
     }
 
     const { podcastsList } = await PodcastsDAO.getPodcasts({
       filters,
       page,
     });
+    console.log(podcastsList);
 
     let response = {
       podcasts: podcastsList,

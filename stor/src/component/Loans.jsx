@@ -8,7 +8,9 @@ export default function Loans(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [loansPerPage, setLoanPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
-
+  console.log("all loan" + props.loan);
+  // console.log("last index" + loanindexOfLastLoan);
+  // console.log("firs index" + indexOfFirstLoan);
   const showDetails = () => {
     if (selectedloan) {
       return <DetailLoan loan={selectedloan} />;
@@ -16,16 +18,20 @@ export default function Loans(props) {
   };
 
   useEffect(() => {
-    setTotalPages(Math.ceil(props.loan.length / loansPerPage));
+    if (props.loan) {
+      setTotalPages(Math.ceil(props.loan.length / loansPerPage));
+    }
   }, [props.loan, loansPerPage]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+  const loanData = props.loan || []; // Use props.loan as the initial value or fallback to an empty array
 
   const loanindexOfLastLoan = currentPage * loansPerPage;
   const indexOfFirstLoan = loanindexOfLastLoan - loansPerPage;
-  const currentLoan = props.loan.slice(indexOfFirstLoan, loanindexOfLastLoan);
+
+  const currentLoan = loanData.slice(indexOfFirstLoan, loanindexOfLastLoan);
 
   const renderLoan = currentLoan.map((val, index) => {
     return <OneLoan key={index} loan={val} setSelectedLoan={setSelectedLoan} />;
@@ -62,7 +68,7 @@ export default function Loans(props) {
             color: "white",
           }}
         >
-          לחץ על מוצר כדי להשאיל אותו{" "}
+          לחץ על מוצר כדי לאשר להשאיל אותו{" "}
         </h3>
         <table className="table">
           <thead>

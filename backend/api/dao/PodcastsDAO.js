@@ -18,13 +18,12 @@ export default class PodcastsDAO {
     }
   }
 
-  static async addPodcast(acc, SnumberRoom, date, email) {
+  static async addPodcast(date, email, Snum) {
     try {
       const podcastDoc = {
-        acc: acc,
-        SnumberRoom: SnumberRoom,
         date: date,
         email: email,
+        Snum: Snum,
       };
       console.log(podcastDoc);
       return await podcasts.insertOne(podcastDoc);
@@ -34,11 +33,11 @@ export default class PodcastsDAO {
     }
   }
 
-  static async updatePodcast(acc, SnumberRoom) {
+  static async updatePodcast(Snum) {
     try {
       const updateResponse = await podcasts.updateOne(
-        { SnumberRoom: SnumberRoom },
-        { $set: { acc: acc } }
+        { Snum: Snum },
+        { $set: { email: email } }
       );
 
       return updateResponse;
@@ -48,12 +47,12 @@ export default class PodcastsDAO {
     }
   }
 
-  static async deletePodcast(SnumberRoom) {
+  static async deletePodcast(Snum) {
     try {
       const deleteResponse = await podcasts.deleteOne({
-        SnumberRoom: SnumberRoom,
+        Snum: Snum,
       });
-      console.log(SnumberRoom);
+      console.log(Snum);
       return deleteResponse;
     } catch (e) {
       console.error(`Unable to delete podcast: ${e}`);
@@ -67,8 +66,8 @@ export default class PodcastsDAO {
   } = {}) {
     let query;
     if (filters) {
-      if ("SnumberRoom" in filters) {
-        query = { $text: { $search: filters["SnumberRoom"] } };
+      if ("Snum" in filters) {
+        query = { $text: { $search: filters["Snum"] } };
       }
 
       let cursor;

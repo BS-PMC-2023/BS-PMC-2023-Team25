@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import StudioDataService from "../services/studio";
+import PodcastDataService from "../services/podcast";
 
 export default function NewLoan() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [seqNum, setSeqNum] = useState("");
-  const [isChecked, setIsChecked] = useState(false); // add state for checkbox
+  const [productCode, setProductCode] = useState("");
+  const [email, setEmail] = useState("");
+  const [date, setDate] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [productType, setProductType] = useState("");
+  const [transferDate, setTransferDate] = useState(""); // תאריך העברת אחריות
+  const [productNumber, setProductNumber] = useState(""); // מספר מוצר להעברת אחריות
+
   const nav = useNavigate();
 
   const handleCheckboxChange = (e) => {
@@ -15,72 +20,229 @@ export default function NewLoan() {
 
   const terms =
     "המשתמש יחויב בתשלום נפרד עבור כל יום נוסף של השאלה, לפי המחיר הנקוב על ידי הלוויין. המשתמש מתחייב לטפל במוצרים בצורה המתאימה ולהחזירם במצבם המקורי. המשתמש חייב להשתמש במוצרים בהתאם להוראות היצרן והמדיניות של הלוויין. הלוויין רשאי לסרב להשאלה לפי שיקולו הפרטי. המשתמש מבטיח כי המידע שסיפק לצורך השאלת המוצרים הוא מדוייק ומעודכן.";
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    if (isChecked) {
+      const data = {
+        Snum: productCode,
+        email: email,
+        date: date,
+      };
+
+      console.log(data);
+
+      if (productType === "podcast") {
+        PodcastDataService.createPodcast(data)
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              console.log("Podcast request created successfully!");
+              nav("/");
+            } else {
+              console.error(
+                "Error creating podcast request: ",
+                response.data.error
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error creating podcast request: ", error);
+          });
+      } else if (productType === "studio") {
+        StudioDataService.createOpinion(data)
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              console.log("Studio request created successfully!");
+              nav("/");
+            } else {
+              console.error(
+                "Error creating studio request: ",
+                response.data.error
+              );
+            }
+          })
+          .catch((error) => {
+            console.error("Error creating studio request: ", error);
+          });
+      }
+    } else {
+      console.error("You must agree to the terms and conditions");
+    }
+  };
+
+  const handleTransferFormSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      Snum: productNumber, // מספר מוצר להעברת אחריות
+      email: email, // מייל
+    };
+
+    console.log(data);
+
+    // שליחת הנתונים לשרת ועדכון המייל למוצר במסד הנתונים
+    if (productType === "podcast") {
+      PodcastDataService.updatePodcast(data.Snum)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("Podcast responsibility transferred successfully!");
+            nav("/");
+          } else {
+            console.error(
+              "Error transferring podcast responsibility: ",
+              response.data.error
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error transferring podcast responsibility: ", error);
+        });
+    } else if (productType === "studio") {
+      StudioDataService.updateOpinion(data.Snum)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("Studio responsibility transferred successfully!");
+            nav("/");
+          } else {
+            console.error(
+              "Error transferring studio responsibility: ",
+              response.data.error
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error transferring studio responsibility: ", error);
+        });
+    }
+  };
+
   return (
-    <div className="form">
-      <div className="form-style">
-        <h1>השאלה חדשה</h1>
+    <div className="background-simple">
+      <h1
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      >
+        טופס להשאלה
+      </h1>
+      <form onSubmit={handleFormSubmit}>
+        <label className="th" htmlFor="code">
+          Product Code:
+        </label>
         <input
-          onChange={(e) => {
-            setSeqNum(e.target.value);
-          }}
           type="text"
-          placeholder="הכנס קוד מוצר: "
+          id="code"
+          name="code"
+          value={productCode}
+          onChange={(e) => setProductCode(e.target.value)}
         />
-        <label htmlFor="type">: הכנס קוד מוצר </label>
-        <br />
-        <br />
-        <form>
-          <input
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            type="text"
-            placeholder="dd/mm/yyyy"
-          />
-          <label htmlFor="type">: תאריך החזרה </label>
 
-          <br />
-          <br />
-          <input
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            type="text"
-            placeholder="סיבת השאלה"
-          />
-          <label htmlFor="type">: סיבת השאלה </label>
+        <label
+          style={{
+            textAlign: "center",
+            // color: "white",
+            display: "inline",
+          }}
+          className="th"
+          htmlFor="email"
+        >
+          Email:
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
+        <label className="th" htmlFor="date">
+          Date:
+        </label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+
+        <div>
           <br />
           <br />
-          <textarea
-            value={terms}
-            readOnly={true}
-            style={{ width: "100%", height: "80px" }}
-          ></textarea>
-          <br />
-          <br />
-          <label>
+          <label className="th">
+            Product Type:
+            <select
+              value={productType}
+              onChange={(e) => setProductType(e.target.value)}
+            >
+              <br />
+
+              <option value="">Please select</option>
+              <option value="podcast">Podcast</option>
+              <option value="studio">Studio</option>
+            </select>
+          </label>
+        </div>
+
+        <div>
+          <label className="th">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleCheckboxChange}
             />
-            אני מאשר/ת את תנאי השימוש
+            I agree to the terms and conditions
           </label>
+        </div>
 
-          <div>
-            <button
-              className="buttonHome"
-              onClick={() => {
-                nav("/");
-              }}
-              disabled={!isChecked}
-            >
-              שלח
-            </button>
-          </div>
-        </form>
-      </div>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+
+      {/* טופס העברת אחריות */}
+      <h1
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      >
+        טופס העברת בעלות השאלה
+      </h1>
+      <form onSubmit={handleTransferFormSubmit}>
+        <label className="th" htmlFor="productNumber">
+          Product Number:
+        </label>
+        <input
+          type="text"
+          id="productNumber"
+          name="productNumber"
+          value={productNumber}
+          onChange={(e) => setProductNumber(e.target.value)}
+        />
+
+        <label className="th" htmlFor="email">
+          Email:
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <button type="submit">Transfer</button>
+      </form>
+      <br />
+      <br />
+      <p className="th">{terms}</p>
     </div>
   );
 }

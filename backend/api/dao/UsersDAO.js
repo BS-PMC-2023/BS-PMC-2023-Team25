@@ -58,4 +58,23 @@ export default class UsersDAO {
       return { error: e };
     }
   }
+  static async login(email, password) {
+    try {
+      const user = await users.findOne({ email: email });
+
+      if (!user) {
+        throw new Error("User not found.");
+      }
+
+      const isValidPassword = user.password === password;
+      if (!isValidPassword) {
+        throw new Error("Invalid password.");
+      }
+
+      return user;
+    } catch (e) {
+      console.error(`Unable to login user: ${e}`);
+      return { error: e };
+    }
+  }
 }

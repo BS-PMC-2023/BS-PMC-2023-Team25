@@ -73,4 +73,22 @@ export default class UsersController {
       res.json({ error: e.message }).status(500);
     }
   }
+  static async apiLoginUser(req, res, next) {
+    try {
+      const email = req.query.email;
+      const password = req.query.password;
+      console.log(email, password);
+
+      const user = await UsersDAO.login(email, password);
+      console.log(user);
+
+      if (user.error) {
+        res.status(401).json({ error: user.error.message });
+      } else {
+        res.json(user);
+      }
+    } catch (e) {
+      res.status(500).json({ error: e.message });
+    }
+  }
 }

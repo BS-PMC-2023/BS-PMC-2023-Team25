@@ -53,6 +53,16 @@ export default function HomePage() {
           <Link to={"/register"}>
             <button className="buttonHome ">להירשם</button>
           </Link>{" "}
+          <Link to={"/review"}>
+            <button
+              className="buttonHome "
+              style={{
+                marginRight: "50px",
+              }}
+            >
+              הוסף חוות דעת
+            </button>
+          </Link>
         </div>
       </div>
     </div>

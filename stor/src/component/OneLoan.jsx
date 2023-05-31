@@ -35,15 +35,15 @@ export default function OneLoan(props) {
       .catch((error) => {
         console.error("Error updating product place: ", error);
       });
-
-    const detailRow = showDetail ? (
-      <tr>
-        <td colSpan="4">
-          <DetailLoan loan={loan} />
-        </td>
-      </tr>
-    ) : null;
   };
+
+  const detailRow = showDetail ? (
+    <tr>
+      <td colSpan="4">
+        <DetailLoan loan={loan} />
+      </td>
+    </tr>
+  ) : null;
 
   return (
     <>

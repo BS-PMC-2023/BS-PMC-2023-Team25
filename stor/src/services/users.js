@@ -20,6 +20,10 @@ class UserDataService {
 
     return http.delete(`/users?name=${name}`);
   }
+  loginUser(email, password) {
+    console.log("enter in api");
+    return http.get("/login", { params: { email, password } });
+  }
 }
 
 export default new UserDataService();
