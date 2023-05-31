@@ -4,6 +4,8 @@ import productsRoutes from "./routes/products.routes.js";
 import bodyParser from "body-parser";
 import usersRoutes from "./routes/users.routes.js";
 import loansRoutes from "./routes/loans.routes.js";
+import loginRoute from "./routes/users.routes.js";
+import managerRoutes from "./routes/manager.routes.js";
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use("/", productsRoutes);
 app.use("/users", usersRoutes);
 app.use("/loans", loansRoutes);
+app.use("/", loginRoute);
+app.use("/manager", managerRoutes);
 
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
 

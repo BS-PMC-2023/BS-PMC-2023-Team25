@@ -17,6 +17,9 @@ import Teacher from "./component/Teacher.jsx";
 import ProductDataService from "./services/products";
 import Podcast from "./component/Podcast";
 
+import Products from "./component/Products";
+import ProductsUsers from "./component/ProductsUsers";
+
 function App() {
   const [showMenu, setShowMenu] = useState(false); //אחראי על הצגת התפריט
   var [prod, setProduct] = useState([]);
@@ -38,7 +41,7 @@ function App() {
   const show = () => {
     //פונקציית הצגת התפריט
     if (showMenu) {
-        return <Menu setShowMenu={setShowMenu} />;
+      return <Menu setShowMenu={setShowMenu} />;
     }
   };
   return (
@@ -52,7 +55,7 @@ function App() {
               path="/signin"
               element={<SignIn setShowMenu={setShowMenu} />}
             />
-            <Route path="/products" element={<Product prod={prod} />} />
+            <Route path="/products" element={<Products prod={prod} />} />
             <Route path="/newloan" element={<NewLoan />} />
             <Route path="/myloan" element={<MyLoan />} />
             <Route path="/Podcast" element={<Podcast />} />
@@ -63,6 +66,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/student" element={<Student />} />
             <Route path="/teacher" element={<Teacher />} />
+            <Route
+              path="/productslist"
+              element={<ProductsUsers prod={prod} />}
+            />
           </Routes>
         </HashRouter>
       </div>

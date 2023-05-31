@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import OneProduct from "./OneProduct";
+import OneProductUser from "./OneProductUser";
 import Detail from "./Detail";
 
 export default function Products(props) {
@@ -32,7 +32,7 @@ export default function Products(props) {
 
   const renderProducts = currentProducts.map((val, index) => {
     return (
-      <OneProduct
+      <OneProductUser
         key={index}
         product={val}
         setSelectedProduct={setSelectedProduct}

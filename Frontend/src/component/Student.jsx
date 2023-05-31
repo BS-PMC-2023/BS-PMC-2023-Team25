@@ -28,7 +28,7 @@ export default function Manager(props) {
           gap: "20px",
         }}
       >
-        <Link to={"/products"}>
+        <Link to={"/productslist"}>
           <button className="buttonHome">להשאיל מוצר</button>
         </Link>
         <Link to={"/myloan"}>

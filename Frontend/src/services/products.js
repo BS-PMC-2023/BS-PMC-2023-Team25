@@ -6,17 +6,21 @@ class ProductDataService {
   }
 
   createProd(data) {
-    return http.post("/manager", data);
+    return http.post("manager", data);
   }
 
   updateProd(data) {
+    console.log("enter in api update");
+    return http.put(`/manager`, data);
+  }
+  updateProdRepair(data) {
     return http.put(`/manager`, data);
   }
 
   deleteProd(Snumber) {
     console.log(Snumber);
 
-    return http.delete(`/manager?Snumber=${Snumber}`);
+    return http.delete(`/manager/Snumber=${Snumber}`);
   }
 }
 

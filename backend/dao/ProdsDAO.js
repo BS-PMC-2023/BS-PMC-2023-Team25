@@ -16,13 +16,14 @@ export default class ProdsDAO {
     }
   }
 
-  static async addProd(name, type, Snumber, place) {
+  static async addProd(name, type, Snumber, place, repair) {
     try {
       const prodDoc = {
         name: name,
         type: type,
         Snumber: Snumber,
         place: place,
+        repair: repair,
       };
       return await prods.insertOne(prodDoc);
     } catch (e) {
@@ -40,6 +41,22 @@ export default class ProdsDAO {
         { $set: { place: place } }
       );
       console.log("ici", updateResponse);
+      return updateResponse;
+    } catch (e) {
+      console.error(`Unable to update product: ${e}`);
+      return { error: e };
+    }
+  }
+
+  static async updateProdRepair(repair, Snumber) {
+    try {
+      console.log(Snumber, repair);
+
+      const updateResponse = await prods.updateOne(
+        { Snumber: Snumber },
+        { $set: { repair: repair } }
+      );
+      console.log("repair", updateResponse);
       return updateResponse;
     } catch (e) {
       console.error(`Unable to update product: ${e}`);

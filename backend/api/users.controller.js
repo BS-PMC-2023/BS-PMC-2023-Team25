@@ -1,7 +1,7 @@
 import UsersDAO from "../dao/UsersDAO.js";
 
 export default class UsersController {
-   static async apiGetUsers(req, res, next) {
+  static async apiGetUsers(req, res, next) {
     const usersPerPage = req.query.usersPerPage
       ? parseInt(req.query.usersPerPage, 10)
       : 20;
@@ -9,7 +9,7 @@ export default class UsersController {
 
     let filters = {};
     if (req.query.email) {
-      filters.email = req.query.email
+      filters.email = req.query.email;
     }
 
     const { usersList, totalNumUsers } = await UsersDAO.getUsers({
@@ -27,7 +27,7 @@ export default class UsersController {
     };
     res.json(response);
   }
-  
+
   static async apiPostUser(req, res, next) {
     try {
       const email = req.body.email;
@@ -98,6 +98,23 @@ export default class UsersController {
     } catch (e) {
       console.log(e);
       res.json({ error: e.message }).status(500);
+    }
+  }
+  static async apiLoginUser(req, res, next) {
+    try {
+      console.log("in controller");
+      const email = req.body.email;
+      const password = req.body.password;
+
+      const user = await UsersDAO.login(email, password);
+
+      if (user.error) {
+        res.status(401).json({ error: user.error.message });
+      } else {
+        res.json(user);
+      }
+    } catch (e) {
+      res.status(500).json({ error: e.message });
     }
   }
 }

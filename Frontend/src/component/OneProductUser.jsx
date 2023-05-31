@@ -72,32 +72,14 @@ export default function OneProduct(props) {
     </tr>
   ) : null;
 
-  const RepairButton =
-    product.place === "false" ? (
-      <span>Not in Stock</span>
-    ) : product.place === "true" ? (
-      <button onClick={() => toggleRepair(product.Snumber)}>
-        Call For Repair
-      </button>
-    ) : (
-      <span>In Maintenance</span>
-    );
-
   return (
     <>
       <tr className="tr" onClick={toggleDetail}>
         <td className="td">{product.name}</td>
         <td className="td">{product.type}</td>
         <td className="td">{product.Snumber}</td>
-        <td className="td">
-          {product.place}{" "}
-          <button onClick={() => togglePlace(product.Snumber)}>
-            {product.place === "true"
-              ? "Take out of storage"
-              : "Put in storage"}
-          </button>
-        </td>
-        <td className="td">{RepairButton}</td>
+        <td className="td">{product.place} </td>
+        <td className="td">{product.repair} </td>
       </tr>
       {detailRow}
     </>
