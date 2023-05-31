@@ -15,7 +15,6 @@ class ProductDataService {
 
   deleteProd(Snumber) {
     console.log(Snumber);
-
     return http.delete(`/manager?Snumber=${Snumber}`);
   }
 }
