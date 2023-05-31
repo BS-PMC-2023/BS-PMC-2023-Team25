@@ -52,6 +52,18 @@ export default function Manager(props) {
             למחוק מוצר{" "}
           </button>
         </Link>
+        <Link to={"/usermanagement"}>
+          {" "}
+          {}
+          <button
+            className="buttonHome "
+            style={{
+              marginRight: "50px",
+            }}
+          >
+            ניהול משתמשים
+          </button>
+        </Link>
       </div>
     </div>
   );

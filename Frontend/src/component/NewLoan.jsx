@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { act } from "react-dom/test-utils"; // Import the 'act' function
+import { act } from "react-dom/test-utils";
 
 export default function NewLoan() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [seqNum, setSeqNum] = useState("");
-  const [isChecked, setIsChecked] = useState(false); // add state for checkbox
+  const [isChecked, setIsChecked] = useState(false);
   const nav = useNavigate();
 
   const handleCheckboxChange = (e) => {

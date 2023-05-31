@@ -1,13 +1,12 @@
 import http from "../http-common";
 
-class UserDataService {
+class UsersDataService {
   getAll() {
     return http.get("/users");
   }
 
   createUser(data) {
     console.log(data);
-
     return http.post("/users", data);
   }
 
@@ -15,11 +14,10 @@ class UserDataService {
     return http.put(`/users`, data);
   }
 
-  deleteUser(name) {
-    console.log(name);
-
-    return http.delete(`/users?name=${name}`);
+  deleteUser(email) {
+    console.log(email);
+    return http.delete(`/users?email=${email}`);
   }
 }
 
-export default new UserDataService();
+export default new UsersDataService();
