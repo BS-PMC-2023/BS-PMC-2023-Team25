@@ -1,22 +1,58 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { act } from "react-dom/test-utils"; // Import the 'act' function
 import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import ProductDataService from "../services/products";
 
-export default function NewLoan() {
+export default function NewLoan(props) {
   const [email, setEmail] = useState("");
   const [seqNum, setSeqNum] = useState("");
   const [date, setDate] = useState("");
   const [reason, setReason] = useState("");
-
+  const [product, setProduct] = useState(props.prod);
   const [isChecked, setIsChecked] = useState(false); // add state for checkbox
   const nav = useNavigate();
+  console.log(props);
+  const togglePlace = (Snumber) => {
+    let place;
+    const data = { place, Snumber };
+    console.log(data);
+    ProductDataService.updateProd(data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data.value);
+          const newPlace = "false";
+          const updatedProduct = { ...product, place: newPlace };
+          setProduct(updatedProduct);
+          window.location.reload(); // rafraîchit la page
+        } else {
+          console.error("Error updating product place: ", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating product place: ", error);
+      });
+  };
+
   const handleCheckboxChange = (e) => {
     act(() => {
       setIsChecked(e.target.checked);
     });
   };
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const seqNumParam = searchParams.get("Snumber");
+
+  // Utilisez la valeur de seqNumParam dans votre composant
+
+  useEffect(() => {
+    // Effectuez les actions nécessaires avec seqNumParam
+    // Par exemple, mettez à jour l'état seqNum avec seqNumParam
+    setSeqNum(seqNumParam);
+  }, [seqNumParam]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -136,7 +172,7 @@ export default function NewLoan() {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-          type="text"
+          type="email"
           placeholder="mail@gmail.com "
         />
         <label htmlFor="type">: הכנס mail </label>
@@ -147,7 +183,8 @@ export default function NewLoan() {
             setSeqNum(e.target.value);
           }}
           type="text"
-          placeholder="הכנס קוד מוצר: "
+          placeholder={seqNum}
+          readOnly={true}
         />
         <label htmlFor="type">: הכנס קוד מוצר </label>
         <br />
@@ -194,7 +231,9 @@ export default function NewLoan() {
           <div>
             <button
               className="buttonHome"
-              onClick={() => {}}
+              onClick={() => {
+                togglePlace(seqNum);
+              }}
               type="submit"
               disabled={!isChecked}
             >

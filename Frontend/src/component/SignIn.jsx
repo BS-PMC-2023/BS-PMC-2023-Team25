@@ -8,6 +8,12 @@ export default function SignIn(props) {
   const nav = useNavigate(); //כדי שכם יפעיל את הפונקציה שמעלה את התפריט וגם יעביר לעמוד של המשימות
 
   const loginUser = (email, password) => {
+    if (!email.endsWith("@ac.sce.ac.il") && !email.endsWith("@sce.ac.il")) {
+      alert(
+        "Please enter a valid email address ending with @ac.sce.ac.il or @sce.ac.il"
+      );
+      return;
+    }
     UserDataService.loginUser(email, password)
       .then((response) => {
         if (response.status === 200) {
@@ -40,10 +46,10 @@ export default function SignIn(props) {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            type="text"
+            type="email"
             placeholder="הזן כתובת דואל"
           />{" "}
-          <label for="email"> : דואל</label>
+          <label htmlFor="email"> : דואל</label>
           <br />
           <br />
           <input
@@ -53,7 +59,7 @@ export default function SignIn(props) {
             type="password"
             placeholder="הזן סיסמה"
           />{" "}
-          <label for="password"> :סיסמה </label>
+          <label htmlFor="password"> :סיסמה </label>
           <br />
           <br />
           <div>

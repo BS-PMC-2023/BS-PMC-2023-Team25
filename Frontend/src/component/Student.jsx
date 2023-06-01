@@ -31,7 +31,7 @@ export default function Manager(props) {
         <Link to={"/productslist"}>
           <button className="buttonHome">להשאיל מוצר</button>
         </Link>
-        <Link to={"/myloan"}>
+        <Link to={"/show"}>
           <button className="buttonHome">השאלות שלי</button>
         </Link>
         <Link to={"/Podcast"}>

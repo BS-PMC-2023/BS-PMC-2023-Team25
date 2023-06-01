@@ -31,18 +31,12 @@ export default class UsersController {
   static async apiPostUser(req, res, next) {
     try {
       const email = req.body.email;
-      const username = req.body.username;
       const password = req.body.password;
       const type = req.body.type;
 
       console.log(email);
 
-      const UsersResponse = await UsersDAO.addUser(
-        email,
-        username,
-        password,
-        type
-      );
+      const UsersResponse = await UsersDAO.addUser(email, password, type);
       console.log(UsersResponse);
 
       var { error } = UsersResponse;

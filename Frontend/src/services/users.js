@@ -22,7 +22,9 @@ class UserDataService {
   }
   loginUser(email, password) {
     console.log("enter in api");
-    return http.post("/login", { email, password });
+    console.log(email, password);
+
+    return http.post("users/login", { email, password });
   }
 }
 
