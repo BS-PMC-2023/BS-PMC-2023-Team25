@@ -90,20 +90,11 @@ export default class UsersController {
   }
   static async apiLoginUser(req, res, next) {
     try {
-<<<<<<< HEAD
-      const email = req.query.email;
-      const password = req.query.password;
-      console.log(email, password);
-
-      const user = await UsersDAO.login(email, password);
-      console.log(user);
-=======
       console.log("in controller");
       const email = req.body.email;
       const password = req.body.password;
 
       const user = await UsersDAO.login(email, password);
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 
       if (user.error) {
         res.status(401).json({ error: user.error.message });

@@ -1,57 +1,99 @@
-import express from "express";
-import ProductsCtrl from "./products.controller.js";
-import ProdCtrl from "./prod.controller.js";
-import UserCtrl from "./users.controller.js";
-<<<<<<< HEAD
-import PodcastCtrl from "./podcasts.controller.js";
-import OpinionCtrl from "./opinions.controller.js";
-import StudioCtrl from "./studio.controller.js";
-=======
+import mongodb from "mongodb";
+const ObjectId = mongodb.ObjectId;
 
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
-const router = express.Router();
+let studios;
 
-router.route("/products").get(ProductsCtrl.apiGetProducts); //example of route
+export default class StudioDAO {
+  static async injectDB(conn) {
+    if (studios) {
+      return;
+    }
+    try {
+      studios = await conn.db(process.env.MYAPP_NS).collection("studio");
+      console.log(studios);
+    } catch (e) {
+      console.error(
+        `Unable to establish collection handles in studioDAO: ${e}`
+      );
+    }
+  }
 
-router
-  .route("/manager")
-  .post(ProdCtrl.apiPostProd)
-  .put(ProdCtrl.apiUpdateProd)
-  .delete(ProdCtrl.apiDeleteProd);
+  static async addStudios(date, email, snum) {
+    try {
+      const studioDoc = {
+        date: date,
+        email: email,
+        snum: snum,
+      };
+      console.log(studioDoc);
+      return await studios.insertOne(studioDoc);
+    } catch (e) {
+      console.error(`Unable to post opinion: ${e}`);
+      return { error: e };
+    }
+  }
 
-router
-  .route("/users")
-<<<<<<< HEAD
-=======
-  .get(UserCtrl.apiGetUsers)
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
-  .post(UserCtrl.apiPostUser)
-  .put(UserCtrl.apiUpdateUser)
-  .delete(UserCtrl.apiDeleteUser);
+  static async updateStudios(Snum) {
+    try {
+      const updateResponse = await studios.updateOne(
+        { Snum: Snum },
+        { $set: { email: email } }
+      );
 
-router.route("/login").get(UserCtrl.apiLoginUser);
-<<<<<<< HEAD
-router
-  .route("/podcast")
-  .get(PodcastCtrl.apiGetPodcasts)
-  .post(PodcastCtrl.apiPostPodcast)
-  .put(PodcastCtrl.apiUpdatePodcast)
-  .delete(PodcastCtrl.apiDeletePodcast);
+      return updateResponse;
+    } catch (e) {
+      console.error(`Unable to update snum: ${e}`);
+      return { error: e };
+    }
+  }
 
-router
-  .route("/opinion")
-  .get(OpinionCtrl.apiGetOpinion)
-  .post(OpinionCtrl.apiPostOpinion)
-  .put(OpinionCtrl.apiUpdateOpinion)
-  .delete(OpinionCtrl.apiDeleteOpinion);
+  static async deleteStudios(snum) {
+    try {
+      const deleteResponse = await studios.deleteOne({
+        snum: snum,
+      });
+      console.log(snum);
+      return deleteResponse;
+    } catch (e) {
+      console.error(`Unable to delete snum: ${e}`);
+      return { error: e };
+    }
+  }
+  static async getStudios({
+    filters = null,
+    page = 0,
+    studiosPerPage = 100,
+  } = {}) {
+    let query;
+    if (filters) {
+      if ("snum" in filters) {
+        query = { $text: { $search: filters["snum"] } };
+      }
 
-router
-  .route("/studio")
-  .get(StudioCtrl.apiGetStudio)
-  .post(StudioCtrl.apiPostStudio)
-  .put(StudioCtrl.apiUpdateStudio)
-  .delete(StudioCtrl.apiDeleteStudio);
-=======
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
+      let cursor;
 
-export default router;
+      try {
+        cursor = await studios.find(query);
+      } catch (e) {
+        console.error(`Unable to issue find command, ${e}`);
+        return { studiosList: [], totalNumStudios: 0 }; // si erreur
+      }
+
+      const displayCursor = cursor
+        .limit(studiosPerPage)
+        .skip(studiosPerPage * page);
+
+      try {
+        const studiosList = await displayCursor.toArray();
+
+        return { studiosList };
+      } catch (e) {
+        console.error(
+          `Unable to convert cursor to array or problem counting documents, ${e}`
+        );
+
+        return { studiosList: [], totalNumStudioss: 0 }; // si erreur
+      }
+    }
+  }
+}
