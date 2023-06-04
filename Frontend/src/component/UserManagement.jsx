@@ -24,13 +24,13 @@ export default function UserManagement() {
   return (
     <div className="background-simple">
       <div className="back-page">
-        <h1>Delete User</h1>{" "}
+        <h1>מחק משתמש</h1> <br></br>
         <input
           onChange={(e) => {
             setSn(e.target.value);
           }}
           type="text"
-          placeholder="קוד המוצר"
+          placeholder="כתובת אימייל "
         />
         <br />
         <button
@@ -40,7 +40,7 @@ export default function UserManagement() {
             nav("/manager");
           }}
         >
-          מחק מוצר
+          מחק משתמש
         </button>
       </div>
     </div>
