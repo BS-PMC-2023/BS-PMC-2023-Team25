@@ -64,6 +64,9 @@ export default function HomePage() {
             </button>
           </Link>
         </div>
+        <Link to={"/contact"}>
+          <button className="buttonHome ">צור קשר</button>
+        </Link>{" "}
       </div>
     </div>
   );

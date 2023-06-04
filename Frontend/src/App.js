@@ -24,9 +24,16 @@ import StudioLoans from "./component/StudioLoans.jsx";
 import StudioDataService from "./services/studio";
 import Review from "./component/Review";
 import ReviewDataService from "./services/reviews";
+<<<<<<< HEAD
+=======
+import LoanDataService from "./services/loans";
+
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 import Show from "./component/Show";
 import Contact from "./component/Contact";
 import UserManagement from "./component/UserManagement";
+import Products from "./component/Products";
+import ProductsUsers from "./component/ProductsUsers";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -53,7 +60,37 @@ function App() {
         console.error("Error fetching data: ", error);
       });
   };
+<<<<<<< HEAD
 
+=======
+  const retrieveOpinion = () => {
+    ReviewDataService.getAll()
+      .then((response) => {
+        setRevi(response.data.opinion);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveLoan = () => {
+    LoanDataService.getAll()
+      .then((response) => {
+        setLoan(response.data.loans);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const updateReviews = (newReview) => {
+    setRevi([...revi, newReview]);
+  };
+
+  const updateStudio = (newStudio) => {
+    setRevi([...studio, newStudio]);
+  };
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   const retrieveStudio = () => {
     StudioDataService.getAll()
       .then((response) => {
@@ -106,9 +143,14 @@ function App() {
 
   useEffect(() => {
     retrieveProducts();
+<<<<<<< HEAD
     retrieveLoan();
     retrieveOpinion();
     retrieveProducts();
+=======
+    retrieveOpinion();
+    retrieveLoan();
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   }, []);
 
   const show = () => {
@@ -137,8 +179,8 @@ function App() {
               path="/signin"
               element={<SignIn setShowMenu={setShowMenu} />}
             />
-            <Route path="/products" element={<Product prod={prod} />} />
-            <Route path="/newloan" element={<NewLoan />} />
+            <Route path="/products" element={<Products prod={prod} />} />
+            <Route path="/newloan" element={<NewLoan prod={prod} />} />
             <Route path="/myloan" element={<MyLoan />} />
             <Route path="/Podcast" element={<Podcast />} />
             <Route path="/history" element={<History />} />
@@ -149,9 +191,19 @@ function App() {
             <Route path="/student" element={<Student />} />
             <Route path="/teacher" element={<Teacher />} />
             <Route
+<<<<<<< HEAD
               path="/show"
               element={
                 <Show podcasts={podcasts} studios={studios} loanData={loan} />
+=======
+              path="/productslist"
+              element={<ProductsUsers prod={prod} />}
+            />
+            <Route
+              path="/show"
+              element={
+                <Show podcasts={podcasts} studios={studios} loan={loan} />
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
               }
             />
             <Route

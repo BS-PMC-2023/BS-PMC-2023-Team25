@@ -1,7 +1,7 @@
 import UsersDAO from "../dao/UsersDAO.js";
 
 export default class UsersController {
-   static async apiGetUsers(req, res, next) {
+  static async apiGetUsers(req, res, next) {
     const usersPerPage = req.query.usersPerPage
       ? parseInt(req.query.usersPerPage, 10)
       : 20;
@@ -9,40 +9,28 @@ export default class UsersController {
 
     let filters = {};
     if (req.query.email) {
-      filters.email = req.query.email
+      filters.email = req.query.email;
     }
-
-    const { usersList, totalNumUsers } = await UsersDAO.getUsers({
+    const { usersList } = await UsersDAO.getUsers({
       filters,
       page,
-      usersPerPage,
     });
 
     let response = {
       users: usersList,
-      page: page,
-      filters: filters,
-      entries_per_page: usersPerPage,
-      total_results: totalNumUsers,
     };
     res.json(response);
   }
-  
+
   static async apiPostUser(req, res, next) {
     try {
       const email = req.body.email;
-      const username = req.body.username;
       const password = req.body.password;
       const type = req.body.type;
 
       console.log(email);
 
-      const UsersResponse = await UsersDAO.addUser(
-        email,
-        username,
-        password,
-        type
-      );
+      const UsersResponse = await UsersDAO.addUser(email, password, type);
       console.log(UsersResponse);
 
       var { error } = UsersResponse;
@@ -80,7 +68,7 @@ export default class UsersController {
   }
   static async apiDeleteUser(req, res, next) {
     try {
-      const email = req.body.email;
+      const email = req.query.email;
       const userResponse = await UsersDAO.deleteUser(email);
       console.log(email); //MODIFIED FROM SOURCE FILES
       var { error } = userResponse;
@@ -102,12 +90,20 @@ export default class UsersController {
   }
   static async apiLoginUser(req, res, next) {
     try {
+<<<<<<< HEAD
       const email = req.query.email;
       const password = req.query.password;
       console.log(email, password);
 
       const user = await UsersDAO.login(email, password);
       console.log(user);
+=======
+      console.log("in controller");
+      const email = req.body.email;
+      const password = req.body.password;
+
+      const user = await UsersDAO.login(email, password);
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 
       if (user.error) {
         res.status(401).json({ error: user.error.message });

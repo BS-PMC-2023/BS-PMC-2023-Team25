@@ -2,9 +2,13 @@ import express from "express";
 import ProductsCtrl from "./products.controller.js";
 import ProdCtrl from "./prod.controller.js";
 import UserCtrl from "./users.controller.js";
+<<<<<<< HEAD
 import PodcastCtrl from "./podcasts.controller.js";
 import OpinionCtrl from "./opinions.controller.js";
 import StudioCtrl from "./studio.controller.js";
+=======
+
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 const router = express.Router();
 
 router.route("/products").get(ProductsCtrl.apiGetProducts); //example of route
@@ -17,11 +21,16 @@ router
 
 router
   .route("/users")
+<<<<<<< HEAD
+=======
+  .get(UserCtrl.apiGetUsers)
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   .post(UserCtrl.apiPostUser)
   .put(UserCtrl.apiUpdateUser)
   .delete(UserCtrl.apiDeleteUser);
 
 router.route("/login").get(UserCtrl.apiLoginUser);
+<<<<<<< HEAD
 router
   .route("/podcast")
   .get(PodcastCtrl.apiGetPodcasts)
@@ -42,5 +51,7 @@ router
   .post(StudioCtrl.apiPostStudio)
   .put(StudioCtrl.apiUpdateStudio)
   .delete(StudioCtrl.apiDeleteStudio);
+=======
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 
 export default router;

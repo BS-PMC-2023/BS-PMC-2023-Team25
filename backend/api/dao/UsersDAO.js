@@ -15,6 +15,42 @@ export default class UsersDAO {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
     }
   }
+<<<<<<< HEAD
+=======
+  static async getUsers({ filters = null, page = 0, usersPerPage = 100 } = {}) {
+    console.log("je suis la ");
+    let query;
+    if (filters) {
+      if ("email" in filters) {
+        query = { $text: { $search: filters["email"] } };
+      }
+
+      let cursor;
+
+      try {
+        cursor = await users.find(query);
+      } catch (e) {
+        console.error(`Unable to issue find command, ${e}`);
+        return { usersList: [], totalNumUsers: 0 }; // si erreur
+      }
+
+      const displayCursor = cursor
+        .limit(usersPerPage)
+        .skip(usersPerPage * page);
+
+      try {
+        const usersList = await displayCursor.toArray();
+
+        return { usersList };
+      } catch (e) {
+        console.error(
+          `Unable to convert cursor to array or problem counting documents, ${e}`
+        );
+        return { usersList: [], totalNumUsers: 0 }; // si erreur
+      }
+    }
+  }
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 
   static async addUser(email, username, password, type) {
     try {
@@ -58,6 +94,10 @@ export default class UsersDAO {
       return { error: e };
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   static async login(email, password) {
     try {
       const user = await users.findOne({ email: email });
