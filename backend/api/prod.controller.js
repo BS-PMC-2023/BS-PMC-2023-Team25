@@ -1,8 +1,12 @@
-import ProdsDAO from "./dao/ProdsDAO.js";
+import ProdsDAO from "../dao/ProdsDAO.js";
 
 export default class ProdController {
   static async apiPostProd(req, res, next) {
     try {
+      console.log("enter in apiPostProd");
+      console.log(req);
+
+
       const name = req.body.name;
       const type = req.body.type;
       const Snumber = req.body.Snumber;

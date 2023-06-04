@@ -1,29 +1,5 @@
 {
-  "name": "bs-pmc-2023-team25",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/BS-PMC-2023/BS-PMC-2023-Team25.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/BS-PMC-2023/BS-PMC-2023-Team25/issues"
-  },
   "dependencies": {
-    "axios": "^0.25.0",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.1",
-    "mongodb": "^4.2.2",
-    "styled-components": "^5.3.10"
+    "emailjs-com": "^3.2.0"
   }
 }

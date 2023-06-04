@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_COMPOSE_VERSION = '1.29.2'
+    }
+    stages {
+        stage('Install Dependencies') {
+            agent {
+                docker {
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                dir('Frontend') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Linting') {
+            agent {
+                docker {
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                dir('Frontend') {
+                    sh 'npm run lint'
+                }
+            }
+        }
+        
+        stage('Tests') {
+            agent {
+                docker {
+                    image 'node:16-alpine'
+                }
+            }
+            steps {
+                dir('Frontend') {
+                    sh 'npm run test'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh 'docker images -q | xargs docker rmi -f || true'
+        }
+    }
+}

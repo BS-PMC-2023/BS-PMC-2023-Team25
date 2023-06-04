@@ -1,4 +1,4 @@
-import ProductsDAO from "./dao/ProductsDAO.js";
+import ProductsDAO from "../dao/ProductsDAO.js";
 
 export default class ProductsController {
   static async apiGetProducts(req, res, next) {
@@ -9,7 +9,9 @@ export default class ProductsController {
 
     let filters = {};
     if (req.query.name) {
-      filters.name = req.query.name;
+      filters.name = req.query.name
+    }else if(req.query.Snumber){
+      filters.Snumber = req.query.Snumber
     }
 
     const { productsList } = await ProductsDAO.getProducts({
