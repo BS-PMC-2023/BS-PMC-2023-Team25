@@ -1,13 +1,40 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { act } from "react-dom/test-utils";
+import { act } from "react-dom/test-utils"; // Import the 'act' function
+import jsPDF from "jspdf";
+import img from "../images/SCE_logo.png";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import ProductDataService from "../services/products";
 
-export default function NewLoan() {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+export default function NewLoan(props) {
+  const [email, setEmail] = useState("");
   const [seqNum, setSeqNum] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [date, setDate] = useState("");
+  const [reason, setReason] = useState("");
+  const [product, setProduct] = useState(props.prod);
+  const [isChecked, setIsChecked] = useState(false); // add state for checkbox
   const nav = useNavigate();
+  console.log(props);
+  const togglePlace = (Snumber) => {
+    let place;
+    const data = { place, Snumber };
+    console.log(data);
+    ProductDataService.updateProd(data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data.value);
+          const newPlace = "false";
+          const updatedProduct = { ...product, place: newPlace };
+          setProduct(updatedProduct);
+          window.location.reload(); // rafraîchit la page
+        } else {
+          console.error("Error updating product place: ", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating product place: ", error);
+      });
+  };
 
   const handleCheckboxChange = (e) => {
     act(() => {
@@ -15,19 +42,149 @@ export default function NewLoan() {
     });
   };
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const seqNumParam = searchParams.get("Snumber");
+
+  // Utilisez la valeur de seqNumParam dans votre composant
+
+  useEffect(() => {
+    // Effectuez les actions nécessaires avec seqNumParam
+    // Par exemple, mettez à jour l'état seqNum avec seqNumParam
+    setSeqNum(seqNumParam);
+  }, [seqNumParam]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    createPdf();
+  };
+
+  //const handleFile = (event, namefile) => {
+  // handleUpload(event, namefile);
+  //};
+
+  const createPdf = () => {
+    var doc = new jsPDF("a4");
+
+    const imageWidth = 55;
+    const imageHeight = 20;
+    const imageX = doc.internal.pageSize.width / 2 - imageWidth / 2;
+    const imageY = 10;
+    doc.addImage(img, "PNG", imageX, imageY, imageWidth, imageHeight);
+
+    let y = 50;
+
+    const stateVariables = [
+      { name: "title", label: "Report Of Loan", value: seqNum },
+
+      { name: "email", label: "Student Email", value: email },
+      {
+        name: "number prod",
+        label: "Sequence Number of The product",
+        value: seqNum,
+      },
+
+      { name: "date ", label: "Date of Loan ", value: date },
+      { name: "reason", label: "Reason(s) of Loan ", value: reason },
+    ];
+
+    const lineHeight = doc.getLineHeight();
+    stateVariables.forEach((state, i) => {
+      const lines = doc.splitTextToSize(
+        `${state.label} : ${state.value}`,
+        doc.internal.pageSize.width - 20
+      );
+      if (
+        y + lines.length * doc.getLineHeight() >
+        doc.internal.pageSize.height
+      ) {
+        doc.addPage();
+        y = 10;
+      }
+
+      switch (i) {
+        case 0:
+          doc.setFont("", "bold");
+          doc.setFontSize(20);
+          doc.setTextColor("#90938C");
+          doc.text(`${state.label} : ${state.value}`, 70, y);
+          y += 10;
+          break;
+        case 1:
+          doc.setFont("", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor("black");
+
+          doc.text(`${state.label} : ${state.value}`, 10, y);
+          y += 10;
+          break;
+        case 2:
+          doc.setFont("", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor("black");
+
+          doc.text(`${state.label} : ${state.value}`, 10, y);
+          y += 10;
+          break;
+        case 3:
+          doc.setFont("", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor("black");
+
+          doc.text(`${state.label} : ${state.value}`, 10, y);
+          y += 10;
+          break;
+        case 4:
+          doc.setFont("", "bold");
+          doc.setTextColor("black");
+
+          doc.text(`${state.label} : `, 10, y);
+          y += 10;
+          doc.setFont("", "");
+          doc.setTextColor("black");
+
+          let ClaimText = `${state.value}`;
+          doc.text(`${state.value}`, 10, y, {
+            maxWidth: 100,
+          });
+          y += lineHeight + ClaimText.length / 15;
+          break;
+
+        default:
+      }
+    });
+
+    // handleFile(blob, `${nameSup}`);
+    doc.save(`loan of ${seqNum}.pdf`);
+    const pdfData = doc.output("datauristring");
+    const link = document.createElement("a");
+    link.href = pdfData;
+  };
+
   const terms =
     "המשתמש יחויב בתשלום נפרד עבור כל יום נוסף של השאלה, לפי המחיר הנקוב על ידי הלוויין. המשתמש מתחייב לטפל במוצרים בצורה המתאימה ולהחזירם במצבם המקורי. המשתמש חייב להשתמש במוצרים בהתאם להוראות היצרן והמדיניות של הלוויין. הלוויין רשאי לסרב להשאלה לפי שיקולו הפרטי. המשתמש מבטיח כי המידע שסיפק לצורך השאלת המוצרים הוא מדוייק ומעודכן.";
 
   return (
     <div className="form">
-      <div className="form-style">
+      <div className="form-style" onSubmit={handleSubmit}>
         <h1>השאלה חדשה</h1>
+        <input
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          type="email"
+          placeholder="mail@gmail.com "
+        />
+        <label htmlFor="type">: הכנס mail </label>
+        <br />
+        <br />
         <input
           onChange={(e) => {
             setSeqNum(e.target.value);
           }}
           type="text"
-          placeholder="הכנס קוד מוצר: "
+          placeholder={seqNum}
+          readOnly={true}
         />
         <label htmlFor="type">: הכנס קוד מוצר </label>
         <br />
@@ -35,7 +192,7 @@ export default function NewLoan() {
         <form data-testid="loan-form">
           <input
             onChange={(e) => {
-              setName(e.target.value);
+              setDate(e.target.value);
             }}
             type="text"
             placeholder="dd/mm/yyyy"
@@ -46,7 +203,7 @@ export default function NewLoan() {
           <br />
           <input
             onChange={(e) => {
-              setPassword(e.target.value);
+              setReason(e.target.value);
             }}
             type="text"
             placeholder="סיבת השאלה"
@@ -75,8 +232,9 @@ export default function NewLoan() {
             <button
               className="buttonHome"
               onClick={() => {
-                nav("/");
+                togglePlace(seqNum);
               }}
+              type="submit"
               disabled={!isChecked}
             >
               שלח

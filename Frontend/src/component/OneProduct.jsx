@@ -37,10 +37,31 @@ export default function OneProduct(props) {
       });
   };
 
-  const shipForRepair = () => {
-    const updatedProduct = { ...product, place: "shipped" };
-    setProduct(updatedProduct);
-    // Implement code to ship the product for repair
+  const toggleRepair = (Snumber) => {
+    const value = product.repair;
+    let repair;
+    if (value === "yes") {
+      repair = "no";
+    } else {
+      repair = "yes ";
+    }
+    const data = { repair, Snumber };
+    console.log(data);
+    ProductDataService.updateProdRepair(data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data.value);
+          const newRepair = response.data.value;
+          const updatedProduct = { ...product, place: newRepair };
+          setProduct(updatedProduct);
+          window.location.reload(); // rafraîchit la page
+        } else {
+          console.error("Error updating product place: ", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating product place: ", error);
+      });
   };
 
   const detailRow = showDetail ? (
@@ -51,11 +72,13 @@ export default function OneProduct(props) {
     </tr>
   ) : null;
 
-  const shipButton =
+  const RepairButton =
     product.place === "false" ? (
       <span>Not in Stock</span>
     ) : product.place === "true" ? (
-      <button onClick={shipForRepair}>Call For Repair</button>
+      <button onClick={() => toggleRepair(product.Snumber)}>
+        Call For Repair
+      </button>
     ) : (
       <span>In Maintenance</span>
     );
@@ -74,7 +97,7 @@ export default function OneProduct(props) {
               : "Put in storage"}
           </button>
         </td>
-        <td className="td">{shipButton}</td>
+        <td className="td">{RepairButton}</td>
       </tr>
       {detailRow}
     </>
