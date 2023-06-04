@@ -14,7 +14,7 @@ export default function UserManagement() {
         if (response.status === 200) {
           console.log("user deleted");
         } else {
-          console.error("Error updating product place: ", response.data.error);
+          console.error("Error updating product place : ", response.data.error);
         }
       })
       .catch((error) => {
@@ -30,7 +30,8 @@ export default function UserManagement() {
             setSn(e.target.value);
           }}
           type="text"
-          placeholder="קוד המוצר"
+          placeholder="אימייל
+ משתמש"
         />
         <br />
         <button
@@ -40,7 +41,7 @@ export default function UserManagement() {
             nav("/manager");
           }}
         >
-          מחק מוצר
+          מחק משתמש
         </button>
       </div>
     </div>

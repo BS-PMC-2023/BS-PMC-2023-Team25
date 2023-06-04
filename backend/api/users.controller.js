@@ -8,8 +8,8 @@ export default class UsersController {
     const page = req.query.page ? parseInt(req.query.page, 10) : 0;
 
     let filters = {};
-    if (req.query.name) {
-      filters.name = req.query.name;
+    if (req.query.email) {
+      filters.email = req.query.email;
     }
     const { usersList } = await UsersDAO.getUsers({
       filters,
@@ -25,18 +25,12 @@ export default class UsersController {
   static async apiPostUser(req, res, next) {
     try {
       const email = req.body.email;
-      const username = req.body.username;
       const password = req.body.password;
       const type = req.body.type;
 
       console.log(email);
 
-      const UsersResponse = await UsersDAO.addUser(
-        email,
-        username,
-        password,
-        type
-      );
+      const UsersResponse = await UsersDAO.addUser(email, password, type);
       console.log(UsersResponse);
 
       var { error } = UsersResponse;
@@ -94,15 +88,13 @@ export default class UsersController {
       res.json({ error: e.message }).status(500);
     }
   }
-
   static async apiLoginUser(req, res, next) {
     try {
-      const email = req.query.email;
-      const password = req.query.password;
-      console.log(email, password);
+      console.log("in controller");
+      const email = req.body.email;
+      const password = req.body.password;
 
       const user = await UsersDAO.login(email, password);
-      console.log(user);
 
       if (user.error) {
         res.status(401).json({ error: user.error.message });

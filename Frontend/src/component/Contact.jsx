@@ -3,7 +3,7 @@ import styled from "styled-components";
 import React, { useState, useRef } from "react";
 import emailjs from "emailjs-com";
 
-const Contact = () => {
+export default function Contact() {
   const form = useRef();
   const [isSent, setIsSent] = useState(false);
 
@@ -59,9 +59,7 @@ const Contact = () => {
       </div>
     </div>
   );
-};
-
-export default Contact;
+}
 
 // Styles
 const StyledContactForm = styled.div`

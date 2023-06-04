@@ -20,18 +20,31 @@ export default function SignIn(props) {
   };
   //כדי שכם יפעיל את הפונקציה שמעלה את התפריט וגם יעביר לעמוד של המשימות
   let nav = useNavigate;
-  const addUser = (email, username, password, type) => {
+  const addUser = (email, password, type) => {
     const data = {
       email,
-      username,
       password,
       type,
     };
+    if (!email.endsWith("@ac.sce.ac.il") && !email.endsWith("@sce.ac.il")) {
+      alert(
+        "Please enter a valid email address ending with @ac.sce.ac.il or @sce.ac.il"
+      );
+      return;
+    }
     const jsonData = JSON.stringify(data);
     console.log(data);
-    UserDataService.createUser(jsonData)
+    UserDataService.createUser(data)
       .then((response) => {
         if (response.status === 200) {
+          alert("you are successfuly registered");
+          if (type == "student") {
+            window.location = "#/student";
+          } else if (type == "teacher") {
+            window.location = "#/teacher";
+          } else if (type == "admin") {
+            window.location = "#/manager";
+          }
           console.log("user added");
         } else {
           console.error("Error not added user : ", response.data.error);
@@ -51,10 +64,10 @@ export default function SignIn(props) {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            type="text"
+            type="email"
             placeholder="הזן כתובת דואל"
           />{" "}
-          <label for="email"> : דואל</label>
+          <label htmlFor="email"> : דואל</label>
           <br />
           <br />
           <input
@@ -64,17 +77,17 @@ export default function SignIn(props) {
             type="text"
             placeholder="הזן שם משתמש/ת"
           />{" "}
-          <label for="username"> : שם משתמש</label>
+          <label htmlFor="username"> : שם משתמש</label>
           <br />
           <br />
           <input
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            type="text"
+            type="password"
             placeholder="הזן סיסמא"
           ></input>
-          <label for="password"> : סיסמא</label>
+          <label htmlFor="password"> : סיסמא</label>
           <br />
           <br />
           <select
@@ -87,12 +100,12 @@ export default function SignIn(props) {
             <option value="admin">admin</option>
             <option value="teacher">teacher </option>
           </select>
-          <label for="type"> : אני רוצה להירשם בתור </label>
+          <label htmlFor="type"> : אני רוצה להירשם בתור </label>
           <div>
             <button
               className="buttonHome"
               onClick={() => {
-                addUser(e, u, p, t);
+                addUser(e, p, t);
               }}
             >
               להירשם

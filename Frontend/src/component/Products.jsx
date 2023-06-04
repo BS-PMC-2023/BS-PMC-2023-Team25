@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import OneProduct from "./OneProduct";
 import Detail from "./Detail";
 
-
 export default function Products(props) {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(10);
+  const [productsPerPage, setProductsPerPage] = useState(15);
   const [totalPages, setTotalPages] = useState(1);
 
   const showDetails = () => {
@@ -21,10 +20,11 @@ export default function Products(props) {
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
+    console.log("Current Page:", pageNumber);
   };
 
+  const indexOfFirstProduct = (currentPage - 1) * productsPerPage;
   const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = props.prod.slice(
     indexOfFirstProduct,
     indexOfLastProduct
@@ -39,7 +39,7 @@ export default function Products(props) {
       />
     );
   });
-
+  console.log(props.prod);
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(
