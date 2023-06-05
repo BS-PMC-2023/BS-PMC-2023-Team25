@@ -30,10 +30,6 @@ class UsersDataService {
 
     return http.post("users/login", { email, password });
   }
-  loginUser(email, password) {
-    console.log("enter in api");
-    return http.get("/login", { params: { email, password } });
-  }
 }
 
 export default new UsersDataService();

@@ -15,8 +15,6 @@ export default class UsersDAO {
       console.error(`Unable to establish collection handles in userDAO: ${e}`);
     }
   }
-<<<<<<< HEAD
-=======
   static async getUsers({ filters = null, page = 0, usersPerPage = 100 } = {}) {
     console.log("je suis la ");
     let query;
@@ -50,7 +48,6 @@ export default class UsersDAO {
       }
     }
   }
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 
   static async addUser(email, username, password, type) {
     try {
@@ -94,10 +91,7 @@ export default class UsersDAO {
       return { error: e };
     }
   }
-<<<<<<< HEAD
-=======
 
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   static async login(email, password) {
     try {
       const user = await users.findOne({ email: email });

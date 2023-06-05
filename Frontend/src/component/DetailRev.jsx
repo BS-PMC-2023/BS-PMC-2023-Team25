@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -15,21 +14,3 @@ export default function DetailRev(props) {
     </div>
   );
 }
-=======
-import React from "react";
-import { Link } from "react-router-dom";
-
-export default function DetailRev(props) {
-  return (
-    <div>
-      <h2>
-        {props.rev.email} ({props.rev.bodyMes})
-      </h2>
-
-      <Link to={"/"}>
-        <button className="buttonHome">חזור למסך הבית</button>
-      </Link>
-    </div>
-  );
-}
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a

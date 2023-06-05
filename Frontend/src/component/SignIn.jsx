@@ -8,22 +8,6 @@ export default function SignIn(props) {
   const nav = useNavigate();
 
   const loginUser = (email, password) => {
-<<<<<<< HEAD
-    UserDataService.loginUser(email, password)
-
-      .then((response) => {
-        if (response.status === 200) {
-          console.log("logged");
-          window.location = "/products?#/products"; // redirect to products page on successful login
-        } else {
-          console.error("Error cant connect : ", response.data.error);
-          alert(`Error: Error cant connect`);
-        }
-      })
-      .catch((error) => {
-        console.error("Error cant connect: ", error);
-        alert(`Error: Error cant connect`);
-=======
     if (!email.endsWith("@ac.sce.ac.il") && !email.endsWith("@sce.ac.il")) {
       alert(
         "Please enter a valid email address ending with @ac.sce.ac.il or @sce.ac.il"
@@ -49,7 +33,6 @@ export default function SignIn(props) {
       .catch((error) => {
         console.error("Error: Unable to connect", error);
         alert("Error: Unable to connect");
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
       });
   };
 
@@ -64,12 +47,6 @@ export default function SignIn(props) {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-<<<<<<< HEAD
-            type="text"
-            placeholder="הזן כתובת דואל"
-          />{" "}
-          <label for="email"> : דואל</label>
-=======
             type="email"
             placeholder="@sce.ac.il"
           />

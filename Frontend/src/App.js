@@ -1,7 +1,6 @@
 import "./App.css";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Menu from "./component/Menu";
 import SignIn from "./component/SignIn";
 import NewLoan from "./component/NewLoan";
@@ -24,12 +23,9 @@ import StudioLoans from "./component/StudioLoans.jsx";
 import StudioDataService from "./services/studio";
 import Review from "./component/Review";
 import ReviewDataService from "./services/reviews";
-<<<<<<< HEAD
-=======
 import LoanDataService from "./services/loans";
 import NotificationCenter from "./component/NotificationCenter";
 
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
 import Show from "./component/Show";
 import Contact from "./component/Contact";
 import UserManagement from "./component/UserManagement";
@@ -62,9 +58,6 @@ function App() {
         console.error("Error fetching data: ", error);
       });
   };
-<<<<<<< HEAD
-
-=======
   const retrieveOpinion = () => {
     ReviewDataService.getAll()
       .then((response) => {
@@ -92,7 +85,6 @@ function App() {
   const updateStudio = (newStudio) => {
     setRevi([...studio, newStudio]);
   };
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   const retrieveStudio = () => {
     StudioDataService.getAll()
       .then((response) => {
@@ -113,46 +105,10 @@ function App() {
       });
   };
 
-  const retrieveOpinion = () => {
-    ReviewDataService.getAll()
-      .then((response) => {
-        setRevi(response.data.opinion);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  const retrieveLoan = () => {
-    PodcastDataService.getAll()
-      .then((response) => {
-        setLoan(response.data.podcast);
-        console.log("hihihihihi");
-        console.log(response.data.podcast);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  const updateReviews = (newReview) => {
-    setRevi([...revi, newReview]);
-  };
-
-  const updateStudio = (newStudio) => {
-    setRevi([...studio, newStudio]);
-  };
-
   useEffect(() => {
     retrieveProducts();
-<<<<<<< HEAD
-    retrieveLoan();
-    retrieveOpinion();
-    retrieveProducts();
-=======
     retrieveOpinion();
     retrieveLoan();
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   }, []);
 
   const showUser = () => {
@@ -163,27 +119,18 @@ function App() {
   };
 
   const show = () => {
+    //פונקציית הצגת התפריט
     if (showMenu) {
       return <Menu setShowMenu={setShowMenu} />;
     }
   };
-
   return (
     <div>
       <div className="App">
         <HashRouter>
           {show()}
           <Routes>
-            <Route
-              path="/manager"
-              element={
-                <Manager
-                  podcasts={podcasts}
-                  studios={studios}
-                  handleLoanRequest={handleLoanRequest}
-                />
-              }
-            />
+            <Route path="/manager" element={<Manager />} />
             <Route
               path="/signin"
               element={<SignIn setShowMenu={setShowMenu} />}
@@ -201,11 +148,6 @@ function App() {
             <Route path="/teacher" element={<Teacher />} />
             <Route path="/notificationcenter" element={<NotificationCenter />} />
             <Route
-<<<<<<< HEAD
-              path="/show"
-              element={
-                <Show podcasts={podcasts} studios={studios} loanData={loan} />
-=======
               path="/productslist"
               element={<ProductsUsers prod={prod} />}
             />
@@ -213,7 +155,6 @@ function App() {
               path="/show"
               element={
                 <Show podcasts={podcasts} studios={studios} loan={loan} />
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
               }
             />
             <Route

@@ -1,16 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-<<<<<<< HEAD
-import PodcastDataService from "../services/podcast";
-
-export default function Podcast() {
-  const [datEvent, setDateEvent] = useState("");
-  const [accMan, setAcc] = useState("false");
-  const [seqNumRoom, setSeqNumRoom] = useState("");
-  const [isChecked, setIsChecked] = useState("");
-  const [emailLoan, setEmail] = useState("");
-=======
 import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
 import UserMenu from "./UserMenu";
@@ -31,10 +21,6 @@ export default function Podcast() {
     event.preventDefault();
     createPdf();
   };
-
-  //const handleFile = (event, namefile) => {
-  // handleUpload(event, namefile);
-  //};
 
   const createPdf = () => {
     var doc = new jsPDF("a4");
@@ -132,7 +118,6 @@ export default function Podcast() {
     const link = document.createElement("a");
     link.href = pdfData;
   };
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   const terms =
     " Podcast room users must be registered and make reservations in advance using the online system. The room can only be used during facility operating hours. Users are responsible for leaving the room in the same condition as they found it. Food and drink are not allowed in the room. Users must vacate the room immediately after their reservation ends. The facility reserves the right to cancel any reservation for any reason without prior notice. Users must comply with any additional rules or instructions provided by facility staff. Failure to comply with these rules may result in the suspension or termination of membership privileges.";
   return (
