@@ -9,6 +9,8 @@ import MyLoan from "./component/MyLoan";
 import History from "./component/History";
 import DeletePost from "./component/DeletePost.jsx";
 import Manager from "./component/Manager";
+import Repairs from "./component/Repairs";
+
 import HomePage from "./component/HomePage.jsx";
 import NewProd from "./component/NewProd";
 import Register from "./component/Register.jsx";
@@ -24,6 +26,8 @@ import StudioDataService from "./services/studio";
 import Review from "./component/Review";
 import ReviewDataService from "./services/reviews";
 import LoanDataService from "./services/loans";
+import RepairDataService from "./services/repairs";
+
 import NotificationCenter from "./component/NotificationCenter";
 
 import Show from "./component/Show";
@@ -42,6 +46,8 @@ function App() {
   const [podcasts, setPodcasts] = useState([]);
   const [studios, setStudios] = useState([]);
   const [loanData, setLoanData] = useState([]);
+  const [repair, setRepairData] = useState([]);
+
   const [showLoanData, setShowLoanData] = useState(false);
   //const navigate = useNavigate();
   const handleLoanRequest = () => {
@@ -77,7 +83,17 @@ function App() {
         console.log(e);
       });
   };
+  const retrieveRepair = () => {
+    RepairDataService.getAll()
 
+      .then((response) => {
+        setRepairData(response.data.repairs);
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   const updateReviews = (newReview) => {
     setRevi([...revi, newReview]);
   };
@@ -109,6 +125,7 @@ function App() {
     retrieveProducts();
     retrieveOpinion();
     retrieveLoan();
+    retrieveRepair();
   }, []);
 
   const showUser = () => {
@@ -137,6 +154,8 @@ function App() {
             />
             <Route path="/products" element={<Products prod={prod} />} />
             <Route path="/newloan" element={<NewLoan prod={prod} />} />
+            <Route path="/repairs" element={<Repairs repair={repair} />} />
+
             <Route path="/myloan" element={<MyLoan />} />
             <Route path="/Podcast" element={<Podcast />} />
             <Route path="/history" element={<History />} />

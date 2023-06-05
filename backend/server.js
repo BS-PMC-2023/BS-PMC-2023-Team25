@@ -3,6 +3,8 @@ import cors from "cors";
 import productsRoutes from "./routes/products.routes.js";
 import bodyParser from "body-parser";
 import usersRoutes from "./routes/users.routes.js";
+import repairsRoutes from "./routes/repairs.routes.js";
+
 import loansRoutes from "./routes/loans.routes.js";
 import managerRoutes from "./routes/manager.routes.js";
 import opinionsRoutes from "./routes/opinions.routes.js";
@@ -28,6 +30,7 @@ app.use("/reviews", opinionsRoutes);
 app.use("/podcasts", podcastsRoutes);
 
 app.use("/studios", studioRoutes);
+app.use("/repairs", repairsRoutes);
 
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
 

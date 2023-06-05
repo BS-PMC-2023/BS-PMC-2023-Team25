@@ -67,7 +67,7 @@ export default class ProdController {
       const repair = req.body.repair;
       console.log(Snumber);
       console.log(repair);
-      console.log(`apiUpdateProd fonction - req: ${req}`);
+      console.log(`apiUpdateProdRepair fonction - req: ${req}`);
 
       const prodResponse = await ProdsDAO.updateProdRepair(repair, Snumber);
       console.log(prodResponse);
