@@ -24,6 +24,7 @@ import StudioDataService from "./services/studio";
 import Review from "./component/Review";
 import ReviewDataService from "./services/reviews";
 import LoanDataService from "./services/loans";
+import NotificationCenter from "./component/NotificationCenter";
 
 import Show from "./component/Show";
 import Contact from "./component/Contact";
@@ -33,6 +34,7 @@ import ProductsUsers from "./component/ProductsUsers";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
+  const [UserMenu, setShowUserMenu] = useState(false);
   const [prod, setProduct] = useState([]);
   const [loan, setLoan] = useState([]);
   const [revi, setRevi] = useState([]);
@@ -109,6 +111,13 @@ function App() {
     retrieveLoan();
   }, []);
 
+  const showUser = () => {
+    //פונקציית הצגת התפריט
+    if (showMenu) {
+      return <UserMenu setShowUserMenu={setShowUserMenu} />;
+    }
+  };
+
   const show = () => {
     //פונקציית הצגת התפריט
     if (showMenu) {
@@ -137,6 +146,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/student" element={<Student />} />
             <Route path="/teacher" element={<Teacher />} />
+            <Route path="/notificationcenter" element={<NotificationCenter />} />
             <Route
               path="/productslist"
               element={<ProductsUsers prod={prod} />}

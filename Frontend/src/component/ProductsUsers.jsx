@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OneProductUser from "./OneProductUser";
 import Detail from "./Detail";
+import UserMenu from "./UserMenu";
 
 export default function Products(props) {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -53,6 +54,7 @@ export default function Products(props) {
 
   return (
     <div>
+      <UserMenu />
       <div className="background-simple">
         <h1
           style={{
@@ -60,7 +62,7 @@ export default function Products(props) {
             color: "white",
           }}
         >
-          רשימת מוצרים
+          Products
         </h1>
         <h3
           style={{
@@ -68,15 +70,17 @@ export default function Products(props) {
             color: "white",
           }}
         >
-          לחץ על מוצר כדי להשאיל אותו{" "}
+          Click On A Product To Loan It{" "}
         </h3>
-        <table className="table">
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
           <thead>
             <tr>
               <th className="th">Name of product :</th>
               <th className="th">Type :</th>
               <th className="th">Serial Number :</th>
-              <th className="th">Is the product in place :</th>
+              <th className="th">Is The product in place :</th>
               <th className="th">Repairs :</th>
             </tr>
           </thead>

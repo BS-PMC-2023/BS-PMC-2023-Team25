@@ -85,7 +85,11 @@ export default function OneProduct(props) {
 
   return (
     <>
-      <tr className="tr" onClick={toggleDetail}>
+      <tr
+        className="tr"
+        style={{ backgroundColor: "white" }}
+        onClick={toggleDetail}
+      >
         <td className="td">{product.name}</td>
         <td className="td">{product.type}</td>
         <td className="td">{product.Snumber}</td>

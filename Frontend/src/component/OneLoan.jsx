@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DetailLoan from "./DetailLoan";
 import LoanDataService from "../services/loans";
+import Menu from "./Menu";
 
 export default function OneLoan(props) {
   const [loan, setLoan] = useState(props.loan);
@@ -54,7 +55,7 @@ export default function OneLoan(props) {
         <td className="td">
           {loan.acc}{" "}
           <button onClick={() => togglePlace(loan.Snumber)}>
-            {loan.acc === "true" ? "דחה בקשה " : "אשר השאלה "}
+            {loan.acc === "true" ? "Decline Loan" : "Accept Loan "}
           </button>
         </td>
       </tr>

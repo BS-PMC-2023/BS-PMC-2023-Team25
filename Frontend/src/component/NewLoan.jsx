@@ -5,6 +5,7 @@ import img from "../images/SCE_logo.png";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ProductDataService from "../services/products";
+import UserMenu from "./UserMenu";
 
 export default function NewLoan(props) {
   const [email, setEmail] = useState("");
@@ -162,34 +163,41 @@ export default function NewLoan(props) {
   };
 
   const terms =
-    "המשתמש יחויב בתשלום נפרד עבור כל יום נוסף של השאלה, לפי המחיר הנקוב על ידי הלוויין. המשתמש מתחייב לטפל במוצרים בצורה המתאימה ולהחזירם במצבם המקורי. המשתמש חייב להשתמש במוצרים בהתאם להוראות היצרן והמדיניות של הלוויין. הלוויין רשאי לסרב להשאלה לפי שיקולו הפרטי. המשתמש מבטיח כי המידע שסיפק לצורך השאלת המוצרים הוא מדוייק ומעודכן.";
+    "The Product Loan Policy outlines the terms and conditions for borrowing products from the satellite. Users are responsible for all fees incurred, including late fees, damage fees, and shipping fees. Users agree to handle the products in a careful and responsible manner and to return them in their original condition, with all parts and accessories included. Users are responsible for any damage to the products, including but not limited to accidental damage, water damage, and theft. Users agree to use the products in accordance with the manufacturer's instructions and the satellite's policy. Users agree not to use the products for any illegal or unauthorized purpose. The satellite may refuse to loan products to any user at its own discretion. The satellite may also terminate a loan at any time, for any reason. Users are responsible for providing accurate and up-to-date information when borrowing products. If you have any questions about this policy.";
 
   return (
-    <div className="form">
-      <div className="form-style" onSubmit={handleSubmit}>
-        <h1>השאלה חדשה</h1>
-        <input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          type="email"
-          placeholder="mail@gmail.com "
-        />
-        <label htmlFor="type">: הכנס mail </label>
-        <br />
-        <br />
-        <input
-          onChange={(e) => {
-            setSeqNum(e.target.value);
-          }}
-          type="text"
-          placeholder={seqNum}
-          readOnly={true}
-        />
-        <label htmlFor="type">: הכנס קוד מוצר </label>
-        <br />
-        <br />
-        <form data-testid="loan-form">
+    <div>
+      <header>
+        <UserMenu />
+      </header>
+      <div className="form">
+        <div className="form-style" onSubmit={handleSubmit}>
+          <h1>New Loan </h1>
+          <label htmlFor="email">Email:</label>
+          <br />
+          <input
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            type="email"
+            placeholder="mail@gmail.com "
+          />
+          <br />
+          <br />
+          <label htmlFor="seqNum">Serial Number:</label>
+          <br />
+          <input
+            onChange={(e) => {
+              setSeqNum(e.target.value);
+            }}
+            type="text"
+            placeholder={seqNum}
+            readOnly={true}
+          />
+          <br />
+          <br />
+          <label htmlFor="date">Return Date:</label>
+          <br />
           <input
             onChange={(e) => {
               setDate(e.target.value);
@@ -197,19 +205,27 @@ export default function NewLoan(props) {
             type="text"
             placeholder="dd/mm/yyyy"
           />
-          <label htmlFor="type">: תאריך החזרה </label>
-
           <br />
+          <br />
+          <label htmlFor="reason">Reason For Loan:</label>
           <br />
           <input
             onChange={(e) => {
               setReason(e.target.value);
             }}
             type="text"
-            placeholder="סיבת השאלה"
+            placeholder="Enter Reason"
           />
-          <label htmlFor="type">: סיבת השאלה </label>
-
+          <br />
+          <br />
+          <label>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            I Accept the terms of use
+          </label>
           <br />
           <br />
           <textarea
@@ -219,28 +235,17 @@ export default function NewLoan(props) {
           ></textarea>
           <br />
           <br />
-          <label>
-            <input
-              type="checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-            />
-            אני מאשר/ת את תנאי השימוש
-          </label>
-
-          <div>
-            <button
-              className="buttonHome"
-              onClick={() => {
-                togglePlace(seqNum);
-              }}
-              type="submit"
-              disabled={!isChecked}
-            >
-              שלח
-            </button>
-          </div>
-        </form>
+          <button
+            className="buttonHome"
+            onClick={() => {
+              togglePlace(seqNum);
+            }}
+            type="submit"
+            disabled={!isChecked}
+          >
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   );

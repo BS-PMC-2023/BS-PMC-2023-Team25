@@ -6,57 +6,34 @@ export default function HomePage() {
   return (
     <div>
       <header>
-        <div className={"App-header-left"}>
-          <img style={{ width: 90 }} src={sce} />
+        <div className="App-header-left">
+          <img style={{ width: 90 }} src={sce} alt="SCE Logo" />
         </div>
-        <div className={"App-header-right"}> </div>
       </header>
       <div className="background-simple">
-        <h1
-          style={{
-            textAlign: "center",
-            color: "white",
-          }}
-        >
-          ברוך הבא
-        </h1>
-        <h2
-          style={{
-            textAlign: "center",
-            color: "white",
-          }}
-        >
-          {" "}
-          לניהול אחסון מקוון של המחלקה תקשורת חזותית{" "}
+        <h1 style={{ textAlign: "center", color: "white" }}>Welcome</h1>
+        <h2 style={{ textAlign: "center", color: "white" }}>
+          To Online storage management of the visual communication department
         </h2>
-        <div>
-          <p className="back-text">
-            ברוכים הבאים לעמוד הבית של מחלקת תקשורת חזותית! אנו שמחים להציג את
-            שירות הזמנת הציוד שלנו לתלמידים ולמורים. המחלקה לתקשורת חזותית שלנו
-            מציעה מגוון ציוד שיעזור לתלמידים ולמורים לבצע את הפרויקטים היצירתיים
-            שלהם. מבחר כלי הייצור שלנו כולל מצלמות, מצלמות, מקליט אודיו, אורות
-            ועוד. אנו מחויבים לספק ציוד איכותי ביותר כדי לעזור לסטודנטים ולסגל
-            שלנו להצליח אנו מצפים לעזור לך לממש את הפרויקטים היצירתיים שלך. אם
-            יש לך שאלות או חששות, אנא אל תהסס לפנות אלינו. תודה שבחרת במחלקה
-            לתקשורת חזותית
-          </p>{" "}
+        <p className="back-text">
+          Welcome to the Visual Communication Department's homepage! Discover
+          our equipment ordering service for students and teachers. From cameras
+          to lights, our department offers a range of high-quality production
+          tools to support your creative projects. We're dedicated to helping
+          you succeed, so please reach out if you have any questions. Thank you
+          for choosing us!
+        </p>
+        <div className="button-group">
           <Link to={"/signin"}>
-            <button
-              className="buttonHome "
-              style={{
-                marginRight: "50px",
-              }}
-            >
-              להתחבר
-            </button>
+            <button className="buttonHome">Sign in</button>
           </Link>
           <Link to={"/register"}>
-            <button className="buttonHome ">להירשם</button>
-          </Link>{" "}
+            <button className="buttonHome">Sign up</button>
+          </Link>
+          <Link to={"/contact"}>
+            <button className="buttonHome">Contact Us</button>
+          </Link>
         </div>
-        <Link to={"/contact"}>
-          <button className="buttonHome ">צור קשר</button>
-        </Link>{" "}
       </div>
     </div>
   );

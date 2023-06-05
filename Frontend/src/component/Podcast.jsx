@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
+import UserMenu from "./UserMenu";
 
 export default function Podcast() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ export default function Podcast() {
   const [reason, setReason] = useState("");
   const [snum, setSNum] = useState("");
 
-  const [isChecked, setIsChecked] = useState(false); // add state for checkbox
+  const [isChecked, setIsChecked] = useState(false);
   const nav = useNavigate();
 
   const handleCheckboxChange = (e) => {
@@ -20,10 +21,6 @@ export default function Podcast() {
     event.preventDefault();
     createPdf();
   };
-
-  //const handleFile = (event, namefile) => {
-  // handleUpload(event, namefile);
-  //};
 
   const createPdf = () => {
     var doc = new jsPDF("a4");
@@ -116,89 +113,95 @@ export default function Podcast() {
       }
     });
 
-    // handleFile(blob, `${nameSup}`);
     doc.save(`loan of ${snum}.pdf`);
     const pdfData = doc.output("datauristring");
     const link = document.createElement("a");
     link.href = pdfData;
   };
   const terms =
-    "חדר הפודקאסט זמין לשימוש משתמשים רשומים בלבד. על המשתמש להזמין את חדר הפודקאסט מראש באמצעות מערכת ההזמנות המקוונת. ניתן להשתמש בחדר הפודקאסטים רק בשעות הפעילות של המתקן. משתמשים חייבים לעזוב את חדר הפודקאסט באותו מצב שבו הוא נמצא. כל נזק שייגרם לחדר הפודקאסט או לציוד שלו יהיה באחריות המשתמש שהזמין את החדר. אסור להכניס אוכל ושתייה לחדר הפודקאסט. יש לפנות את חדר הפודקאסטים מיד בתום מועד ההזמנה כדי לאפשר את השימוש של המשתמש הבא. המתקן שומר לעצמו את הזכות לבטל כל הזמנה מכל סיבה שהיא ללא הודעה מוקדמת. על המשתמשים לציית לכל כלל או הנחיות נוספים שיספקו צוות המתקן לגבי השימוש בחדר הפודקאסט. אי עמידה בתנאים אלה עלול לגרום להשעיה או להפסקת הרשאות החברות..";
+    " Podcast room users must be registered and make reservations in advance using the online system. The room can only be used during facility operating hours. Users are responsible for leaving the room in the same condition as they found it. Food and drink are not allowed in the room. Users must vacate the room immediately after their reservation ends. The facility reserves the right to cancel any reservation for any reason without prior notice. Users must comply with any additional rules or instructions provided by facility staff. Failure to comply with these rules may result in the suspension or termination of membership privileges.";
   return (
-    <div className="form">
-      <div className="form-style" onSubmit={handleSubmit}>
-        <h1>בקשה חדשה להזמנת חדר פודקאסט</h1>
-        <input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          type="email"
-          placeholder="mail@gmail.com "
-        />
-        <label htmlFor="type">: הכנס mail </label>
-        <br />
-        <br />
-
-        <input
-          onChange={(e) => {
-            setSNum(e.target.value);
-          }}
-          type="text"
-          placeholder="מספר חדר "
-        />
-        <label htmlFor="type">: הכנס מספר חדר</label>
-        <br />
-        <br />
-        <form>
-          <input
-            onChange={(e) => {
-              setDate(e.target.value);
-            }}
-            type="text"
-            placeholder="dd/mm/yyyy"
-          />
-          <label htmlFor="type">: תאריך בקשה </label>
-
+    <div>
+      <header>
+        <UserMenu />
+      </header>
+      <div className="form">
+        <div className="form-style" onSubmit={handleSubmit}>
+          <h1>New Request For Podcast Room</h1>
           <br />
+          <label htmlFor="email">Email:</label>
           <br />
           <input
             onChange={(e) => {
-              setReason(e.target.value);
+              setEmail(e.target.value);
+            }}
+            type="email"
+            placeholder="mail@gmail.com "
+          />
+          <br />
+          <br />
+          <label htmlFor="snum">Room Number:</label>
+          <br />
+          <input
+            onChange={(e) => {
+              setSNum(e.target.value);
             }}
             type="text"
-            placeholder="סיבת בקשה"
+            placeholder="Room Number"
           />
-          <label htmlFor="type">: סיבת בקשה </label>
-
           <br />
           <br />
-          <textarea
-            value={terms}
-            readOnly={true}
-            style={{ width: "100%", height: "80px" }}
-          ></textarea>
-          <br />
-          <br />
-          <label>
+          <form>
+            <label htmlFor="date">Date:</label>
+            <br />
             <input
-              type="checkbox"
-              checked={isChecked}
-              onChange={handleCheckboxChange}
+              onChange={(e) => {
+                setDate(e.target.value);
+              }}
+              type="text"
+              placeholder="dd/mm/yyyy"
             />
-            אני מאשר/ת את תנאי השימוש
-          </label>
+            <br />
+            <br />
+            <label htmlFor="reason">Reason For Loan:</label>
+            <br />
+            <input
+              onChange={(e) => {
+                setReason(e.target.value);
+              }}
+              type="text"
+              placeholder=" Reason"
+            />
+            <br />
+            <br />
+            <textarea
+              value={terms}
+              readOnly={true}
+              style={{ width: "100%", height: "80px" }}
+            ></textarea>
+            <br />
+            <br />
+            <label>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={handleCheckboxChange}
+              />
+              I Accept the terms of use
+            </label>
 
-          <div>
-            <button
-              className="buttonHome"
-              onClick={() => {}}
-              type="submit"
-              disabled={!isChecked}
-            >
-              שלח
-            </button>
-          </div>
-        </form>
+            <div>
+              <button
+                className="buttonHome"
+                onClick={() => {}}
+                type="submit"
+                disabled={!isChecked}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

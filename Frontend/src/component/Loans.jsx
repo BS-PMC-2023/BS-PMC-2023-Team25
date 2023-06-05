@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OneLoan from "./OneLoan";
 import DetailLoan from "./DetailLoan";
-import Menu from "./Menu";
+import UserMenu from "./UserMenu";
 
 export default function Loans(props) {
   const [selectedloan, setSelectedLoan] = useState(null);
@@ -52,7 +52,7 @@ export default function Loans(props) {
   return (
     <div>
       <header>
-        <Menu />
+        <UserMenu />
       </header>
       <div className="background-simple">
         <h1
@@ -61,7 +61,7 @@ export default function Loans(props) {
             color: "white",
           }}
         >
-          רשימת מוצרים
+          Product List
         </h1>
         <h3
           style={{
@@ -69,15 +69,17 @@ export default function Loans(props) {
             color: "white",
           }}
         >
-          לחץ על מוצר כדי לאשר להשאיל אותו{" "}
+          Click on a product to accept the loan{" "}
         </h3>
-        <table className="table">
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
           <thead>
             <tr>
-              <th className="th">מספר סיריאלי:</th>
-              <th className="th">תאריך</th>
-              <th className="th">מייל</th>
-              <th className="th">accepted demand :</th>
+              <th className="th">Serial Number</th>
+              <th className="th">Date</th>
+              <th className="th">Email</th>
+              <th className="th">Accepted Demand :</th>
             </tr>
           </thead>
           <tbody>{renderLoan}</tbody>

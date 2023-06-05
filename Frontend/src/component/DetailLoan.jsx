@@ -8,7 +8,7 @@ export default function DetailLoan(props) {
         {props.loan.Snumber} ({props.loan.type})
       </h2>
       <p>Serial Number: {props.loan.Snumber}</p>
-      <p>אשר/דחה: {props.loan.acc}</p>
+      <p>Confirm/Reject: {props.loan.acc}</p>
       {/* <Link to={"/newloan"}>
         <button className="buttonHome">השאלה</button>
       </Link> */}
