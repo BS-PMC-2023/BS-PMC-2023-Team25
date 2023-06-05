@@ -20,9 +20,6 @@ export default function UserMenu(props) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Link to={"/products"} className="nav-link">
-            Products
-          </Link>
           <NavDropdown title="Loans" id="basic-nav-dropdown">
             <Link to={"/newloan"} className="dropdown-item">
               New Loan
@@ -43,7 +40,7 @@ export default function UserMenu(props) {
           <Link to={"/contact"} className="nav-link">
             Contact Us
           </Link>
-          <Link to={"/"} className="nav-link" onClick={handleLogout}>
+          <Link to={"/"} className="nav-link">
             Logout
           </Link>
         </Nav>
