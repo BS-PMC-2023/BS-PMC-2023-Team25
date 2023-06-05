@@ -26,12 +26,19 @@ export default class StudioController {
   static async apiPostStudio(req, res, next) {
     try {
       const date = req.body.date;
+      const dateRet = req.body.dateRet;
+
       const email = req.body.email;
       const Snum = req.body.Snum;
 
       console.log(Snum);
 
-      const StudioResponse = await StudioDAO.addStudios(date, email, Snum);
+      const StudioResponse = await StudioDAO.addStudios(
+        date,
+        dateRet,
+        email,
+        Snum
+      );
       console.log(StudioResponse);
 
       var { error } = StudioResponse;

@@ -32,21 +32,20 @@ export default class LoansController {
     try {
       console.log("enter in apiPostLoan");
       console.log(req);
-      const email = req.body.email;
-
-      const name = req.body.name;
       const type = req.body.type;
       const Snumber = req.body.Snumber;
+      const date = req.body.date;
+      const dateRet = req.body.dateRet;
       const acc = req.body.acc;
-
-      console.log(name);
+      const email = req.body.email;
 
       const LoanResponse = await LoansDAO.addLoan(
-        email,
-        name,
         type,
         Snumber,
-        acc
+        date,
+        dateRet,
+        acc,
+        email
       );
       console.log(LoanResponse);
 
