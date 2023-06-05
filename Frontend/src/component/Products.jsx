@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OneProduct from "./OneProduct";
 import Detail from "./Detail";
-import UserMenu from "./UserMenu";
+import Menu from "./Menu";
 import studentImage from "../images/productsImage.png"; // Update the import path
 
 export default function Products(props) {
@@ -55,7 +55,7 @@ export default function Products(props) {
 
   return (
     <div>
-      <UserMenu />
+      <Menu />
       <div className="background-simple">
         <div
           style={{

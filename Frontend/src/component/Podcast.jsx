@@ -1,15 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
 import UserMenu from "./UserMenu";
+import { useLocation } from "react-router-dom";
 
 export default function Podcast() {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
   const [reason, setReason] = useState("");
   const [snum, setSNum] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailParam = searchParams.get("email");
 
   const [isChecked, setIsChecked] = useState(false);
   const nav = useNavigate();
@@ -21,6 +25,9 @@ export default function Podcast() {
     event.preventDefault();
     createPdf();
   };
+  useEffect(() => {
+    setEmail(emailParam);
+  }, []);
 
   const createPdf = () => {
     var doc = new jsPDF("a4");
@@ -136,7 +143,8 @@ export default function Podcast() {
               setEmail(e.target.value);
             }}
             type="email"
-            placeholder="mail@gmail.com "
+            placeholder={email}
+            readOnly={true}
           />
           <br />
           <br />

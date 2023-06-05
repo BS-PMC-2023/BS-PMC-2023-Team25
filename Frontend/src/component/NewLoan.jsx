@@ -16,6 +16,7 @@ export default function NewLoan(props) {
   const [isChecked, setIsChecked] = useState(false); // add state for checkbox
   const nav = useNavigate();
   console.log(props);
+
   const togglePlace = (Snumber) => {
     let place;
     const data = { place, Snumber };
@@ -46,6 +47,7 @@ export default function NewLoan(props) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const seqNumParam = searchParams.get("Snumber");
+  const emailParam = searchParams.get("email");
 
   // Utilisez la valeur de seqNumParam dans votre composant
 
@@ -53,6 +55,7 @@ export default function NewLoan(props) {
     // Effectuez les actions nécessaires avec seqNumParam
     // Par exemple, mettez à jour l'état seqNum avec seqNumParam
     setSeqNum(seqNumParam);
+    setEmail(emailParam);
   }, [seqNumParam]);
 
   const handleSubmit = (event) => {
@@ -180,7 +183,8 @@ export default function NewLoan(props) {
               setEmail(e.target.value);
             }}
             type="email"
-            placeholder="mail@gmail.com "
+            placeholder={email}
+            readOnly={true}
           />
           <br />
           <br />
