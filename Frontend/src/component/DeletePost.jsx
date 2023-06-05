@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Menu from "./Menu";
 
 import ProductDataService from "../services/products";
 
@@ -23,14 +24,15 @@ export default function DeletePost() {
   };
   return (
     <div className="background-simple">
+      <Menu />
       <div className="back-page">
-        <h1>Delete a Product</h1>{" "}
+        <h1>Delete Post</h1>{" "}
         <input
           onChange={(e) => {
             setSn(e.target.value);
           }}
           type="text"
-          placeholder="קוד המוצר"
+          placeholder="Serial Number"
         />
         <br />
         <button
@@ -40,7 +42,7 @@ export default function DeletePost() {
             nav("/products");
           }}
         >
-          מחק מוצר
+          Delete Post
         </button>
       </div>
     </div>

@@ -5,7 +5,7 @@ import UserDataService from "../services/users";
 export default function SignIn(props) {
   const [e, setEmail] = useState("");
   const [pass, setPassword] = useState("");
-  const nav = useNavigate(); //כדי שכם יפעיל את הפונקציה שמעלה את התפריט וגם יעביר לעמוד של המשימות
+  const nav = useNavigate();
 
   const loginUser = (email, password) => {
 <<<<<<< HEAD
@@ -34,11 +34,11 @@ export default function SignIn(props) {
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data.type);
-          if (response.data.type == "student") {
+          if (response.data.type === "student") {
             window.location = "#/student";
-          } else if (response.data.type == "teacher") {
+          } else if (response.data.type === "teacher") {
             window.location = "#/teacher";
-          } else if (response.data.type == "admin") {
+          } else if (response.data.type === "admin") {
             window.location = "#/manager";
           }
         } else {
@@ -56,9 +56,10 @@ export default function SignIn(props) {
   return (
     <div className="form">
       <div className="form-style">
-        <h1>עמוד התחברות</h1>
+        <h1>Sign in</h1>
         <form>
-          {" "}
+          <label htmlFor="email">Email:</label>
+          <br />
           <input
             onChange={(e) => {
               setEmail(e.target.value);
@@ -70,24 +71,19 @@ export default function SignIn(props) {
           <label for="email"> : דואל</label>
 =======
             type="email"
-            placeholder="הזן כתובת דואל"
-          />{" "}
-          <label htmlFor="email"> : דואל</label>
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
+            placeholder="@sce.ac.il"
+          />
           <br />
+          <br />
+          <label htmlFor="password">Password:</label>
           <br />
           <input
             onChange={(e) => {
               setPassword(e.target.value);
             }}
             type="password"
-            placeholder="הזן סיסמה"
-          />{" "}
-<<<<<<< HEAD
-          <label for="password"> :סיסמה </label>
-=======
-          <label htmlFor="password"> :סיסמה </label>
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
+            placeholder="Enter Password"
+          />
           <br />
           <br />
           <div>
@@ -97,7 +93,7 @@ export default function SignIn(props) {
                 loginUser(e, pass);
               }}
             >
-              להתחבר
+              Login
             </button>
           </div>
         </form>

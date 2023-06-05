@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import sce from "../images/SCE_logo.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function Menu(props) {
+export default function UserMenu(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLogout = () => {
@@ -37,17 +37,9 @@ export default function Menu(props) {
           <Link to={"/podcast"} className="nav-link">
             Podcast Room
           </Link>
-          <NavDropdown title="User Types" id="basic-nav-dropdown">
-            <Link to={"/manager"} className="dropdown-item">
-              Manager
-            </Link>
-            <Link to={"/student"} className="dropdown-item">
-              Student
-            </Link>
-            <Link to={"/teacher"} className="dropdown-item">
-              Teacher
-            </Link>
-          </NavDropdown>
+          <Link to={"/student"} className="nav-link">
+            Student
+          </Link>
           <Link to={"/contact"} className="nav-link">
             Contact Us
           </Link>

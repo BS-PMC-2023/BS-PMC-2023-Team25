@@ -8,14 +8,18 @@ export default function Detail(props) {
 
   return (
     <div>
-      <h2>
+      <h2 style={{ color: "black" }}>
         {name} ({type})
       </h2>
-      <p>Serial Number: {Snumber}</p>
-      <p>Is The Product in Storage: {props.product.place}</p>
+      <p style={{ color: "black" }}>Serial Number: {Snumber}</p>
+      <p style={{ color: "black" }}>
+        Is The Product in Storage: {props.product.place}
+      </p>
       {props.product.place === "true" && props.product.repair !== "yes" && (
         <Link to={loanLink}>
-          <button className="buttonHome">השאלה</button>
+          <button className="buttonHome" style={{ color: "white" }}>
+            השאלה
+          </button>
         </Link>
       )}
     </div>

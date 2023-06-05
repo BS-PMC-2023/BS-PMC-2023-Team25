@@ -10,97 +10,107 @@ export default function SignIn(props) {
 
   const NavPage = (t) => {
     const type = t;
-    if (type == "student") {
+    if (type === "student") {
       return "/student";
-    } else if (type == "teacher") {
+    } else if (type === "teacher") {
       return "/teacher";
-    } else if (type == "manager") {
+    } else if (type === "manager") {
       return "/manager";
     }
   };
-  //כדי שכם יפעיל את הפונקציה שמעלה את התפריט וגם יעביר לעמוד של המשימות
+
   let nav = useNavigate;
+
   const addUser = (email, password, type) => {
     const data = {
       email,
       password,
       type,
     };
+
     if (!email.endsWith("@ac.sce.ac.il") && !email.endsWith("@sce.ac.il")) {
       alert(
         "Please enter a valid email address ending with @ac.sce.ac.il or @sce.ac.il"
       );
       return;
     }
+
     const jsonData = JSON.stringify(data);
     console.log(data);
+
     UserDataService.createUser(data)
       .then((response) => {
         if (response.status === 200) {
-          alert("you are successfuly registered");
-          if (type == "student") {
+          alert("You are successfully registered");
+          if (type === "student") {
             window.location = "#/student";
-          } else if (type == "teacher") {
+          } else if (type === "teacher") {
             window.location = "#/teacher";
-          } else if (type == "admin") {
+          } else if (type === "admin") {
             window.location = "#/manager";
           }
-          console.log("user added");
+          console.log("User added");
         } else {
-          console.error("Error not added user : ", response.data.error);
+          console.error("Error not added user: ", response.data.error);
         }
       })
       .catch((error) => {
         console.error("Error updating product place: ", error);
       });
   };
+
   return (
     <div className="form">
       <div className="form-style">
-        <h1>עמוד הרשמה</h1>
+        <h1>Sign Up</h1>
         <form>
-          {" "}
+          <label htmlFor="email">Email:</label>
+          <br />
           <input
             onChange={(e) => {
               setEmail(e.target.value);
             }}
             type="email"
-            placeholder="הזן כתובת דואל"
-          />{" "}
-          <label htmlFor="email"> : דואל</label>
+            placeholder="@sce.ac.il"
+          />
           <br />
+          <br />
+          <label htmlFor="username">User Name:</label>
           <br />
           <input
             onChange={(e) => {
               setUserName(e.target.value);
             }}
             type="text"
-            placeholder="הזן שם משתמש/ת"
-          />{" "}
-          <label htmlFor="username"> : שם משתמש</label>
+            placeholder="Enter User Name"
+          />
           <br />
+          <br />
+          <label htmlFor="password">Password:</label>
           <br />
           <input
             onChange={(e) => {
               setPassword(e.target.value);
             }}
             type="password"
-            placeholder="הזן סיסמא"
-          ></input>
-          <label htmlFor="password"> : סיסמא</label>
+            placeholder="Enter Password"
+          />
           <br />
+          <br />
+          <label htmlFor="type">I want to sign up as:</label>
           <br />
           <select
             onChange={(e) => {
               setType(e.target.value);
             }}
           >
-            <option value="please choose">please choose</option>
-            <option value="student">student</option>
-            <option value="admin">admin</option>
-            <option value="teacher">teacher </option>
+            <option value="please choose">Please Choose</option>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+            <option value="teacher">Teacher</option>
           </select>
-          <label htmlFor="type"> : אני רוצה להירשם בתור </label>
+          <br />
+          <br />
           <div>
             <button
               className="buttonHome"
@@ -108,7 +118,7 @@ export default function SignIn(props) {
                 addUser(e, p, t);
               }}
             >
-              להירשם
+              Register
             </button>
           </div>
         </form>

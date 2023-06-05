@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductDataService from "../services/products";
+import Menu from "./Menu";
 
 export default function Manager(props) {
   const [n, setName] = useState("");
@@ -35,6 +36,7 @@ export default function Manager(props) {
 
   return (
     <div className="background-simple">
+      <Menu />
       <div className="back-page">
         <h1
           style={{

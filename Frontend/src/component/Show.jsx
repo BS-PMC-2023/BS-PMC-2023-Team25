@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import studioDataService from "../services/studio";
 import podcastDataService from "../services/podcast";
 import { useParams } from "react-router-dom";
+import UserMenu from "./UserMenu";
 
 const Show = () => {
   const { id } = useParams();
@@ -50,6 +51,7 @@ import React, { useState, useEffect } from "react";
 import studioDataService from "../services/studio";
 import podcastDataService from "../services/podcast";
 import { useParams } from "react-router-dom";
+import UserMenu from "./UserMenu";
 
 export default function Show() {
   const { id } = useParams();
@@ -91,21 +93,22 @@ export default function Show() {
 
   return (
     <div className="background-simple">
+      <UserMenu />
       <h3
         style={{
           textAlign: "center",
           color: "white",
         }}
       >
-        podcasts loans{" "}
+        Podcasts Loans{" "}
       </h3>
       {podcasts && podcasts.length > 0 ? (
-        <table className="table">
+        <table className="table" style={{ backgroundColor: "white" }}>
           <thead>
             <tr>
               <th className="th">Date</th>
               <th className="th">Email</th>
-              <th className="th">Snum</th>
+              <th className="th">Serial Number</th>
             </tr>
           </thead>
           <tbody>
@@ -127,15 +130,15 @@ export default function Show() {
           color: "white",
         }}
       >
-        studios loans{" "}
+        Studios Loans{" "}
       </h3>
       {studioData && studioData.length > 0 ? (
-        <table className="table">
+        <table className="table" style={{ backgroundColor: "white" }}>
           <thead>
             <tr>
               <th className="th">Date</th>
               <th className="th">Email</th>
-              <th className="th">Snum</th>
+              <th className="th">Serial Number</th>
             </tr>
           </thead>
           <tbody>
