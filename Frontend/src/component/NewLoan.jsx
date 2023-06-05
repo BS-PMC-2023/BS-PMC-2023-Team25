@@ -4,23 +4,56 @@ import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import LoansDataService from "../services/loans";
 import ProductDataService from "../services/products";
+
 import UserMenu from "./UserMenu";
 
 export default function NewLoan(props) {
-  const [email, setEmail] = useState("");
+  const [e, setEmail] = useState("");
+  const [isCheckedG, setIsCheckedG] = useState(false);
+  const [email, setEmailOther] = useState("");
   const [seqNum, setSeqNum] = useState("");
   const [date, setDate] = useState("");
+  const [dateRet, setDateRet] = useState("");
+
   const [reason, setReason] = useState("");
   const [product, setProduct] = useState(props.prod);
   const [isChecked, setIsChecked] = useState(false); // add state for checkbox
   const nav = useNavigate();
+  const a = "false";
+  const t = "product";
+
   console.log(props);
+
+  const addLoans = (type, Snumber, date, dateRet, acc, email) => {
+    const data = {
+      type,
+      Snumber,
+      date,
+      dateRet,
+      acc,
+      email,
+    };
+    const jsonData = JSON.stringify(data);
+    console.log(data);
+    LoansDataService.createLoan(data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("loan added");
+        } else {
+          console.error("Error add loan:", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error add loan: ", error);
+      });
+  };
 
   const togglePlace = (Snumber) => {
     let place;
     const data = { place, Snumber };
-    console.log(data);
+    console.log(place);
     ProductDataService.updateProd(data)
       .then((response) => {
         if (response.status === 200) {
@@ -56,7 +89,7 @@ export default function NewLoan(props) {
     // Par exemple, mettez à jour l'état seqNum avec seqNumParam
     setSeqNum(seqNumParam);
     setEmail(emailParam);
-  }, [seqNumParam]);
+  }, [seqNumParam, emailParam]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -68,6 +101,7 @@ export default function NewLoan(props) {
   //};
 
   const createPdf = () => {
+    console.log("createpdf");
     var doc = new jsPDF("a4");
 
     const imageWidth = 55;
@@ -81,7 +115,7 @@ export default function NewLoan(props) {
     const stateVariables = [
       { name: "title", label: "Report Of Loan", value: seqNum },
 
-      { name: "email", label: "Student Email", value: email },
+      { name: "e", label: "Student Email", value: e },
       {
         name: "number prod",
         label: "Sequence Number of The product",
@@ -89,6 +123,7 @@ export default function NewLoan(props) {
       },
 
       { name: "date ", label: "Date of Loan ", value: date },
+      { name: "dateRet ", label: "Date of Return ", value: dateRet },
       { name: "reason", label: "Reason(s) of Loan ", value: reason },
     ];
 
@@ -140,6 +175,14 @@ export default function NewLoan(props) {
           break;
         case 4:
           doc.setFont("", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor("black");
+
+          doc.text(`${state.label} : ${state.value}`, 10, y);
+          y += 10;
+          break;
+        case 5:
+          doc.setFont("", "bold");
           doc.setTextColor("black");
 
           doc.text(`${state.label} : `, 10, y);
@@ -158,7 +201,6 @@ export default function NewLoan(props) {
       }
     });
 
-    // handleFile(blob, `${nameSup}`);
     doc.save(`loan of ${seqNum}.pdf`);
     const pdfData = doc.output("datauristring");
     const link = document.createElement("a");
@@ -183,7 +225,7 @@ export default function NewLoan(props) {
               setEmail(e.target.value);
             }}
             type="email"
-            placeholder={email}
+            placeholder={e}
             readOnly={true}
           />
           <br />
@@ -200,11 +242,22 @@ export default function NewLoan(props) {
           />
           <br />
           <br />
-          <label htmlFor="date">Return Date:</label>
+          <label htmlFor="date">Loan Date:</label>
           <br />
           <input
             onChange={(e) => {
               setDate(e.target.value);
+            }}
+            type="text"
+            placeholder="dd/mm/yyyy"
+          />
+          <br />
+          <br />
+          <label htmlFor="date">Return Date:</label>
+          <br />
+          <input
+            onChange={(e) => {
+              setDateRet(e.target.value);
             }}
             type="text"
             placeholder="dd/mm/yyyy"
@@ -222,6 +275,24 @@ export default function NewLoan(props) {
           />
           <br />
           <br />
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={isCheckedG}
+                onChange={(e) => setIsCheckedG(e.target.checked)}
+              />
+              Are you a group?
+            </label>
+            {isCheckedG && (
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmailOther(e.target.value)}
+                placeholder="Enter the email of the other partners"
+              />
+            )}
+          </div>
           <label>
             <input
               type="checkbox"
@@ -239,10 +310,14 @@ export default function NewLoan(props) {
           ></textarea>
           <br />
           <br />
+
           <button
             className="buttonHome"
-            onClick={() => {
+            onClick={(event) => {
+              event.preventDefault();
               togglePlace(seqNum);
+              addLoans(t, seqNum, date, dateRet, a, e);
+              handleSubmit(event);
             }}
             type="submit"
             disabled={!isChecked}

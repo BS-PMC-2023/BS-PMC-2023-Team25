@@ -5,10 +5,13 @@ import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
 import UserMenu from "./UserMenu";
 import { useLocation } from "react-router-dom";
+import PodcastDataService from "../services/podcast";
 
 export default function Podcast() {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
+  const [dateRet, setDateRet] = useState("");
+
   const [reason, setReason] = useState("");
   const [snum, setSNum] = useState("");
   const location = useLocation();
@@ -18,6 +21,27 @@ export default function Podcast() {
   const [isChecked, setIsChecked] = useState(false);
   const nav = useNavigate();
 
+  const addPodcast = (date, dateRet, email, Snum) => {
+    const data = {
+      date,
+      dateRet,
+      email,
+      Snum,
+    };
+    const jsonData = JSON.stringify(data);
+    console.log(data);
+    PodcastDataService.createPodcast(data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("loan added");
+        } else {
+          console.error("Error add loan:", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error add loan: ", error);
+      });
+  };
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
   };
@@ -51,6 +75,8 @@ export default function Podcast() {
       },
 
       { name: "date ", label: "Date of Loan ", value: date },
+      { name: "dateRet ", label: "Date of Return ", value: dateRet },
+
       { name: "reason", label: "Reason(s) of Loan ", value: reason },
     ];
 
@@ -101,6 +127,14 @@ export default function Podcast() {
           y += 10;
           break;
         case 4:
+          doc.setFont("", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor("black");
+
+          doc.text(`${state.label} : ${state.value}`, 10, y);
+          y += 10;
+          break;
+        case 5:
           doc.setFont("", "bold");
           doc.setTextColor("black");
 
@@ -171,6 +205,17 @@ export default function Podcast() {
             />
             <br />
             <br />
+            <label htmlFor="date">Date Return:</label>
+            <br />
+            <input
+              onChange={(e) => {
+                setDateRet(e.target.value);
+              }}
+              type="text"
+              placeholder="dd/mm/yyyy"
+            />
+            <br />
+            <br />
             <label htmlFor="reason">Reason For Loan:</label>
             <br />
             <input
@@ -201,9 +246,11 @@ export default function Podcast() {
             <div>
               <button
                 className="buttonHome"
-                onClick={() => {}}
-                type="submit"
-                disabled={!isChecked}
+                onClick={(event) => {
+                  event.preventDefault();
+                  addPodcast(date, dateRet, email, snum);
+                  handleSubmit(event);
+                }}
               >
                 Submit
               </button>
