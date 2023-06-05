@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import OneProduct from "./OneProduct";
 import Detail from "./Detail";
+import UserMenu from "./UserMenu";
+import studentImage from "../images/productsImage.png"; // Update the import path
 
 export default function Products(props) {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -39,7 +41,7 @@ export default function Products(props) {
       />
     );
   });
-  console.log(props.prod);
+
   const pageNumbers = [];
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(
@@ -53,31 +55,60 @@ export default function Products(props) {
 
   return (
     <div>
+      <UserMenu />
       <div className="background-simple">
-        <h1
+        <div
           style={{
-            textAlign: "center",
-            color: "white",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          רשימת מוצרים
-        </h1>
-        <h3
-          style={{
-            textAlign: "center",
-            color: "white",
-          }}
-        >
-          לחץ על מוצר כדי להשאיל אותו{" "}
-        </h3>
-        <table className="table">
+          <img
+            src={studentImage}
+            alt="Student"
+            style={{ width: "100px", height: "auto", marginRight: "10px" }} // Adjust the width and margin as desired
+          />
+          <div>
+            <h1
+              style={{
+                textAlign: "center",
+                color: "white",
+              }}
+            >
+              Products
+            </h1>
+            <h3
+              style={{
+                textAlign: "center",
+                color: "white",
+              }}
+            >
+              Click On A Product To Loan It{" "}
+            </h3>
+          </div>
+        </div>
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
           <thead>
             <tr>
-              <th className="th">Name of product :</th>
-              <th className="th">Type :</th>
-              <th className="th">Serial Number :</th>
-              <th className="th">Is the product in place :</th>
-              <th className="th">Repairs :</th>
+              <th className="th" style={{ color: "black" }}>
+                Name of product:
+              </th>
+              <th className="th" style={{ color: "black" }}>
+                Type:
+              </th>
+              <th className="th" style={{ color: "black" }}>
+                Serial Number:
+              </th>
+              <th className="th" style={{ color: "black" }}>
+                Is the product in place:
+              </th>
+              <th className="th" style={{ color: "black" }}>
+                Repairs:
+              </th>
             </tr>
           </thead>
           <tbody>{renderProducts}</tbody>

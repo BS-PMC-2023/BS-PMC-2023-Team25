@@ -3,6 +3,8 @@ import styled from "styled-components";
 import React, { useState, useRef } from "react";
 import emailjs from "emailjs-com";
 
+import contactImage from "../images/contact_us.png"; // Import the image
+
 export default function Contact() {
   const form = useRef();
   const [isSent, setIsSent] = useState(false);
@@ -36,23 +38,28 @@ export default function Contact() {
     <div className="form">
       <div className="form-style">
         <StyledContactForm>
-          <h1>צור קשר</h1>
+          <h1>Contact Us</h1>
           <br />
+          <StyledImage src={contactImage} alt="Contact Us" />{" "}
+          {/* Add the image here */}
           <form ref={form} onSubmit={sendEmail}>
-            <label>שם מלא</label>
-            <input type="text" name="user_name" placeholder="הזן את שמך המלא" />
+            <label>Full Name </label>
+            <input type="text" name="user_name" placeholder="Enter Your Name" />
 
-            <label>דואר אלקטרוני</label>
+            <label>Email</label>
             <input
               type="email"
               name="user_email"
-              placeholder="הזן כתובת דואר אלקטרוני"
+              placeholder="Enter Your Email"
             />
 
-            <label>הודעה</label>
-            <textarea name="message" placeholder="הזן את ההודעה שלך"></textarea>
+            <label>Message</label>
+            <textarea
+              name="message"
+              placeholder="Enter Your Message"
+            ></textarea>
 
-            <input type="submit" value="שלח" />
+            <input type="submit" value="Send" />
             {isSent && <SentWindow>Sent</SentWindow>}
           </form>
         </StyledContactForm>
@@ -114,6 +121,12 @@ const StyledContactForm = styled.div`
       border: none;
     }
   }
+`;
+
+const StyledImage = styled.img`
+  max-width: 100%;
+  height: auto;
+  max-height: 200px; /* Adjust the height as needed */
 `;
 
 const SentWindow = styled.div`
