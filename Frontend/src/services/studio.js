@@ -5,15 +5,15 @@ class StudioDataService {
     return http.get("/studios");
   }
 
-  createOpinion(data) {
+  createStudio(data) {
     return http.post("/studios", data);
   }
 
-  updateOpinion(data) {
+  updateStudio(data) {
     return http.put(`/studios`, data);
   }
 
-  deleteOpinion(studioNum) {
+  deleteStudio(studioNum) {
     console.log(studioNum);
 
     return http.delete(`/studios?studioNum=${studioNum}`);

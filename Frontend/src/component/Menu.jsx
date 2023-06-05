@@ -16,9 +16,9 @@ export default function Menu(props) {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">
+      <Link to={`/manager?email=${email}`}>
         <img style={{ width: 90 }} src={sce} alt="SCE Logo" />
-      </Navbar.Brand>
+      </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

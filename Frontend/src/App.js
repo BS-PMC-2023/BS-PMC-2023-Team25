@@ -146,7 +146,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/student" element={<Student />} />
             <Route path="/teacher" element={<Teacher />} />
-            <Route path="/notificationcenter" element={<NotificationCenter />} />
+            <Route
+              path="/notificationcenter"
+              element={<NotificationCenter />}
+            />
             <Route
               path="/productslist"
               element={<ProductsUsers prod={prod} />}

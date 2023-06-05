@@ -47,16 +47,17 @@ export default class LoansDAO {
     }
   }
 
-  static async addLoan(email, name, type, Snumber, acc) {
+  static async addLoan(type, Snumber, date, dateRet, acc, email) {
     try {
-      const prodDoc = {
-        email: email,
-        name: name,
+      const loanDoc = {
         type: type,
         Snumber: Snumber,
+        date: date,
+        dateRet: dateRet,
         acc: acc,
+        email: email,
       };
-      return await prods.insertOne(loanDoc);
+      return await loans.insertOne(loanDoc);
     } catch (e) {
       console.error(`Unable to post review: ${e}`);
       return { error: e };

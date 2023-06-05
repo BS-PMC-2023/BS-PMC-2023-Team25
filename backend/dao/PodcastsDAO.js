@@ -18,10 +18,11 @@ export default class PodcastsDAO {
     }
   }
 
-  static async addPodcast(date, email, Snum) {
+  static async addPodcast(date, dateRet, email, Snum) {
     try {
       const podcastDoc = {
         date: date,
+        dateRet: dateRet,
         email: email,
         Snum: Snum,
       };

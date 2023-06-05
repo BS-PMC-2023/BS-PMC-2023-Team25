@@ -48,6 +48,9 @@ export default function Manager(props) {
         <Link to={`/Podcast?email=${email}`}>
           <button className="buttonHome">Request Podcast Room</button>
         </Link>
+        <Link to={`/studioLoan?email=${email}`}>
+          <button className="buttonHome">Request Studio Loan</button>
+        </Link>
         <Link to={`/Review?email=${email}`}>
           <button className="buttonHome">Add Review</button>
         </Link>
