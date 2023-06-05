@@ -11,13 +11,19 @@ export default class UsersController {
     if (req.query.email) {
       filters.email = req.query.email;
     }
-    const { usersList } = await UsersDAO.getUsers({
+
+    const { usersList, totalNumUsers } = await UsersDAO.getUsers({
       filters,
       page,
+      usersPerPage,
     });
 
     let response = {
       users: usersList,
+      page: page,
+      filters: filters,
+      entries_per_page: usersPerPage,
+      total_results: totalNumUsers,
     };
     res.json(response);
   }
@@ -68,7 +74,7 @@ export default class UsersController {
   }
   static async apiDeleteUser(req, res, next) {
     try {
-      const email = req.query.email;
+      const email = req.body.email;
       const userResponse = await UsersDAO.deleteUser(email);
       console.log(email); //MODIFIED FROM SOURCE FILES
       var { error } = userResponse;
