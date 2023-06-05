@@ -40,9 +40,13 @@ export default function Menu(props) {
               Teacher
             </Link>
           </NavDropdown>
+          <Link to={"/repairs"} className="nav-link">
+            Repairs Products
+          </Link>
           <Link to={"/contact"} className="nav-link">
             Contact Us
           </Link>
+
           <Link to={"/"} className="nav-link" onClick={logoutUser}>
             Logout
           </Link>

@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Detail from "./Detail";
 import ProductDataService from "../services/products";
+import RepairsDataService from "../services/repairs";
 
 export default function OneProduct(props) {
   const [showDetail, setShowDetail] = useState(false);
   const [product, setProduct] = useState(props.product);
-
+  const yes = "yes";
   const toggleDetail = () => {
     setShowDetail(!showDetail);
   };
@@ -20,6 +21,7 @@ export default function OneProduct(props) {
     }
     const data = { place, Snumber };
     console.log(data);
+
     ProductDataService.updateProd(data)
       .then((response) => {
         if (response.status === 200) {
@@ -44,15 +46,25 @@ export default function OneProduct(props) {
       repair = "no";
     } else {
       repair = "yes ";
+      console.log("eee" + repair);
+      RepairsDataService.createRepairs(Snumber, repair)
+        .then((response) => {
+          // Handle the response if necessary
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("Error creating repair: ", error);
+        });
     }
     const data = { repair, Snumber };
     console.log(data);
+
     ProductDataService.updateProdRepair(data)
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data.value);
           const newRepair = response.data.value;
-          const updatedProduct = { ...product, place: newRepair };
+          const updatedProduct = { ...product, repair: newRepair };
           setProduct(updatedProduct);
           window.location.reload(); // rafraîchit la page
         } else {
@@ -63,7 +75,9 @@ export default function OneProduct(props) {
         console.error("Error updating product place: ", error);
       });
   };
-
+  useEffect(() => {
+    toggleRepair();
+  }, []);
   const detailRow = showDetail ? (
     <tr>
       <td colSpan="4">
@@ -75,14 +89,15 @@ export default function OneProduct(props) {
   const RepairButton =
     product.place === "false" ? (
       <span>Not in Stock</span>
-    ) : product.place === "true" ? (
+    ) : product.place === "true" && product.repair === "no" ? (
       <button onClick={() => toggleRepair(product.Snumber)}>
         Call For Repair
       </button>
-    ) : (
+    ) : product.repair === "yes" ? (
       <span>In Maintenance</span>
+    ) : (
+      <span>indisponible</span>
     );
-
   return (
     <>
       <tr
