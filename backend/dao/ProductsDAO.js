@@ -23,35 +23,34 @@ export default class ProductsDAO {
     let query;
     if (filters) {
       if ("name" in filters) {
-        query = { $text: { $search: filters["name"] } }
-      }else if("Snumber" in filters){
-        query = {"Snumber": {$eq: filters["Snumber"]}}
+        query = { $text: { $search: filters["name"] } };
+      } else if ("Snumber" in filters) {
+        query = { Snumber: { $eq: filters["Snumber"] } };
       }
     }
 
-      let cursor;
+    let cursor;
 
-      try {
-        cursor = await products.find(query);
-      } catch (e) {
-        console.error(`Unable to issue find command, ${e}`);
-        return { productsList: [], totalNumProducts: 0 }; // si erreur
-      }
+    try {
+      cursor = await products.find(query);
+    } catch (e) {
+      console.error(`Unable to issue find command, ${e}`);
+      return { productsList: [], totalNumProducts: 0 }; // si erreur
+    }
 
-      const displayCursor = cursor
-        .limit(productsPerPage)
-        .skip(productsPerPage * page);
+    const displayCursor = cursor
+      .limit(productsPerPage)
+      .skip(productsPerPage * page);
 
-      try {
-        const productsList = await displayCursor.toArray();
+    try {
+      const productsList = await displayCursor.toArray();
 
-        return { productsList };
-      } catch (e) {
-        console.error(
-          `Unable to convert cursor to array or problem counting documents, ${e}`
-        );
-        return { productsList: [], totalNumProducts: 0 }; // si erreur
-      }
+      return { productsList };
+    } catch (e) {
+      console.error(
+        `Unable to convert cursor to array or problem counting documents, ${e}`
+      );
+      return { productsList: [], totalNumProducts: 0 }; // si erreur
     }
   }
-
+}

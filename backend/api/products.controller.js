@@ -9,9 +9,9 @@ export default class ProductsController {
 
     let filters = {};
     if (req.query.name) {
-      filters.name = req.query.name
-    }else if(req.query.Snumber){
-      filters.Snumber = req.query.Snumber
+      filters.name = req.query.name;
+    } else if (req.query.Snumber) {
+      filters.Snumber = req.query.Snumber;
     }
 
     const { productsList } = await ProductsDAO.getProducts({

@@ -1,7 +1,5 @@
 import express from "express";
 import cors from "cors";
-import Myapp from "./api/products.routes.js";
-
 import productsRoutes from "./routes/products.routes.js";
 import bodyParser from "body-parser";
 import usersRoutes from "./routes/users.routes.js";

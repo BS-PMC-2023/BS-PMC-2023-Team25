@@ -1,55 +1,8 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import studioDataService from "../services/studio";
 import podcastDataService from "../services/podcast";
 import { useParams } from "react-router-dom";
-
-const Show = () => {
-  const { id } = useParams();
-  const [podcast, setPodcast] = useState(null);
-  const [studioData, setStudioData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const podcastData = await podcastDataService.getPodcast(id);
-        const studioData = await studioDataService.getStudio(id);
-
-        setPodcast(podcastData);
-        setStudioData(studioData);
-      } catch (error) {
-        console.error("Error retrieving data: ", error);
-      }
-    };
-
-    fetchData();
-  }, [id]);
-
-  return (
-    <div>
-      {podcast && (
-        <div>
-          <h2>{podcast.title}</h2>
-          <p>{podcast.description}</p>
-        </div>
-      )}
-
-      {studioData && (
-        <div>
-          <h3>{studioData.date}</h3>
-          <p>{studioData.Sname}</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default Show;
-=======
-import React, { useState, useEffect } from "react";
-import studioDataService from "../services/studio";
-import podcastDataService from "../services/podcast";
-import { useParams } from "react-router-dom";
+import UserMenu from "./UserMenu";
 
 export default function Show() {
   const { id } = useParams();
@@ -91,21 +44,22 @@ export default function Show() {
 
   return (
     <div className="background-simple">
+      <UserMenu />
       <h3
         style={{
           textAlign: "center",
           color: "white",
         }}
       >
-        podcasts loans{" "}
+        Podcasts Loans{" "}
       </h3>
       {podcasts && podcasts.length > 0 ? (
-        <table className="table">
+        <table className="table" style={{ backgroundColor: "white" }}>
           <thead>
             <tr>
               <th className="th">Date</th>
               <th className="th">Email</th>
-              <th className="th">Snum</th>
+              <th className="th">Serial Number</th>
             </tr>
           </thead>
           <tbody>
@@ -127,15 +81,15 @@ export default function Show() {
           color: "white",
         }}
       >
-        studios loans{" "}
+        Studios Loans{" "}
       </h3>
       {studioData && studioData.length > 0 ? (
-        <table className="table">
+        <table className="table" style={{ backgroundColor: "white" }}>
           <thead>
             <tr>
               <th className="th">Date</th>
               <th className="th">Email</th>
-              <th className="th">Snum</th>
+              <th className="th">Serial Number</th>
             </tr>
           </thead>
           <tbody>
@@ -154,4 +108,3 @@ export default function Show() {
     </div>
   );
 }
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a

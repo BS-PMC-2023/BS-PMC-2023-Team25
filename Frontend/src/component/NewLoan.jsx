@@ -1,41 +1,19 @@
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-<<<<<<< HEAD:stor/src/component/NewLoan.jsx
-import StudioDataService from "../services/studio";
-import PodcastDataService from "../services/podcast";
-
-export default function NewLoan() {
-  const [productCode, setProductCode] = useState("");
-  const [email, setEmail] = useState("");
-  const [date, setDate] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
-  const [productType, setProductType] = useState("");
-  const [transferDate, setTransferDate] = useState(""); // תאריך העברת אחריות
-  const [productNumber, setProductNumber] = useState(""); // מספר מוצר להעברת אחריות
-
-=======
-import { act } from "react-dom/test-utils";
-=======
 import { act } from "react-dom/test-utils"; // Import the 'act' function
 import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ProductDataService from "../services/products";
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
+import UserMenu from "./UserMenu";
 
 export default function NewLoan(props) {
   const [email, setEmail] = useState("");
   const [seqNum, setSeqNum] = useState("");
-<<<<<<< HEAD
-  const [isChecked, setIsChecked] = useState(false);
->>>>>>> 2a5aed21a69f03eaf2ef7ba2e80431bacf691b22:Frontend/src/component/NewLoan.jsx
-=======
   const [date, setDate] = useState("");
   const [reason, setReason] = useState("");
   const [product, setProduct] = useState(props.prod);
   const [isChecked, setIsChecked] = useState(false); // add state for checkbox
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
   const nav = useNavigate();
   console.log(props);
   const togglePlace = (Snumber) => {
@@ -185,161 +163,41 @@ export default function NewLoan(props) {
   };
 
   const terms =
-    "המשתמש יחויב בתשלום נפרד עבור כל יום נוסף של השאלה, לפי המחיר הנקוב על ידי הלוויין. המשתמש מתחייב לטפל במוצרים בצורה המתאימה ולהחזירם במצבם המקורי. המשתמש חייב להשתמש במוצרים בהתאם להוראות היצרן והמדיניות של הלוויין. הלוויין רשאי לסרב להשאלה לפי שיקולו הפרטי. המשתמש מבטיח כי המידע שסיפק לצורך השאלת המוצרים הוא מדוייק ומעודכן.";
+    "The Product Loan Policy outlines the terms and conditions for borrowing products from the satellite. Users are responsible for all fees incurred, including late fees, damage fees, and shipping fees. Users agree to handle the products in a careful and responsible manner and to return them in their original condition, with all parts and accessories included. Users are responsible for any damage to the products, including but not limited to accidental damage, water damage, and theft. Users agree to use the products in accordance with the manufacturer's instructions and the satellite's policy. Users agree not to use the products for any illegal or unauthorized purpose. The satellite may refuse to loan products to any user at its own discretion. The satellite may also terminate a loan at any time, for any reason. Users are responsible for providing accurate and up-to-date information when borrowing products. If you have any questions about this policy.";
 
-<<<<<<< HEAD:stor/src/component/NewLoan.jsx
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    if (isChecked) {
-      const data = {
-        Snum: productCode,
-        email: email,
-        date: date,
-      };
-
-      console.log(data);
-
-      if (productType === "podcast") {
-        PodcastDataService.createPodcast(data)
-          .then((response) => {
-            console.log(response);
-            if (response.status === 200) {
-              console.log("Podcast request created successfully!");
-              nav("/");
-            } else {
-              console.error(
-                "Error creating podcast request: ",
-                response.data.error
-              );
-            }
-          })
-          .catch((error) => {
-            console.error("Error creating podcast request: ", error);
-          });
-      } else if (productType === "studio") {
-        StudioDataService.createOpinion(data)
-          .then((response) => {
-            console.log(response);
-            if (response.status === 200) {
-              console.log("Studio request created successfully!");
-              nav("/");
-            } else {
-              console.error(
-                "Error creating studio request: ",
-                response.data.error
-              );
-            }
-          })
-          .catch((error) => {
-            console.error("Error creating studio request: ", error);
-          });
-      }
-    } else {
-      console.error("You must agree to the terms and conditions");
-    }
-  };
-
-  const handleTransferFormSubmit = (e) => {
-    e.preventDefault();
-
-    const data = {
-      Snum: productNumber, // מספר מוצר להעברת אחריות
-      email: email, // מייל
-    };
-
-    console.log(data);
-
-    // שליחת הנתונים לשרת ועדכון המייל למוצר במסד הנתונים
-    if (productType === "podcast") {
-      PodcastDataService.updatePodcast(data.Snum)
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            console.log("Podcast responsibility transferred successfully!");
-            nav("/");
-          } else {
-            console.error(
-              "Error transferring podcast responsibility: ",
-              response.data.error
-            );
-          }
-        })
-        .catch((error) => {
-          console.error("Error transferring podcast responsibility: ", error);
-        });
-    } else if (productType === "studio") {
-      StudioDataService.updateOpinion(data.Snum)
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            console.log("Studio responsibility transferred successfully!");
-            nav("/");
-          } else {
-            console.error(
-              "Error transferring studio responsibility: ",
-              response.data.error
-            );
-          }
-        })
-        .catch((error) => {
-          console.error("Error transferring studio responsibility: ", error);
-        });
-    }
-  };
-
-=======
->>>>>>> 2a5aed21a69f03eaf2ef7ba2e80431bacf691b22:Frontend/src/component/NewLoan.jsx
   return (
-<<<<<<< HEAD
-    <div className="background-simple">
-      <h1
-        style={{
-          textAlign: "center",
-          color: "white",
-        }}
-      >
-        טופס להשאלה
-      </h1>
-      <form onSubmit={handleFormSubmit}>
-        <label className="th" htmlFor="code">
-          Product Code:
-        </label>
-        <input
-          type="text"
-          id="code"
-          name="code"
-          value={productCode}
-          onChange={(e) => setProductCode(e.target.value)}
-=======
-    <div className="form">
-      <div className="form-style" onSubmit={handleSubmit}>
-        <h1>השאלה חדשה</h1>
-        <input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          type="email"
-          placeholder="mail@gmail.com "
-        />
-        <label htmlFor="type">: הכנס mail </label>
-        <br />
-        <br />
-        <input
-          onChange={(e) => {
-            setSeqNum(e.target.value);
-          }}
-          type="text"
-          placeholder={seqNum}
-          readOnly={true}
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
-        />
-<<<<<<< HEAD:stor/src/component/NewLoan.jsx
-=======
-        <label htmlFor="type">: הכנס קוד מוצר </label>
-        <br />
-        <br />
-        <form data-testid="loan-form">
+    <div>
+      <header>
+        <UserMenu />
+      </header>
+      <div className="form">
+        <div className="form-style" onSubmit={handleSubmit}>
+          <h1>New Loan </h1>
+          <label htmlFor="email">Email:</label>
+          <br />
+          <input
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            type="email"
+            placeholder="mail@gmail.com "
+          />
+          <br />
+          <br />
+          <label htmlFor="seqNum">Serial Number:</label>
+          <br />
+          <input
+            onChange={(e) => {
+              setSeqNum(e.target.value);
+            }}
+            type="text"
+            placeholder={seqNum}
+            readOnly={true}
+          />
+          <br />
+          <br />
+          <label htmlFor="date">Return Date:</label>
+          <br />
           <input
             onChange={(e) => {
               setDate(e.target.value);
@@ -347,139 +205,48 @@ export default function NewLoan(props) {
             type="text"
             placeholder="dd/mm/yyyy"
           />
-          <label htmlFor="type">: תאריך החזרה </label>
->>>>>>> 2a5aed21a69f03eaf2ef7ba2e80431bacf691b22:Frontend/src/component/NewLoan.jsx
-
-<<<<<<< HEAD
-        <label
-          style={{
-            textAlign: "center",
-            // color: "white",
-            display: "inline",
-          }}
-          className="th"
-          htmlFor="email"
-        >
-          Email:
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-=======
           <br />
+          <br />
+          <label htmlFor="reason">Reason For Loan:</label>
           <br />
           <input
             onChange={(e) => {
               setReason(e.target.value);
             }}
             type="text"
-            placeholder="סיבת השאלה"
+            placeholder="Enter Reason"
           />
-          <label htmlFor="type">: סיבת השאלה </label>
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
-
-        <label className="th" htmlFor="date">
-          Date:
-        </label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-
-        <div>
           <br />
           <br />
-          <label className="th">
-            Product Type:
-            <select
-              value={productType}
-              onChange={(e) => setProductType(e.target.value)}
-            >
-              <br />
-
-              <option value="">Please select</option>
-              <option value="podcast">Podcast</option>
-              <option value="studio">Studio</option>
-            </select>
-          </label>
-        </div>
-
-        <div>
-          <label className="th">
+          <label>
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleCheckboxChange}
             />
-            I agree to the terms and conditions
+            I Accept the terms of use
           </label>
+          <br />
+          <br />
+          <textarea
+            value={terms}
+            readOnly={true}
+            style={{ width: "100%", height: "80px" }}
+          ></textarea>
+          <br />
+          <br />
+          <button
+            className="buttonHome"
+            onClick={() => {
+              togglePlace(seqNum);
+            }}
+            type="submit"
+            disabled={!isChecked}
+          >
+            Submit
+          </button>
         </div>
-
-<<<<<<< HEAD
-        <br />
-        <button type="submit">Submit</button>
-      </form>
-
-      {/* טופס העברת אחריות */}
-      <h1
-        style={{
-          textAlign: "center",
-          color: "white",
-        }}
-      >
-        טופס העברת בעלות השאלה
-      </h1>
-      <form onSubmit={handleTransferFormSubmit}>
-        <label className="th" htmlFor="productNumber">
-          Product Number:
-        </label>
-        <input
-          type="text"
-          id="productNumber"
-          name="productNumber"
-          value={productNumber}
-          onChange={(e) => setProductNumber(e.target.value)}
-        />
-
-        <label className="th" htmlFor="email">
-          Email:
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <button type="submit">Transfer</button>
-      </form>
-      <br />
-      <br />
-      <p className="th">{terms}</p>
-=======
-          <div>
-            <button
-              className="buttonHome"
-              onClick={() => {
-                togglePlace(seqNum);
-              }}
-              type="submit"
-              disabled={!isChecked}
-            >
-              שלח
-            </button>
-          </div>
-        </form>
       </div>
->>>>>>> e67698292d06f00571dd1aaede4a11ad6c62eb4a
     </div>
   );
 }

@@ -31,6 +31,7 @@ MongoClient.connect(process.env.MONGO_URI, {
     await PodcastDAO.injectDB(client);
     await OpinionDAO.injectDB(client);
     await StudioDAO.injectDB(client);
+
     app.listen(port, () => {
       console.log(`Listening on port ${port}`);
     });
