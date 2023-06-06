@@ -1,36 +1,34 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import Detail from "../Detail";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Detail from '../Detail';
 
-const mockProduct = {
-  name: "Product Name",
-  type: "Product Type",
-  Snumber: "12345",
-  place: "Yes",
-};
+describe('Detail', () => {
+  it('renders the component with correct props', () => {
+    const mockProduct = {
+      name: 'Product Name',
+      type: 'Product Type',
+      Snumber: '12345',
+      place: 'true',
+      repair: 'no',
+    };
 
-describe("Detail", () => {
-  test("renders the component with correct props", () => {
     render(
-      <BrowserRouter>
+      <Router>
         <Detail product={mockProduct} />
-      </BrowserRouter>
+      </Router>,
     );
 
-    const productName = screen.getByText(/Product Name/i);
+    const productName = screen.getByText(/Product Name \(Product Type\)/i);
     expect(productName).toBeInTheDocument();
-
-    const productType = screen.getByText(/Product Type/i);
-    expect(productType).toBeInTheDocument();
 
     const serialNumber = screen.getByText(/Serial Number: 12345/i);
     expect(serialNumber).toBeInTheDocument();
 
-    const isInStorage = screen.getByText(/Is The Product in Storage: Yes/i);
+    const isInStorage = screen.getByText(/Is The Product in Storage: true/i);
     expect(isInStorage).toBeInTheDocument();
 
-    const button = screen.getByRole("button", { name: /השאלה/i });
+    const button = screen.getByRole('button', { name: /השאלה/i });
     expect(button).toBeInTheDocument();
   });
 });

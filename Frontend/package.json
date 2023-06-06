@@ -14,6 +14,7 @@
     "emailjs-com": "^3.2.0",
     "eslint-formatter-html": "^2.4.0",
     "gh-pages": "^5.0.0",
+    "history": "^5.3.0",
     "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
@@ -30,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --reporters=default --reporters=jest-html-reporter --reporters=jest-junit --transformIgnorePatterns \"node_modules/(?!axios)/\" --silent",
     "eject": "react-scripts eject",
-    "lint": "eslint src "
+    "lint": "eslint . --format node_modules/eslint-formatter-html -o eslintReport.html"
   },
   "eslintConfig": {
     "extends": [

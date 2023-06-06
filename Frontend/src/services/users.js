@@ -16,19 +16,15 @@ class UsersDataService {
 
   loginUser(email, password) {
     console.log("enter in api");
-    return http.get("/login", { params: { email, password } });
+    console.log(email, password);
+
+    return http.post("/users/login", { email, password });
   }
 
   deleteUser(email) {
     console.log(email);
 
     return http.delete(`/users?email=${email}`);
-  }
-  loginUser(email, password) {
-    console.log("enter in api");
-    console.log(email, password);
-
-    return http.post("users/login", { email, password });
   }
 }
 

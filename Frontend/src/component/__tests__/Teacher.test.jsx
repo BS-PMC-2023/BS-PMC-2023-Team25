@@ -1,24 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Manager from "../Manager";
+import Teacher from "../Teacher";
 
-describe("Manager component", () => {
+describe("Teacher component", () => {
   beforeEach(() => {
     render(
       <MemoryRouter>
-        <Manager />
+        <Teacher />
       </MemoryRouter>
     );
   });
 
   test("renders the welcome message", () => {
-    const welcomeMessage = screen.getByText(/שמח לראות אותך שוב/i);
+    const welcomeMessage = screen.getByText(/Glad To See You Again!/i);
     expect(welcomeMessage).toBeInTheDocument();
   });
 
   test("renders the action prompt", () => {
-    const actionPrompt = screen.getByText(/מה תרצה לעשות/i);
+    const actionPrompt = screen.getByText(/What Would You Like To Do?/i);
     expect(actionPrompt).toBeInTheDocument();
   });
 });

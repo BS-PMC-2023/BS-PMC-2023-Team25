@@ -1,32 +1,35 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Podcast from "../Podcast";
+import { MemoryRouter } from "react-router-dom";
 
-describe("Podcast component", () => {
-  it("should submit the form when the checkbox is checked and button is clicked", () => {
+describe("Podcast Form", () => {
+  it("submits form when all fields are filled and checkbox is checked", () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/Podcast?email=test@test.com']}>
         <Podcast />
       </MemoryRouter>
     );
 
-    // Fill in the form inputs
-    const seqNumInput = screen.getByPlaceholderText("מספר חדר");
-    fireEvent.change(seqNumInput, { target: { value: "123" } });
+    const emailInput = screen.getByLabelText("Email:");
+    fireEvent.change(emailInput, { target: { value: "test@test.com" } });
 
-    const nameInput = screen.getByPlaceholderText("dd/mm/yyyy");
-    fireEvent.change(nameInput, { target: { value: "28/02/2024" } });
+    const snumInput = screen.getByLabelText("Room Number:");
+    fireEvent.change(snumInput, { target: { value: "101" } });
 
-    const passwordInput = screen.getByPlaceholderText("סיבת בקשה");
-    fireEvent.change(passwordInput, { target: { value: "Testing purpose" } });
+    const dateInput = screen.getByLabelText("Date:");
+    fireEvent.change(dateInput, { target: { value: "28/02/2024" } });
 
-    // Check the checkbox
-    const checkbox = screen.getByLabelText("אני מאשר/ת את תנאי השימוש");
+    const dateReturnInput = screen.getByLabelText("Date Return:");
+    fireEvent.change(dateReturnInput, { target: { value: "29/02/2024" } });
+
+    const reasonInput = screen.getByLabelText("Reason:");
+    fireEvent.change(reasonInput, { target: { value: "For podcast recording" } });
+
+    const checkbox = screen.getByLabelText("I accept the terms and conditions:");
     fireEvent.click(checkbox);
 
-    // Submit the form
-    const submitButton = screen.getByText("שלח");
+    const submitButton = screen.getByRole("button", { name: /submit/i });
     fireEvent.click(submitButton);
+    
   });
 });
