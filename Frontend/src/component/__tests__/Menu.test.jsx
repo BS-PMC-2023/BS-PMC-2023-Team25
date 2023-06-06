@@ -1,31 +1,40 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { render, fireEvent } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
 import Menu from "../Menu";
 
-describe("Menu", () => {
-  test("renders menu links", () => {
-    render(
-      <MemoryRouter>
+// Mocking localStorage
+jest.spyOn(window.localStorage.__proto__, 'getItem').mockImplementation((key) => `"mock value of ${key}"`);
+const removeItemSpy = jest.spyOn(window.localStorage.__proto__, 'removeItem');
+
+describe("Menu component", () => {
+  afterEach(() => {
+    removeItemSpy.mockClear(); // clear the spy after each test
+  });
+
+  it("renders Menu correctly", () => {
+    const { getByText } = render(
+      <Router>
         <Menu />
-      </MemoryRouter>
+      </Router>
     );
 
-    const menuLinks = [
-      "מוצרים להשאלה",
-      "טופס להשאלה חדשה",
-      "השאלות שלי",
-      "הסטוריית השאלות",
-      "בקשה לחדר פודקאסט",
-      "מנהל",
-      "סטודנט",
-      "מרצה",
-      "התנתק",
-    ];
+    expect(getByText("Products")).toBeInTheDocument();
+    expect(getByText("Loans")).toBeInTheDocument();
+    expect(getByText("User Types")).toBeInTheDocument();
+    expect(getByText("Contact Us")).toBeInTheDocument();
+    expect(getByText("Logout")).toBeInTheDocument();
+  });
 
-    menuLinks.forEach((linkText) => {
-      const link = screen.getByText(linkText);
-      expect(link).toBeInTheDocument();
-    });
+  it("calls the logoutUser function on click", () => {
+    const { getByText } = render(
+      <Router>
+        <Menu />
+      </Router>
+    );
+
+    fireEvent.click(getByText("Logout"));
+
+    expect(removeItemSpy).toHaveBeenCalledWith("email");
   });
 });
