@@ -8,6 +8,7 @@ import LoansDAO from "./dao/LoansDAO.js";
 import PodcastDAO from "./dao/PodcastsDAO.js";
 import OpinionDAO from "./dao/OpinionDAO.js";
 import StudioDAO from "./dao/StudioDAO.js";
+import RepairsDAO from "./dao/RepairsDAO.js";
 
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
@@ -31,6 +32,7 @@ MongoClient.connect(process.env.MONGO_URI, {
     await PodcastDAO.injectDB(client);
     await OpinionDAO.injectDB(client);
     await StudioDAO.injectDB(client);
+    await RepairsDAO.injectDB(client);
 
     app.listen(port, () => {
       console.log(`Listening on port ${port}`);
