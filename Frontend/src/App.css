@@ -139,3 +139,23 @@
   width: 600px;
   color: #ddd;
 }
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+/* from here */
+.manager-messages {
+  text-align: center;
+  color: white;
+}
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Increased gap value */
+  margin-top: 20px;
+}
+.white-table {
+  background-color: white;
+}

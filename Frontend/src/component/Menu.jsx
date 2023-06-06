@@ -6,48 +6,49 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Menu(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const email = localStorage.getItem("email");
 
-  const handleLogout = () => {
-      setIsLoggedIn(false);
-      props.setShowMenu(false);
+  const logoutUser = () => {
+    // Suppression de l'e-mail du stockage local
+    localStorage.removeItem("email");
+    // Autres étapes de déconnexion si nécessaire
   };
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">
-        {" "}
-        <img style={{ width: 90 }} src={sce} />
-      </Navbar.Brand>
+      <Link to={`/manager?email=${email}`}>
+        <img style={{ width: 90 }} src={sce} alt="SCE Logo" />
+      </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Link to={"/products"} className="nav-link">
-            מוצרים להשאלה
+          <Link to={`/products?email=${email}`} className="nav-link">
+            Products
           </Link>
-          <Link to={"/newloan"} className="nav-link">
-            טופס להשאלה חדשה
+          <Link to={`/loans`} className="nav-link">
+            Loans
           </Link>
-          <Link to={"/myloan"} className="nav-link">
-            השאלות שלי
+
+          <NavDropdown title="User Types" id="basic-nav-dropdown">
+            <Link to={`/manager?email=${email}`} className="dropdown-item">
+              Manager
+            </Link>
+            <Link to={`/student?email=${email}`} className="dropdown-item">
+              Student
+            </Link>
+            <Link to={`/teacher?email=${email}`} className="dropdown-item">
+              Teacher
+            </Link>
+          </NavDropdown>
+          <Link to={"/repairs"} className="nav-link">
+            Repairs Products
           </Link>
-          <Link to={"/history"} className="nav-link">
-            הסטוריית השאלות
+          <Link to={"/contact"} className="nav-link">
+            Contact Us
           </Link>
-          <Link to={"/podcast"} className="nav-link">
-            בקשה לחדר פודקאסט{" "}
-          </Link>
-          <Link to={"/manager"} className="nav-link">
-            {" "}
-            מנהל{" "}
-          </Link>
-          <Link to={"/student"} className="nav-link">
-            סטודנט{" "}
-          </Link>
-          <Link to={"/teacher"} className="nav-link">
-            מרצה{" "}
-          </Link>
-          <Link to={"/"} className="nav-link" onClick={handleLogout}>
-            התנתק{" "}
+
+          <Link to={"/"} className="nav-link" onClick={logoutUser}>
+            Logout
           </Link>
         </Nav>
       </Navbar.Collapse>

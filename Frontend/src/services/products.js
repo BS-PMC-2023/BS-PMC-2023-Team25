@@ -10,6 +10,10 @@ class ProductDataService {
   }
 
   updateProd(data) {
+    console.log("enter in api update");
+    return http.put(`/manager`, data);
+  }
+  updateProdRepair(data) {
     return http.put(`/manager`, data);
   }
 

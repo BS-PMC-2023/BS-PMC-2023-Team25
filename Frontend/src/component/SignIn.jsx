@@ -1,44 +1,77 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UserDataService from "../services/users";
 
 export default function SignIn(props) {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const nav = useNavigate(); //כדי שכם יפעיל את הפונקציה שמעלה את התפריט וגם יעביר לעמוד של המשימות
+  const [e, setEmail] = useState("");
+  const [pass, setPassword] = useState("");
+  const nav = useNavigate();
+
+  const loginUser = (email, password) => {
+    if (!email.endsWith("@ac.sce.ac.il") && !email.endsWith("@sce.ac.il")) {
+      alert(
+        "Please enter a valid email address ending with @ac.sce.ac.il or @sce.ac.il"
+      );
+      return;
+    }
+    UserDataService.loginUser(email, password)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data.type);
+          localStorage.setItem("email", email);
+          if (response.data.type === "student") {
+            window.location = "#/student";
+          } else if (response.data.type === "teacher") {
+            window.location = "#/teacher";
+          } else if (response.data.type === "admin") {
+            window.location = "#/manager";
+          }
+        } else {
+          console.error("Error: Unable to connect", response.data.error);
+          alert("Error: Unable to connect");
+        }
+      })
+      .catch((error) => {
+        console.error("Error: Unable to connect", error);
+        alert("Error: Unable to connect");
+      });
+  };
+
   return (
     <div className="form">
       <div className="form-style">
-        <h1>עמוד התחברות</h1>
+        <h1>Sign in</h1>
         <form>
+          <label htmlFor="email">Email:</label>
+          <br />
           <input
             onChange={(e) => {
-              setName(e.target.value);
+              setEmail(e.target.value);
             }}
-            type="text"
-            placeholder="הזן שם משתמש/ת"
+            type="email"
+            placeholder="@sce.ac.il"
           />
-          <label for="type"> :שם משתמש</label>
-
           <br />
+          <br />
+          <label htmlFor="password">Password:</label>
           <br />
           <input
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            type="text"
-            placeholder="הזן סיסמא"
-          ></input>
-          <label for="type"> : סיסמא</label>
-
+            type="password"
+            placeholder="Enter Password"
+          />
+          <br />
+          <br />
           <div>
             <button
               className="buttonHome"
               onClick={() => {
-                props.setShowMenu(true);
-                nav("/products");
+                loginUser(e, pass);
               }}
             >
-              כניסה
+              Login
             </button>
           </div>
         </form>

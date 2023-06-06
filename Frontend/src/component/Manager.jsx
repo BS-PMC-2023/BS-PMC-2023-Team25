@@ -1,55 +1,66 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Menu from "./Menu";
+import studentImage from "../images/managerImage.png"; // Update the import path
 
 export default function Manager(props) {
+  const handleLoanRequest = () => {
+    props.handleLoanRequest();
+  };
+
   return (
     <div className="background-simple">
-      <h1
+      <Menu />
+      <div
         style={{
-          textAlign: "center",
-          color: "white",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        ! שמח לראות אותך שוב{" "}
-      </h1>
-      <h3
-        style={{
-          textAlign: "center",
-          color: "white",
-        }}
-      >
-        ? מה תרצה לעשות{" "}
-      </h3>
+        <img
+          src={studentImage}
+          alt="Student"
+          style={{ width: "100px", height: "auto", marginRight: "10px" }} // Adjust the width and margin as desired
+        />
+        <div>
+          <h1 style={{ textAlign: "center", color: "white" }}>
+            Glad To See You Again!
+          </h1>
+          <h3 style={{ textAlign: "center", color: "white" }}>
+            What Would You Like To Do?
+          </h3>
+        </div>
+      </div>
       <div>
-        <Link to={"/products"}>
-          <button
-            className="buttonHome "
-            style={{
-              marginRight: "50px",
-            }}
-          >
-            מעקב אחר אחסון{" "}
+        <Link to="/products">
+          <button className="buttonHome">Track Storage</button>
+        </Link>
+        <Link to="/newprod">
+          <button className="buttonHome">Add Product</button>
+        </Link>
+        <Link to="/delete">
+          <button className="buttonHome">Delete Product</button>
+        </Link>
+        <Link to="/loans">
+          <button className="buttonHome" onClick={props.handleLoanRequest}>
+            Loan Approval
           </button>
         </Link>
-        <Link to={"/newprod"}>
-          <button
-            className="buttonHome "
-            style={{
-              marginRight: "50px",
-            }}
-          >
-            הוסף מוצר
-          </button>
+        <Link to="/show">
+          <button className="buttonHome" onClick={props.handleLoanRequest}>
+            Loans
+          </button>{" "}
         </Link>
-        <Link to={"/delete"}>
+        <Link to={"/usermanagement"}>
           <button
-            className="buttonHome "
+            className="buttonHome"
             style={{
               marginRight: "50px",
             }}
           >
-            למחוק מוצר{" "}
+            User Management
           </button>
         </Link>
       </div>

@@ -3,8 +3,10 @@ import LoanCtrl from "../api/loans.controller.js";
 
 const router = express.Router();
 
-router.route("/")
+router
+  .route("/")
   .get(LoanCtrl.apiGetLoan)
+  .post(LoanCtrl.apiPostLoan)
   .put(LoanCtrl.apiUpdateLoan)
   .delete(LoanCtrl.apiDeleteLoan);
 

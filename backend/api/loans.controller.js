@@ -9,7 +9,7 @@ export default class LoansController {
 
     let filters = {};
     if (req.query.product_sn) {
-      filters.product_sn = req.query.product_sn
+      filters.product_sn = req.query.product_sn;
     }
 
     const { loansList, totalNumLoans } = await LoansDAO.getLoans({
@@ -32,15 +32,21 @@ export default class LoansController {
     try {
       console.log("enter in apiPostLoan");
       console.log(req);
-
-      const name = req.body.name;
       const type = req.body.type;
       const Snumber = req.body.Snumber;
-      const place = req.body.place;
+      const date = req.body.date;
+      const dateRet = req.body.dateRet;
+      const acc = req.body.acc;
+      const email = req.body.email;
 
-      console.log(name);
-
-      const LoanResponse = await LoansDAO.addLoan(name, type, Snumber, place);
+      const LoanResponse = await LoansDAO.addLoan(
+        type,
+        Snumber,
+        date,
+        dateRet,
+        acc,
+        email
+      );
       console.log(LoanResponse);
 
       var { error } = LoanResponse;
@@ -57,9 +63,8 @@ export default class LoansController {
   static async apiUpdateLoan(req, res, next) {
     try {
       const Snumber = req.body.Snumber;
-      const place = req.body.place;
-      console.log(prod);
-      const prodResponse = await LoansDAO.updateLoan(Snumber, place);
+      const acc = req.body.acc;
+      const prodResponse = await LoansDAO.updateLoan(acc, Snumber);
       console.log(prodResponse);
       var { error } = prodResponse;
       if (error) {
