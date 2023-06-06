@@ -31,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --reporters=default --reporters=jest-html-reporter --reporters=jest-junit --transformIgnorePatterns \"node_modules/(?!axios)/\" --silent",
     "eject": "react-scripts eject",
-    "lint": "eslint . --format node_modules/eslint-formatter-html -o eslintReport.html"
+    "lint": "eslint src"
   },
   "eslintConfig": {
     "extends": [
