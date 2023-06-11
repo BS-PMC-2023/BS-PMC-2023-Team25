@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import studioDataService from "../services/studio";
 import podcastDataService from "../services/podcast";
+import LoanDataService from "../services/loans";
+import { useLocation } from "react-router-dom";
+
 import { useParams } from "react-router-dom";
 import UserMenu from "./UserMenu";
 
 export default function Show() {
   const { id } = useParams();
+  const [email, setEmail] = useState("");
+
   const [podcasts, setPodcasts] = useState([]);
   const [studioData, setStudioData] = useState([]);
+  const [loans, setLoan] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailParam = searchParams.get("email");
 
   const retrievePodcast = () => {
     podcastDataService
@@ -34,9 +43,21 @@ export default function Show() {
       });
   };
 
+  const retrieveLoan = () => {
+    LoanDataService.getAll()
+      .then((response) => {
+        setLoan(response.data.loans);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     retrieveStudio();
     retrievePodcast();
+    retrieveLoan();
+    setEmail(emailParam);
   }, []);
 
   console.log(podcasts); // Check the structure of the podcasts state
@@ -51,10 +72,12 @@ export default function Show() {
           color: "white",
         }}
       >
-        Podcasts Loans{" "}
+        Podcast Loans
       </h3>
       {podcasts && podcasts.length > 0 ? (
-        <table className="table" style={{ backgroundColor: "white" }}>
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
           <thead>
             <tr>
               <th className="th">Date</th>
@@ -80,11 +103,19 @@ export default function Show() {
           textAlign: "center",
           color: "white",
         }}
+      ></h3>
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
       >
-        Studios Loans{" "}
+        Studio Loans
       </h3>
       {studioData && studioData.length > 0 ? (
-        <table className="table" style={{ backgroundColor: "white" }}>
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
           <thead>
             <tr>
               <th className="th">Date</th>
@@ -103,8 +134,52 @@ export default function Show() {
           </tbody>
         </table>
       ) : (
-        <p>No studio data found.</p>
+        <p>No studios found.</p>
       )}
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      ></h3>
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      >
+        Products Loans
+      </h3>
+      {loans && loans.length > 0 ? (
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
+          <thead>
+            <tr>
+              <th className="th">Date</th>
+              <th className="th">Email</th>
+              <th className="th">Serial Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loans.map((loan) => (
+              <tr key={loan._id}>
+                <td>{loan.date}</td>
+                <td>{loan.email}</td>
+                <td>{loan.Snumber}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No loans found.</p>
+      )}
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      ></h3>
     </div>
   );
 }

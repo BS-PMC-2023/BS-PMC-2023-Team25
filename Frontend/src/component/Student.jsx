@@ -42,7 +42,7 @@ export default function Manager(props) {
         <Link to={`/productslist?email=${email}`}>
           <button className="buttonHome">New Loan </button>
         </Link>
-        <Link to={`/show?email=${email}`}>
+        <Link to={`/myloan?email=${email}`}>
           <button className="buttonHome"> My Loans</button>
         </Link>
         <Link to={`/Podcast?email=${email}`}>
