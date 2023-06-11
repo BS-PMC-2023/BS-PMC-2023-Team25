@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import studioDataService from "../services/studio";
 import podcastDataService from "../services/podcast";
+import LoanDataService from "../services/loans";
+
 import { useParams } from "react-router-dom";
 import UserMenu from "./UserMenu";
 
@@ -8,6 +10,8 @@ export default function Show() {
   const { id } = useParams();
   const [podcasts, setPodcasts] = useState([]);
   const [studioData, setStudioData] = useState([]);
+  const [loans, setLoan] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const retrievePodcast = () => {
@@ -34,9 +38,20 @@ export default function Show() {
       });
   };
 
+  const retrieveLoan = () => {
+    LoanDataService.getAll()
+      .then((response) => {
+        setLoan(response.data.loans);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   useEffect(() => {
     retrieveStudio();
     retrievePodcast();
+    retrieveLoan();
   }, []);
 
   console.log(podcasts); // Check the structure of the podcasts state
@@ -50,7 +65,9 @@ export default function Show() {
           textAlign: "center",
           color: "white",
         }}
-      ></h3>
+      >
+        Podcast Loans
+      </h3>
       {podcasts && podcasts.length > 0 ? (
         <table className="table white-table">
           {" "}
@@ -68,6 +85,82 @@ export default function Show() {
                 <td>{podcast.date}</td>
                 <td>{podcast.email}</td>
                 <td>{podcast.Snum}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No podcasts found.</p>
+      )}
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      ></h3>
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      >
+        Studio Loans
+      </h3>
+      {studioData && studioData.length > 0 ? (
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
+          <thead>
+            <tr>
+              <th className="th">Date</th>
+              <th className="th">Email</th>
+              <th className="th">Serial Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            {studioData.map((studio) => (
+              <tr key={studio._id}>
+                <td>{studio.date}</td>
+                <td>{studio.email}</td>
+                <td>{studio.snum}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No studios found.</p>
+      )}
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      ></h3>
+      <h3
+        style={{
+          textAlign: "center",
+          color: "white",
+        }}
+      >
+        Products Loans
+      </h3>
+      {loans && loans.length > 0 ? (
+        <table className="table white-table">
+          {" "}
+          {/* Add the "white-table" class */}
+          <thead>
+            <tr>
+              <th className="th">Date</th>
+              <th className="th">Email</th>
+              <th className="th">Serial Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loans.map((loan) => (
+              <tr key={loan._id}>
+                <td>{loan.date}</td>
+                <td>{loan.email}</td>
+                <td>{loan.Snumber}</td>
               </tr>
             ))}
           </tbody>

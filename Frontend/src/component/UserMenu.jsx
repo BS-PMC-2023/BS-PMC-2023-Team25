@@ -27,9 +27,6 @@ export default function UserMenu(props) {
             <Link to={`/myloan?email=${email}`} className="dropdown-item">
               My Loans
             </Link>
-            <Link to={`/history?email=${email}`} className="dropdown-item">
-              Loan History
-            </Link>
           </NavDropdown>
           <Link to={`/podcast?email=${email}`} className="nav-link">
             Podcast Room
