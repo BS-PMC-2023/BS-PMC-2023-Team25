@@ -79,7 +79,7 @@ export default function Review() {
           required
           style={{ marginBottom: "15px", minHeight: "100px", width: "500px" }}
         ></textarea>
-        <button type="submit" style={{ width: "100px" }}>
+        <button className="buttonHome" type="submit" style={{ width: "100px" }}>
           Submit
         </button>
       </form>
