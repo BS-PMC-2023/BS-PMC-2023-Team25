@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 import studioDataService from "../services/studio";
 import podcastDataService from "../services/podcast";
 import LoanDataService from "../services/loans";
+import { useLocation } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 import UserMenu from "./UserMenu";
 
 export default function Show() {
   const { id } = useParams();
+  const [email, setEmail] = useState("");
+
   const [podcasts, setPodcasts] = useState([]);
   const [studioData, setStudioData] = useState([]);
   const [loans, setLoan] = useState([]);
-
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailParam = searchParams.get("email");
 
   const retrievePodcast = () => {
     podcastDataService
@@ -52,6 +57,7 @@ export default function Show() {
     retrieveStudio();
     retrievePodcast();
     retrieveLoan();
+    setEmail(emailParam);
   }, []);
 
   console.log(podcasts); // Check the structure of the podcasts state
@@ -80,13 +86,16 @@ export default function Show() {
             </tr>
           </thead>
           <tbody>
-            {podcasts.map((podcast) => (
-              <tr key={podcast._id}>
-                <td>{podcast.date}</td>
-                <td>{podcast.email}</td>
-                <td>{podcast.Snum}</td>
-              </tr>
-            ))}
+            {podcasts.map(
+              (podcast) =>
+                podcast.email === email && (
+                  <tr key={podcast._id}>
+                    <td>{podcast.date}</td>
+                    <td>{podcast.email}</td>
+                    <td>{podcast.Snum}</td>
+                  </tr>
+                )
+            )}
           </tbody>
         </table>
       ) : (
@@ -118,13 +127,16 @@ export default function Show() {
             </tr>
           </thead>
           <tbody>
-            {studioData.map((studio) => (
-              <tr key={studio._id}>
-                <td>{studio.date}</td>
-                <td>{studio.email}</td>
-                <td>{studio.snum}</td>
-              </tr>
-            ))}
+            {studioData.map(
+              (studio) =>
+                studio.email === email && (
+                  <tr key={studio._id}>
+                    <td>{studio.date}</td>
+                    <td>{studio.email}</td>
+                    <td>{studio.snum}</td>
+                  </tr>
+                )
+            )}
           </tbody>
         </table>
       ) : (
@@ -156,13 +168,16 @@ export default function Show() {
             </tr>
           </thead>
           <tbody>
-            {loans.map((loan) => (
-              <tr key={loan._id}>
-                <td>{loan.date}</td>
-                <td>{loan.email}</td>
-                <td>{loan.Snumber}</td>
-              </tr>
-            ))}
+            {loans.map(
+              (loan) =>
+                loan.email === email && (
+                  <tr key={loan._id}>
+                    <td>{loan.date}</td>
+                    <td>{loan.email}</td>
+                    <td>{loan.Snumber}</td>
+                  </tr>
+                )
+            )}
           </tbody>
         </table>
       ) : (
