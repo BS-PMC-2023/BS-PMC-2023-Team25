@@ -5,6 +5,8 @@ import UserMenu from "./UserMenu";
 import studentImage from "../images/studentImage.png"; // Update the import path
 
 export default function Manager(props) {
+  const email = localStorage.getItem("email");
+
   return (
     <div className="background-simple">
       <UserMenu />
@@ -37,16 +39,19 @@ export default function Manager(props) {
           gap: "20px",
         }}
       >
-        <Link to={"/productslist"}>
+        <Link to={`/productslist?email=${email}`}>
           <button className="buttonHome">New Loan </button>
         </Link>
-        <Link to={"/show"}>
+        <Link to={`/show?email=${email}`}>
           <button className="buttonHome"> My Loans</button>
         </Link>
-        <Link to={"/Podcast"}>
+        <Link to={`/Podcast?email=${email}`}>
           <button className="buttonHome">Request Podcast Room</button>
         </Link>
-        <Link to={"/Review"}>
+        <Link to={`/studioLoan?email=${email}`}>
+          <button className="buttonHome">Request Studio Loan</button>
+        </Link>
+        <Link to={`/Review?email=${email}`}>
           <button className="buttonHome">Add Review</button>
         </Link>
       </div>
