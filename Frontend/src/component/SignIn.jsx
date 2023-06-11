@@ -18,6 +18,7 @@ export default function SignIn(props) {
       .then((response) => {
         if (response.status === 200) {
           console.log(response.data.type);
+          localStorage.setItem("email", email);
           if (response.data.type === "student") {
             window.location = "#/student";
           } else if (response.data.type === "teacher") {

@@ -6,52 +6,48 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Menu(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const email = localStorage.getItem("email");
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    props.setShowMenu(false);
+  const logoutUser = () => {
+    // Suppression de l'e-mail du stockage local
+    localStorage.removeItem("email");
+    // Autres étapes de déconnexion si nécessaire
   };
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">
+      <Link to={`/manager?email=${email}`}>
         <img style={{ width: 90 }} src={sce} alt="SCE Logo" />
-      </Navbar.Brand>
+      </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Link to={"/products"} className="nav-link">
+          <Link to={`/products?email=${email}`} className="nav-link">
             Products
           </Link>
-          <NavDropdown title="Loans" id="basic-nav-dropdown">
-            <Link to={"/newloan"} className="dropdown-item">
-              New Loan
-            </Link>
-            <Link to={"/myloan"} className="dropdown-item">
-              My Loans
-            </Link>
-            <Link to={"/history"} className="dropdown-item">
-              Loan History
-            </Link>
-          </NavDropdown>
-          <Link to={"/podcast"} className="nav-link">
-            Podcast Room
+          <Link to={`/loans`} className="nav-link">
+            Loans
           </Link>
+
           <NavDropdown title="User Types" id="basic-nav-dropdown">
-            <Link to={"/manager"} className="dropdown-item">
+            <Link to={`/manager?email=${email}`} className="dropdown-item">
               Manager
             </Link>
-            <Link to={"/student"} className="dropdown-item">
+            <Link to={`/student?email=${email}`} className="dropdown-item">
               Student
             </Link>
-            <Link to={"/teacher"} className="dropdown-item">
+            <Link to={`/teacher?email=${email}`} className="dropdown-item">
               Teacher
             </Link>
           </NavDropdown>
+          <Link to={"/repairs"} className="nav-link">
+            Repairs Products
+          </Link>
           <Link to={"/contact"} className="nav-link">
             Contact Us
           </Link>
-          <Link to={"/"} className="nav-link" onClick={handleLogout}>
+
+          <Link to={"/"} className="nav-link" onClick={logoutUser}>
             Logout
           </Link>
         </Nav>

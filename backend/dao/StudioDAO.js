@@ -18,10 +18,12 @@ export default class StudioDAO {
     }
   }
 
-  static async addStudios(date, email, snum) {
+  static async addStudios(date, dateRet, email, snum) {
     try {
       const studioDoc = {
         date: date,
+        dateRet: dateRet,
+
         email: email,
         snum: snum,
       };

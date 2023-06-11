@@ -6,7 +6,7 @@ class ProductDataService {
   }
 
   createProd(data) {
-    return http.post("manager", data);
+    return http.post("/manager", data);
   }
 
   updateProd(data) {

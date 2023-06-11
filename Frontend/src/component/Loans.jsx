@@ -61,7 +61,7 @@ export default function Loans(props) {
             color: "white",
           }}
         >
-          Product List
+          Loans List
         </h1>
         <h3
           style={{

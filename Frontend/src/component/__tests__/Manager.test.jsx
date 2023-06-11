@@ -13,30 +13,30 @@ describe("Manager component", () => {
   });
 
   it("renders the welcome message", () => {
-    const welcomeMessage = screen.getByText(/שמח לראות אותך שוב/i);
+    const welcomeMessage = screen.getByText(/Glad To See You Again!/i);
     expect(welcomeMessage).toBeInTheDocument();
   });
 
   it("renders the action question", () => {
-    const actionQuestion = screen.getByText(/מה תרצה לעשות/i);
+    const actionQuestion = screen.getByText(/What Would You Like To Do?/i);
     expect(actionQuestion).toBeInTheDocument();
   });
 
   it("renders the link to '/products'", () => {
-    const productsLink = screen.getByRole("link", { name: /מעקב אחר אחסון/i });
+    const productsLink = screen.getByRole("link", { name: /Track Storage/i });
     expect(productsLink).toBeInTheDocument();
-    expect(productsLink).toHaveAttribute("href", "/products");
+    expect(productsLink.getAttribute("href")).toBe("/products");
   });
 
   it("renders the link to '/newprod'", () => {
-    const newProductLink = screen.getByRole("link", { name: /הוסף מוצר/i });
+    const newProductLink = screen.getByRole("link", { name: /Add Product/i });
     expect(newProductLink).toBeInTheDocument();
-    expect(newProductLink).toHaveAttribute("href", "/newprod");
+    expect(newProductLink.getAttribute("href")).toBe("/newprod");
   });
 
   it("renders the link to '/delete'", () => {
-    const deleteLink = screen.getByRole("link", { name: /למחוק מוצר/i });
+    const deleteLink = screen.getByRole("link", { name: /Delete Product/i });
     expect(deleteLink).toBeInTheDocument();
-    expect(deleteLink).toHaveAttribute("href", "/delete");
+    expect(deleteLink.getAttribute("href")).toBe("/delete");
   });
 });

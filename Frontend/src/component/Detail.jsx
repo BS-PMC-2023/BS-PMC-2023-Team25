@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Detail(props) {
   const { name, type, Snumber } = props.product;
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailParam = searchParams.get("email");
 
-  const loanLink = `/newloan?Snumber=${Snumber}`;
+  const loanLink = `/newloan?Snumber=${Snumber}&email=${emailParam}`;
 
   return (
     <div>

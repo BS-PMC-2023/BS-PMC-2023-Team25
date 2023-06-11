@@ -4,12 +4,18 @@ export default class PodcastsController {
   static async apiPostPodcast(req, res, next) {
     try {
       const date = req.body.date;
+      const dateRet = req.body.dateRet;
       const email = req.body.email;
       const Snum = req.body.Snum;
 
       console.log(Snum);
 
-      const PodcastsResponse = await PodcastsDAO.addPodcast(date, email, Snum);
+      const PodcastsResponse = await PodcastsDAO.addPodcast(
+        date,
+        dateRet,
+        email,
+        Snum
+      );
       console.log(PodcastsResponse);
 
       var { error } = PodcastsResponse;

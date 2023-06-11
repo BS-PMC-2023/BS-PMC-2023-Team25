@@ -1,23 +1,27 @@
 {
   "files": {
-    "main.css": "/github.io/BS-PMC-2023-Team25/static/css/main.e05f558d.css",
-    "main.js": "/github.io/BS-PMC-2023-Team25/static/js/main.0a2f9f48.js",
+    "main.css": "/github.io/BS-PMC-2023-Team25/static/css/main.92bbf8b4.css",
+    "main.js": "/github.io/BS-PMC-2023-Team25/static/js/main.d5f13939.js",
     "static/js/498.8c7f5c60.chunk.js": "/github.io/BS-PMC-2023-Team25/static/js/498.8c7f5c60.chunk.js",
     "static/js/703.674d2745.chunk.js": "/github.io/BS-PMC-2023-Team25/static/js/703.674d2745.chunk.js",
-    "static/js/541.615a656c.chunk.js": "/github.io/BS-PMC-2023-Team25/static/js/541.615a656c.chunk.js",
+    "static/js/541.f6784383.chunk.js": "/github.io/BS-PMC-2023-Team25/static/js/541.f6784383.chunk.js",
     "static/js/787.cda612ba.chunk.js": "/github.io/BS-PMC-2023-Team25/static/js/787.cda612ba.chunk.js",
+    "static/media/studentImage.png": "/github.io/BS-PMC-2023-Team25/static/media/studentImage.781f7d59a1d9d051e3bc.png",
+    "static/media/productsImage.png": "/github.io/BS-PMC-2023-Team25/static/media/productsImage.ab4accb9db78c05a21c0.png",
     "static/media/fond.jpg": "/github.io/BS-PMC-2023-Team25/static/media/fond.5cd455cc4f7ecff9ee6c.jpg",
+    "static/media/contact_us.png": "/github.io/BS-PMC-2023-Team25/static/media/contact_us.14f6a99ba7112ffa96a8.png",
+    "static/media/managerImage.png": "/github.io/BS-PMC-2023-Team25/static/media/managerImage.b6e46054b81943faaf4c.png",
     "static/media/SCE_logo.png": "/github.io/BS-PMC-2023-Team25/static/media/SCE_logo.fa2b92b5696fea3c6d66.png",
     "index.html": "/github.io/BS-PMC-2023-Team25/index.html",
-    "main.e05f558d.css.map": "/github.io/BS-PMC-2023-Team25/static/css/main.e05f558d.css.map",
-    "main.0a2f9f48.js.map": "/github.io/BS-PMC-2023-Team25/static/js/main.0a2f9f48.js.map",
+    "main.92bbf8b4.css.map": "/github.io/BS-PMC-2023-Team25/static/css/main.92bbf8b4.css.map",
+    "main.d5f13939.js.map": "/github.io/BS-PMC-2023-Team25/static/js/main.d5f13939.js.map",
     "498.8c7f5c60.chunk.js.map": "/github.io/BS-PMC-2023-Team25/static/js/498.8c7f5c60.chunk.js.map",
     "703.674d2745.chunk.js.map": "/github.io/BS-PMC-2023-Team25/static/js/703.674d2745.chunk.js.map",
-    "541.615a656c.chunk.js.map": "/github.io/BS-PMC-2023-Team25/static/js/541.615a656c.chunk.js.map",
+    "541.f6784383.chunk.js.map": "/github.io/BS-PMC-2023-Team25/static/js/541.f6784383.chunk.js.map",
     "787.cda612ba.chunk.js.map": "/github.io/BS-PMC-2023-Team25/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e05f558d.css",
-    "static/js/main.0a2f9f48.js"
+    "static/css/main.92bbf8b4.css",
+    "static/js/main.d5f13939.js"
   ]
 }

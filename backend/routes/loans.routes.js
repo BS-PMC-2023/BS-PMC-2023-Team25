@@ -6,6 +6,7 @@ const router = express.Router();
 router
   .route("/")
   .get(LoanCtrl.apiGetLoan)
+  .post(LoanCtrl.apiPostLoan)
   .put(LoanCtrl.apiUpdateLoan)
   .delete(LoanCtrl.apiDeleteLoan);
 

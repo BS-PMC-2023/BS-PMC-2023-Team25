@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import UserDataService from "../services/users";
 
 export default function SignIn(props) {
@@ -8,24 +8,12 @@ export default function SignIn(props) {
   const [p, setPassword] = useState("");
   const [e, setEmail] = useState("");
 
-  const NavPage = (t) => {
-    const type = t;
-    if (type === "student") {
-      return "/student";
-    } else if (type === "teacher") {
-      return "/teacher";
-    } else if (type === "manager") {
-      return "/manager";
-    }
-  };
-
-  let nav = useNavigate;
-
-  const addUser = (email, password, type) => {
+  const addUser = (email, password, type, username) => {
     const data = {
       email,
       password,
       type,
+      username,
     };
 
     if (!email.endsWith("@ac.sce.ac.il") && !email.endsWith("@sce.ac.il")) {
@@ -34,9 +22,6 @@ export default function SignIn(props) {
       );
       return;
     }
-
-    const jsonData = JSON.stringify(data);
-    console.log(data);
 
     UserDataService.createUser(data)
       .then((response) => {
@@ -100,6 +85,7 @@ export default function SignIn(props) {
           <label htmlFor="type">I want to sign up as:</label>
           <br />
           <select
+            id="type"
             onChange={(e) => {
               setType(e.target.value);
             }}
@@ -115,7 +101,7 @@ export default function SignIn(props) {
             <button
               className="buttonHome"
               onClick={() => {
-                addUser(e, p, t);
+                addUser(e, p, t, u);
               }}
             >
               Register

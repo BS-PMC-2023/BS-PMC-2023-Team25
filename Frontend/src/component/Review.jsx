@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import ReviewDataService from "../services/reviews";
 import UserMenu from "./UserMenu";
+import { useLocation } from "react-router-dom";
 
 export default function Review() {
   const [email, setEmail] = useState("");
   const [opinion, setOpinion] = useState("");
   const [opinions, setOpinions] = useState([]);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailParam = searchParams.get("email");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -45,6 +49,7 @@ export default function Review() {
       .catch((error) => {
         console.error("Error retrieving opinions: ", error);
       });
+    setEmail(emailParam);
   }, []);
 
   return (
@@ -74,7 +79,7 @@ export default function Review() {
           required
           style={{ marginBottom: "15px", minHeight: "100px", width: "500px" }}
         ></textarea>
-        <button type="submit" style={{ width: "100px" }}>
+        <button className="buttonHome" type="submit" style={{ width: "100px" }}>
           Submit
         </button>
       </form>

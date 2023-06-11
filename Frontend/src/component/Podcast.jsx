@@ -1,19 +1,47 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import img from "../images/SCE_logo.png";
 import UserMenu from "./UserMenu";
+import { useLocation } from "react-router-dom";
+import PodcastDataService from "../services/podcast";
 
 export default function Podcast() {
   const [email, setEmail] = useState("");
   const [date, setDate] = useState("");
+  const [dateRet, setDateRet] = useState("");
+
   const [reason, setReason] = useState("");
   const [snum, setSNum] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const emailParam = searchParams.get("email");
 
   const [isChecked, setIsChecked] = useState(false);
   const nav = useNavigate();
 
+  const addPodcast = (date, dateRet, email, Snum) => {
+    const data = {
+      date,
+      dateRet,
+      email,
+      Snum,
+    };
+    const jsonData = JSON.stringify(data);
+    console.log(data);
+    PodcastDataService.createPodcast(data)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("loan added");
+        } else {
+          console.error("Error add loan:", response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error("Error add loan: ", error);
+      });
+  };
   const handleCheckboxChange = (e) => {
     setIsChecked(e.target.checked);
   };
@@ -21,6 +49,9 @@ export default function Podcast() {
     event.preventDefault();
     createPdf();
   };
+  useEffect(() => {
+    setEmail(emailParam);
+  }, []);
 
   const createPdf = () => {
     var doc = new jsPDF("a4");
@@ -44,6 +75,8 @@ export default function Podcast() {
       },
 
       { name: "date ", label: "Date of Loan ", value: date },
+      { name: "dateRet ", label: "Date of Return ", value: dateRet },
+
       { name: "reason", label: "Reason(s) of Loan ", value: reason },
     ];
 
@@ -95,6 +128,14 @@ export default function Podcast() {
           break;
         case 4:
           doc.setFont("", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor("black");
+
+          doc.text(`${state.label} : ${state.value}`, 10, y);
+          y += 10;
+          break;
+        case 5:
+          doc.setFont("", "bold");
           doc.setTextColor("black");
 
           doc.text(`${state.label} : `, 10, y);
@@ -126,23 +167,26 @@ export default function Podcast() {
         <UserMenu />
       </header>
       <div className="form">
-        <div className="form-style" onSubmit={handleSubmit}>
+        <form className="form-style" onSubmit={handleSubmit}>
           <h1>New Request For Podcast Room</h1>
           <br />
           <label htmlFor="email">Email:</label>
           <br />
           <input
+            id="email"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
             type="email"
-            placeholder="mail@gmail.com "
+            placeholder={email}
+            readOnly={true}
           />
           <br />
           <br />
           <label htmlFor="snum">Room Number:</label>
           <br />
           <input
+            id="snum"
             onChange={(e) => {
               setSNum(e.target.value);
             }}
@@ -151,57 +195,66 @@ export default function Podcast() {
           />
           <br />
           <br />
-          <form>
-            <label htmlFor="date">Date:</label>
-            <br />
-            <input
-              onChange={(e) => {
-                setDate(e.target.value);
+          <label htmlFor="date">Date:</label>
+          <br />
+          <input
+            id="date"
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+            type="text"
+            placeholder="dd/mm/yyyy"
+          />
+          <br />
+          <br />
+          <label htmlFor="dateReturn">Date Return:</label>
+          <br />
+          <input
+            id="dateReturn"
+            onChange={(e) => {
+              setDateRet(e.target.value);
+            }}
+            type="text"
+            placeholder="dd/mm/yyyy"
+          />
+          <br />
+          <br />
+          <label htmlFor="reason">Reason:</label>
+          <br />
+          <textarea
+            id="reason"
+            onChange={(e) => {
+              setReason(e.target.value);
+            }}
+            placeholder="Type the reason here..."
+          />
+          <br />
+          <br />
+          <input
+            id="terms-and-conditions"
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor="terms-and-conditions">
+            I accept the terms and conditions:
+          </label>
+          <p>{terms}</p>
+          <br />
+          <br />
+          <div>
+            <button
+              className="buttonHome"
+              onClick={(event) => {
+                event.preventDefault();
+                addPodcast(date, dateRet, email, snum);
+                handleSubmit(event);
               }}
-              type="text"
-              placeholder="dd/mm/yyyy"
-            />
-            <br />
-            <br />
-            <label htmlFor="reason">Reason For Loan:</label>
-            <br />
-            <input
-              onChange={(e) => {
-                setReason(e.target.value);
-              }}
-              type="text"
-              placeholder=" Reason"
-            />
-            <br />
-            <br />
-            <textarea
-              value={terms}
-              readOnly={true}
-              style={{ width: "100%", height: "80px" }}
-            ></textarea>
-            <br />
-            <br />
-            <label>
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-              />
-              I Accept the terms of use
-            </label>
-
-            <div>
-              <button
-                className="buttonHome"
-                onClick={() => {}}
-                type="submit"
-                disabled={!isChecked}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
+            >
+              Submit
+            </button>{" "}
+          </div>
+        </form>
       </div>
     </div>
   );
