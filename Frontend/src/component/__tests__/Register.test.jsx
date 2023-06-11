@@ -1,39 +1,41 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import SignIn from "../SignIn";
+import { render, fireEvent, screen } from "@testing-library/react";
+import { BrowserRouter as Router } from "react-router-dom";
+import Register from "../Register";
+import UserDataService from "../../services/users";
 
-test("renders the SignIn component", () => {
-  render(
-    <MemoryRouter>
-      <SignIn />
-    </MemoryRouter>
-  );
+jest.mock("../../services/users");
 
-  // Assert that the input fields are rendered
-  expect(screen.getByPlaceholderText("הזן שם משתמש/ת")).toBeInTheDocument();
-  expect(screen.getByPlaceholderText("הזן סיסמא")).toBeInTheDocument();
+describe("Register component", () => {
+  it("calls createUser function on button click", () => {
+    const createUserMock = jest.fn().mockResolvedValue({ status: 200 });
+    UserDataService.createUser = createUserMock;
 
-  // Assert that the submit button is rendered
-  expect(screen.getByText("כניסה")).toBeInTheDocument();
-});
+    render(
+      <Router>
+        <Register />
+      </Router>
+    );
 
-test("updates input values on change", () => {
-  render(
-    <MemoryRouter>
-      <SignIn />
-    </MemoryRouter>
-  );
+    const emailInput = screen.getByPlaceholderText("@sce.ac.il");
+    const usernameInput = screen.getByPlaceholderText("Enter User Name");
+    const passwordInput = screen.getByPlaceholderText("Enter Password");
+    const typeSelect = screen.getByLabelText("I want to sign up as:");
+    const registerButton = screen.getByText("Register");
 
-  // Find the input fields
-  const usernameInput = screen.getByPlaceholderText("הזן שם משתמש/ת");
-  const passwordInput = screen.getByPlaceholderText("הזן סיסמא");
+    fireEvent.change(emailInput, { target: { value: "test@sce.ac.il" } });
+    fireEvent.change(usernameInput, { target: { value: "testuser" } });
+    fireEvent.change(passwordInput, { target: { value: "password123" } });
+    fireEvent.change(typeSelect, { target: { value: "student" } });
+    fireEvent.click(registerButton);
 
-  // Simulate input changes
-  fireEvent.change(usernameInput, { target: { value: "testuser" } });
-  fireEvent.change(passwordInput, { target: { value: "testpassword" } });
+    expect(createUserMock).toHaveBeenCalledWith({
+      email: "test@sce.ac.il",
+      username: "testuser",
+      password: "password123",
+      type: "student",
+    });
 
-  // Assert that input values are updated
-  expect(usernameInput.value).toBe("testuser");
-  expect(passwordInput.value).toBe("testpassword");
+    // Add assertions for navigation if applicable
+  });
 });

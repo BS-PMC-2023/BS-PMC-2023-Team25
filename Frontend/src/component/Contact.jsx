@@ -2,6 +2,7 @@
 import styled from "styled-components";
 import React, { useState, useRef } from "react";
 import emailjs from "emailjs-com";
+import { Link } from "react-router-dom";
 
 import contactImage from "../images/contact_us.png"; // Import the image
 
@@ -59,7 +60,9 @@ export default function Contact() {
               placeholder="Enter Your Message"
             ></textarea>
 
-            <input type="submit" value="Send" />
+            <Link to={"/"}>
+              <button className="buttonHome">SEND</button>
+            </Link>
             {isSent && <SentWindow>Sent</SentWindow>}
           </form>
         </StyledContactForm>

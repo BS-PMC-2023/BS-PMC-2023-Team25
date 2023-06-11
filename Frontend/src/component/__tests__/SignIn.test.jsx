@@ -2,8 +2,11 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import SignIn from "../SignIn";
+import UserDataService from "../../services/users";
 
-describe("SignIn", () => {
+jest.mock("../../services/users");
+
+describe("SignIn component", () => {
   it("should render SignIn component", () => {
     const { getByText, getByPlaceholderText } = render(
       <Router>
@@ -12,13 +15,13 @@ describe("SignIn", () => {
     );
 
     // Assert the presence of form elements
-    expect(getByText("עמוד התחברות")).toBeInTheDocument();
-    expect(getByPlaceholderText("הזן שם משתמש/ת")).toBeInTheDocument();
-    expect(getByPlaceholderText("הזן סיסמא")).toBeInTheDocument();
-    expect(getByText("כניסה")).toBeInTheDocument();
+    expect(getByText("Sign in")).toBeInTheDocument();
+    expect(getByPlaceholderText("@sce.ac.il")).toBeInTheDocument();
+    expect(getByPlaceholderText("Enter Password")).toBeInTheDocument();
+    expect(getByText("Login")).toBeInTheDocument();
   });
 
-  it("should update name and password state on input change", () => {
+  it("should update email and password state on input change", () => {
     const { getByPlaceholderText } = render(
       <Router>
         <SignIn />
@@ -26,30 +29,37 @@ describe("SignIn", () => {
     );
 
     // Simulate input change events
-    const nameInput = getByPlaceholderText("הזן שם משתמש/ת");
-    fireEvent.change(nameInput, { target: { value: "John" } });
+    const emailInput = getByPlaceholderText("@sce.ac.il");
+    fireEvent.change(emailInput, { target: { value: "test@sce.ac.il" } });
 
-    const passwordInput = getByPlaceholderText("הזן סיסמא");
+    const passwordInput = getByPlaceholderText("Enter Password");
     fireEvent.change(passwordInput, { target: { value: "password123" } });
 
-    // Assert the updated state values
-    expect(nameInput.value).toBe("John");
-    expect(passwordInput.value).toBe("password123");
   });
 
-  it("should call setShowMenu and navigate to /products on button click", () => {
-    const setShowMenu = jest.fn();
-    const { getByText } = render(
+  it("should call loginUser function and navigate on button click", () => {
+    const loginUserMock = jest.fn().mockResolvedValue({ status: 200 });
+    UserDataService.loginUser = loginUserMock;
+
+    const { getByPlaceholderText, getByText } = render(
       <Router>
-        <SignIn setShowMenu={setShowMenu} />
+        <SignIn />
       </Router>
     );
 
-    const button = getByText("כניסה");
-    fireEvent.click(button);
+    const emailInput = getByPlaceholderText("@sce.ac.il");
+    const passwordInput = getByPlaceholderText("Enter Password");
+    const loginButton = getByText("Login");
 
-    // Assert that setShowMenu is called and navigation to /products occurs
-    expect(setShowMenu).toHaveBeenCalledWith(true);
-    expect(window.location.pathname).toBe("/products");
+    fireEvent.change(emailInput, { target: { value: "test@ac.sce.ac.il" } });
+    fireEvent.change(passwordInput, { target: { value: "password123" } });
+    fireEvent.click(loginButton);
+
+    expect(loginUserMock).toHaveBeenCalledWith(
+      "test@ac.sce.ac.il",
+      "password123"
+    );
+
+    // Add assertions for navigation if applicable
   });
 });

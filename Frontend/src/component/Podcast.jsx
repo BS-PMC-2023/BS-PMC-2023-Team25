@@ -167,12 +167,13 @@ export default function Podcast() {
         <UserMenu />
       </header>
       <div className="form">
-        <div className="form-style" onSubmit={handleSubmit}>
+        <form className="form-style" onSubmit={handleSubmit}>
           <h1>New Request For Podcast Room</h1>
           <br />
           <label htmlFor="email">Email:</label>
           <br />
           <input
+            id="email"
             onChange={(e) => {
               setEmail(e.target.value);
             }}
@@ -185,6 +186,7 @@ export default function Podcast() {
           <label htmlFor="snum">Room Number:</label>
           <br />
           <input
+            id="snum"
             onChange={(e) => {
               setSNum(e.target.value);
             }}
@@ -193,70 +195,66 @@ export default function Podcast() {
           />
           <br />
           <br />
-          <form>
-            <label htmlFor="date">Date:</label>
-            <br />
-            <input
-              onChange={(e) => {
-                setDate(e.target.value);
+          <label htmlFor="date">Date:</label>
+          <br />
+          <input
+            id="date"
+            onChange={(e) => {
+              setDate(e.target.value);
+            }}
+            type="text"
+            placeholder="dd/mm/yyyy"
+          />
+          <br />
+          <br />
+          <label htmlFor="dateReturn">Date Return:</label>
+          <br />
+          <input
+            id="dateReturn"
+            onChange={(e) => {
+              setDateRet(e.target.value);
+            }}
+            type="text"
+            placeholder="dd/mm/yyyy"
+          />
+          <br />
+          <br />
+          <label htmlFor="reason">Reason:</label>
+          <br />
+          <textarea
+            id="reason"
+            onChange={(e) => {
+              setReason(e.target.value);
+            }}
+            placeholder="Type the reason here..."
+          />
+          <br />
+          <br />
+          <input
+            id="terms-and-conditions"
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          <label htmlFor="terms-and-conditions">
+            I accept the terms and conditions:
+          </label>
+          <p>{terms}</p>
+          <br />
+          <br />
+          <div>
+            <button
+              className="buttonHome"
+              onClick={(event) => {
+                event.preventDefault();
+                addPodcast(date, dateRet, email, snum);
+                handleSubmit(event);
               }}
-              type="text"
-              placeholder="dd/mm/yyyy"
-            />
-            <br />
-            <br />
-            <label htmlFor="date">Date Return:</label>
-            <br />
-            <input
-              onChange={(e) => {
-                setDateRet(e.target.value);
-              }}
-              type="text"
-              placeholder="dd/mm/yyyy"
-            />
-            <br />
-            <br />
-            <label htmlFor="reason">Reason For Loan:</label>
-            <br />
-            <input
-              onChange={(e) => {
-                setReason(e.target.value);
-              }}
-              type="text"
-              placeholder=" Reason"
-            />
-            <br />
-            <br />
-            <textarea
-              value={terms}
-              readOnly={true}
-              style={{ width: "100%", height: "80px" }}
-            ></textarea>
-            <br />
-            <br />
-            <label>
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxChange}
-              />
-              I Accept the terms of use
-            </label>
-
-            <div>
-              <button
-                className="buttonHome"
-                onClick={(event) => {
-                  event.preventDefault();
-                  addPodcast(date, dateRet, email, snum);
-                  handleSubmit(event);
-                }}
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
+            >
+              Submit
+            </button>{" "}
+          </div>
+        </form>
       </div>
     </div>
   );
