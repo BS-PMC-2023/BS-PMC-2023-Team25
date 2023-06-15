@@ -23,7 +23,7 @@ npm install
 
 ```
 
-## How to run
+## How to run the the Application in local
 
 Start by launching the backend first
 
